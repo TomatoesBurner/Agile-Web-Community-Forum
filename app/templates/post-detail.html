@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <div>
+        <h2> Author: {{ post.author.username }}</h2>
+         <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+    </div>
+    <div>
+        <form action="{{url_for('postCom.create_comment') }}" method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <input type="text" placeholder="请填写评论" name="content" class="form-control">
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+            </div>
+            <div class="form-group" style="text-align: right;">
+                <button class="btn btn-primary">评论</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <h3>Comments:</h3>
+        {% for comment in comments%}
+            <div>
+                <p>{{comment.content}}</p>
+                <p>By: {{comment.author.username}}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
