@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to the Home Page :   {{current_user.username}}</h1>
+    <!-- 添加一个链接到创建新帖子的页面 -->
+<!--{#    <a href="{{ url_for('qa.create_question') }}">Create a New Question</a>#}-->
+    {% for post in posts %}
+        <div>
+            <h2>{{ post.author.username }}</h2>
+            <p>{{ post.body }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
