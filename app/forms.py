@@ -13,7 +13,6 @@ class RegisterForm(FlaskForm):
         'Repeat Password', validators=[DataRequired(), EqualTo('password', message="两次输入密码不一致")])
     submit = SubmitField('Register')
 
-
     def validate_email(self, field):
         email = field.data
         user = UserModel.query.filter_by(email=email).first()
@@ -32,3 +31,13 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+class PostForm(FlaskForm):
+    title = StringField('title', validators=[Length(min=3, max=100)])
+    content = StringField('content', validators=[Length(min=3)])
+    submit = SubmitField('POST')
+
+
+class CommentForm(FlaskForm):
+    content = StringField('content', validators=[Length(min=3, message="内容格式错误!")])
+    post_id = IntegerField('post_id', validators=[InputRequired(message="必须要传入问题id!")])
+    submit = SubmitField('POST')

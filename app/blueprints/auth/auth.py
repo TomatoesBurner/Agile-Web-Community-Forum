@@ -12,7 +12,7 @@ auth_bp = Blueprint("auth", __name__)
 @auth_bp.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('qa.home'))
+        return redirect(url_for('postCom.index'))
     form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -24,7 +24,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
-            next_page = url_for('qa.index')
+            next_page = url_for('postCom.index')
         return redirect(next_page)
     # 对于 GET 请求和验证失败的 POST 请求，总是传递 form 对象
     return render_template("login.html", form=form)
