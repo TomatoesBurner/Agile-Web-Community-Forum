@@ -1,13 +1,36 @@
 {% extends "base.html" %}
 
+
+{% block head %}
+    {{ super()}}
+       <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h1>Welcome to the Home Page :   {{current_user.username}}</h1>
-    <!-- 添加一个链接到创建新帖子的页面 -->
-    <a href="{{ url_for('postCom.create_question') }}">Create a New Question</a>
-    {% for post in posts %}
-        <div>
-            <h2>{{ post.author.username }}</h2>
-            <p>{{ post.body }}</p>
+   <div class="container">
+       <div class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('postCom.index') }}">All</a></li>
+                <li><a href="{{ url_for('postCom.index', type='G') }}">Gardening</a></li>
+                <li><a href="{{ url_for('postCom.index', type='HW') }}">Housework</a></li>
+                <li><a href="{{ url_for('postCom.index', type='AC') }}">After-school</a></li>
+                <li><a href="{{ url_for('postCom.index', type='QA') }}">Question</a></li>
+                <li><a href="{{ url_for('postCom.index', type='Others') }}">Others</a></li>
+            </ul>
         </div>
-    {% endfor %}
+        <div class="content">
+            <h1>Welcome to the Home Page: {{ current_user.username }}</h1>
+            <a href="{{ url_for('postCom.create_question') }}">Create a New Question</a>
+            <section class="posts-area">
+                {% for post in posts %}
+                    <div class="post-detail">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content }}</p>
+                        <p>By {{ post.author.username }}</p>
+                        <p>Posted on {{ post.create_time }}</p>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
 {% endblock %}

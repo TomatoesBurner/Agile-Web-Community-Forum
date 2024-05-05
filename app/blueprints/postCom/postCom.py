@@ -8,20 +8,18 @@ from app.extensions import db
 postCom_bp = Blueprint("postCom", __name__)
 
 @postCom_bp.route('/index')
+@login_required
 def index():
-    if current_user.is_authenticated:
-        posts = [
-            {
-                'author': {'username': 'John'},
-                'body': 'Beautiful day in Portland!'
-            },
-            {
-                'author': {'username': 'Susan'},
-                'body': 'The Avengers movie was so cool!'
-            }
-        ]
-        return render_template("index.html", title='Home Page', posts=posts)
-    return redirect(url_for('auth.login'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    post_type = request.args.get('type')
+    if post_type:
+        posts = PostModel.query.filter_by(post_type=post_type).order_by(PostModel.create_time.desc()).all()
+    else:
+        posts = PostModel.query.order_by(PostModel.create_time.desc()).all()
+
+    return render_template('index.html', posts=posts, post_type=post_type)
+
 
 
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])
@@ -30,14 +28,15 @@ def create_question():
     form = PostForm()
     if form.validate_on_submit():
         post = PostModel(
-            title=form.title.data,
-            content=form.content.data,
-            author=current_user
+            title = form.title.data,
+            content = form.content.data,
+            author = current_user
         )
         db.session.add(post)
         db.session.commit()
         return redirect(url_for("postCom.post_detail", post_id=post.id))
     return render_template("posts.html", form=form)
+
 
 @postCom_bp.post("/comments/create")
 @login_required
@@ -57,6 +56,7 @@ def create_comment():
 
     post_id = form.post_id.data or request.form.get("post_id")
     return redirect(url_for("postCom.post_detail", post_id=post_id))
+
 
 @postCom_bp.route("/posts/detail/<int:post_id>")
 def post_detail(post_id):
