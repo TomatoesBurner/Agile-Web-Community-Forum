@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField, IntegerField, ValidationError
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, ValidationError
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length, InputRequired
 from app.models import UserModel
 
@@ -17,7 +17,7 @@ class RegisterForm(FlaskForm):
         email = field.data
         user = UserModel.query.filter_by(email=email).first()
         if user:
-            raise ValidationError(message="该邮箱已经被注册!")
+            raise ValidationError('Please use a different email')
 
     def validate_username(self, username):
         user = UserModel.query.filter_by(username=username.data).first()
@@ -32,12 +32,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class PostForm(FlaskForm):
-    title = StringField('title', validators=[Length(min=3, max=100)])
-    content = StringField('content', validators=[Length(min=3)])
+    title = StringField('title', validators=[Length(min=3, max=100),DataRequired()])
+    content = TextAreaField('content', validators=[Length(min=3,max=140), DataRequired()])
     submit = SubmitField('POST')
 
 
 class CommentForm(FlaskForm):
     content = StringField('content', validators=[Length(min=3, message="内容格式错误!")])
-    post_id = IntegerField('post_id', validators=[InputRequired(message="必须要传入问题id!")])
+    post_id = IntegerField('post_id', validators=[InputRequired(message="missing post ID!")])
     submit = SubmitField('POST')
