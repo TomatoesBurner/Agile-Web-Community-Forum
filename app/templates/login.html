@@ -1,26 +1,65 @@
-{% extends "base.html" %}
+<!-- Login page -->
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/background.png') }}");
+        }
+    </style>
+</head>
 
-{% block content %}
-<h1>Login</h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.email.label }}<br>
-        {{ form.email(size=32) }}<br>
-        {% for error in form.email.errors %}
-        <span style="color: blue;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}<br>
-        {% for error in form.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit()}}</p>
-    <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
-</form>
-{% endblock %}
+<body>
+    <div class="page-container">
+        <div class="left-section">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <div class="image1">
+                <img src="{{ url_for('static', filename='/images/need_help.png') }}" alt="welcome">
+            </div>
+            <div class="login-section">
+                <h2>Welcome!</h2>
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    {{ form.hidden_tag() }}
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="error">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    <div class="form-group">
+                        {{ form.email.label }}
+                        {{ form.email(size=32) }}
+                        {% for error in form.email.errors %}
+                        <!-- <span style="color:red;">[{{ error }}]</span> -->
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.password.label }}
+                        {{ form.password(size=32) }}
+                        {% for error in form.password.errors %}
+                        <!-- <span style="color:red">[{{ error }}]</span> -->
+                        {% endfor %}
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <p>New user? <a href="{{ url_for('auth.register') }}">Register!</a></p>
+            </div>
+        </div>
+        <div class="right-section">
+            <img src="{{ url_for('static', filename='/images/login.png') }}" alt="Right Section Image">
+        </div>
+    </div>
+</body>
+
+</html>
