@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         body {
             background-image: url("{{ url_for('static', filename='images/background.png') }}");
@@ -14,12 +15,12 @@
 </head>
 
 <body>
-    <div class="page-container">
+    <section class="page-container">
         <div class="left-section">
             <div class="logo">
                 <img src="logo.png" alt="Logo">
             </div>
-            <div class="image1">
+            <div class="head-image">
                 <img src="{{ url_for('static', filename='/images/need_help.png') }}" alt="welcome">
             </div>
             <div class="login-section">
@@ -51,7 +52,7 @@
                         <!-- <span style="color:red">[{{ error }}]</span> -->
                         {% endfor %}
                     </div>
-                    <button type="submit">Login</button>
+                    <button class="login-btn" type="submit">Login</button>
                 </form>
                 <p>New user? <a href="{{ url_for('auth.register') }}">Register!</a></p>
             </div>
@@ -59,7 +60,7 @@
         <div class="right-section">
             <img src="{{ url_for('static', filename='/images/login.png') }}" alt="Right Section Image">
         </div>
-    </div>
+    </section>
 </body>
 
 </html>
