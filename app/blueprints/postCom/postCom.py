@@ -30,7 +30,7 @@ def create_question():
         post = PostModel(
             title = form.title.data,
             content = form.content.data,
-            author = current_user
+            author_id = current_user.id
         )
         db.session.add(post)
         db.session.commit()

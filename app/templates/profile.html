@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile of {{ user.username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Profile of {{ user.username }}</h1>
+        <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="..." class="img-circle" id="avatar-img">
+        <p>Email: {{ user.email }}</p>
+        <p>Signature: {{ user.aboutme }}</p>
+        <p>Joined on: {{ user.join_time }}</p>
+
+        <!-- Upload Avatar Form -->
+        <h2>Upload Avatar</h2>
+        <form action="{{ url_for('profile.update_avatar') }}" method="post" enctype="multipart/form-data">
+            {{ avatar_form.hidden_tag() }}
+            <label for="avatar">Choose an image:</label>
+            {{ avatar_form.image }}
+            <button type="submit">Upload</button>
+        </form>
+
+        <!-- Edit About Me Form -->
+        <h2>Edit About Me</h2>
+        <form action="{{ url_for('profile.edit_profile') }}" method="post">
+            {{ about_me_form.hidden_tag() }}
+            <label for="aboutme">About Me:</label>
+            {{ about_me_form.aboutme }}
+            <button type="submit">Save</button>
+        </form>
+
+        <!-- Change Username Form -->
+        <h2>Change Username</h2>
+        <form action="{{ url_for('profile.edit_username') }}" method="post">
+            {{ username_form.hidden_tag() }}
+            <label for="new-username">New Username:</label>
+            {{ username_form.username }}
+            <button type="submit">Change</button>
+        </form>
+
+        <h2>Posts</h2>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    <p>Posted on {{ post.create_time }}</p>
+                </li>
+            {% else %}
+                <li>No posts available</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Comments</h2>
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <p>{{ comment.content }}</p>
+                    <p>On post: <a href="{{ url_for('postCom.post_detail', post_id=comment.post_id) }}">{{ comment.post.title }}</a></p>
+                    <p>Posted on {{ comment.create_time }}</p>
+                </li>
+            {% else %}
+                <li>No comments available</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

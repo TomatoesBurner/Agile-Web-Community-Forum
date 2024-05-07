@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
-
 {% block head %}
     {{ super()}}
-       <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -20,12 +19,16 @@
         </div>
         <div class="content">
             <h1>Welcome to the Home Page: {{ current_user.username }}</h1>
+            {% if current_user.avatar %}
+               <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="..." class="img-circle" id="avatar-img">
+            {% endif %}
+            <a href="{{ url_for('profile.overview_profile') }}">Go to Profile Page</a>
             <a href="{{ url_for('postCom.create_question') }}">Create a New Question</a>
             <section class="posts-area">
                 {% for post in posts %}
                     <div class="post-detail">
                         <h3>{{ post.title }}</h3>
-                        <p>{{ post.content }}</p>
+                        <p> {{ post.content }}</p>
                         <p>By {{ post.author.username }}</p>
                         <p>Posted on {{ post.create_time }}</p>
                     </div>

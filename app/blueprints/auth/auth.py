@@ -3,7 +3,9 @@ from flask_login import current_user, login_user, logout_user
 from app.forms import RegisterForm, LoginForm
 from app.models import UserModel
 from app.extensions import db
+from flask_avatars import Identicon
 from urllib.parse import urlsplit
+from hashlib import md5
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -40,13 +42,17 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         # 表单提交且验证通过
-        user = UserModel(username=form.username.data, email=form.email.data)
+        email = form.email.data
+        username = form.username.data
+        identicon = Identicon()
+        filenames = identicon.generate(text=md5(email.encode("utf-8")).hexdigest())
+        avatar = filenames[2]
+        user = UserModel(email=email, username=username,avatar=avatar)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for("auth.login"))  # 成功后重定向到登录页面
-
     # GET 请求或表单验证失败，重新渲染注册页面
     return render_template("register.html", form=form)  # 显示表单或重新渲染表单显示错误
 
