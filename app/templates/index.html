@@ -3,12 +3,12 @@
 
 {% block head %}
     {{ super()}}
-       <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
 {% endblock %}
 
 {% block content %}
-   <div class="container">
-       <div class="sidebar">
+    <div class="container">
+        <div class="sidebar">
             <ul>
                 <li><a href="{{ url_for('postCom.index') }}">All</a></li>
                 <li><a href="{{ url_for('postCom.index', type='G') }}">Gardening</a></li>
@@ -18,9 +18,24 @@
                 <li><a href="{{ url_for('postCom.index', type='Others') }}">Others</a></li>
             </ul>
         </div>
+
         <div class="content">
             <h1>Welcome to the Home Page: {{ current_user.username }}</h1>
-            <a href="{{ url_for('postCom.create_question') }}">Create a New Question</a>
+
+            <!-- Search Form -->
+            <form method="GET" action="{{ url_for('postCom.search') }}">
+                <input type="text" name="query" placeholder="Search..." value="{{ request.args.get('query', '') }}">
+         <select name="scope">
+                 <option value="all" {% if request.args.get('scope', 'all') == 'all' %}selected{% endif %}>All</option>
+                <option value="title" {% if request.args.get('scope') == 'title' %}selected{% endif %}>Title</option>
+                <option value="content" {% if request.args.get('scope') == 'content' %}selected{% endif %}>Content</option>
+        </select>
+
+                <button type="submit">Search</button>
+            </form>
+
+            <a href="{{ url_for('postCom.create_post') }}">Create a New Question</a>
+
             <section class="posts-area">
                 {% for post in posts %}
                     <div class="post-detail">
