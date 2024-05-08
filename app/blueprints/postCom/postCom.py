@@ -24,7 +24,7 @@ def index():
 
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])
 @login_required
-def create_question():
+def create_post():
     form = PostForm()
     if form.validate_on_submit():
         post = PostModel(
@@ -64,3 +64,24 @@ def post_detail(post_id):
     comments = CommentModel.query.filter_by(post_id=post_id).all()
     form = CommentForm()
     return render_template("post-detail.html", post=post, comments=comments, form=form)
+
+
+@postCom_bp.route('/search')
+def search():
+    query = request.args.get('query', '')
+    scope = request.args.get('scope', 'all')  # 获取搜索范围参数，默认搜索全部
+    if query:
+        if scope == 'title':
+            posts = PostModel.query.filter(PostModel.title.ilike(f'%{query}%')).all()
+        elif scope == 'content':
+            posts = PostModel.query.filter(PostModel.content.ilike(f'%{query}%')).all()
+        else:
+            posts = PostModel.query.filter(
+                db.or_(
+                    PostModel.title.ilike(f'%{query}%'),
+                    PostModel.content.ilike(f'%{query}%')
+                )
+            ).all()
+    else:
+        posts = []
+    return render_template('index.html', posts=posts, query=query, scope=scope)
