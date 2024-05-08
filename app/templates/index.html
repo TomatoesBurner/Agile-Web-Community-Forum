@@ -31,6 +31,7 @@
                         <p> {{ post.content }}</p>
                         <p>By {{ post.author.username }}</p>
                         <p>Posted on {{ post.create_time }}</p>
+                        <a href="{{ url_for('postCom.post_detail',post_id=post.id) }}">visit</a>
                     </div>
                 {% endfor %}
             </section>

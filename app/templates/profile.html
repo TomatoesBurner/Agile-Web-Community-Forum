@@ -48,6 +48,12 @@
                     <h3>{{ post.title }}</h3>
                     <p>{{ post.content }}</p>
                     <p>Posted on {{ post.create_time }}</p>
+                    <!-- Delete Post Form -->
+                    <form action="{{ url_for('profile.delete_post', post_id=post.id) }}" method="post">
+                        {{ username_form.hidden_tag() }}
+                        <button type="submit">Delete Post</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    </form>
                 </li>
             {% else %}
                 <li>No posts available</li>
@@ -61,6 +67,11 @@
                     <p>{{ comment.content }}</p>
                     <p>On post: <a href="{{ url_for('postCom.post_detail', post_id=comment.post_id) }}">{{ comment.post.title }}</a></p>
                     <p>Posted on {{ comment.create_time }}</p>
+                    <!-- Delete Comment Form -->
+                    <form action="{{ url_for('profile.delete_comment', comment_id=comment.id) }}" method="post">
+                        <button type="submit">Delete Comment</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    </form>
                 </li>
             {% else %}
                 <li>No comments available</li>

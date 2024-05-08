@@ -1,5 +1,5 @@
-from flask import Blueprint, send_from_directory, current_app, redirect, url_for,render_template
-from flask_login import current_user,login_required
+from flask import Blueprint, send_from_directory, current_app, redirect, url_for, render_template, flash
+from flask_login import current_user, login_required
 from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
 from hashlib import md5
 from app.extensions import db
@@ -27,6 +27,7 @@ def overview_profile():
                            avatar_form=avatar_form,
                            about_me_form=about_me_form,
                            username_form=username_form)
+
 @profile_bp.route('/avatars/<path:filename>')
 def get_avatar(filename):
     return send_from_directory(current_app.config["AVATARS_SAVE_PATH"], filename)
@@ -57,7 +58,31 @@ def edit_username():
     else:
         print("以后改,能找个地方显示错误")
         print(username_form.errors)
-        return redirect(url_for('profile.overview_profile')),
+        return redirect(url_for('profile.overview_profile'))
+
+
+@profile_bp.post("/posts/delete/<int:post_id>")
+@login_required
+def delete_post(post_id):
+    post = PostModel.query.get_or_404(post_id)
+
+    # 检查当前用户是否是帖子的作者
+    if post.author_id != current_user.id:
+        flash("You are not authorized to delete this post.", "error")
+        return redirect(url_for('profile.overview_profile'))
+
+    # 删除帖子相关的评论
+    comments = CommentModel.query.filter_by(post_id=post_id).all()
+    for comment in comments:
+        db.session.delete(comment)
+
+    # 删除帖子
+    db.session.delete(post)
+    db.session.commit()
+
+    flash("Post and related comments deleted successfully.", "success")
+    return redirect(url_for('profile.overview_profile'))
+
 
 @profile_bp.post("/avatars/upload")
 @login_required
@@ -78,4 +103,19 @@ def update_avatar():
         return redirect(url_for('profile.overview_profile'))
 
 
+@profile_bp.post("/comments/delete/<int:comment_id>")
+@login_required
+def delete_comment(comment_id):
+    comment = CommentModel.query.get_or_404(comment_id)
 
+    # 检查当前用户是否是评论的作者
+    if comment.author_id != current_user.id:
+        flash("You are not authorized to delete this comment.", "error")
+        return redirect(url_for('profile.overview_profile'))
+
+    # 删除评论
+    db.session.delete(comment)
+    db.session.commit()
+
+    flash("Comment deleted successfully.", "success")
+    return redirect(url_for('profile.overview_profile'))
