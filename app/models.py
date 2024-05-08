@@ -19,6 +19,7 @@ class UserModel(UserMixin, db.Model):
     avatar = db.Column(db.String(100))
     aboutme = db.Column(db.String(100))
     join_time = db.Column(db.DateTime, default=datetime.now)
+    points = db.Column(db.Integer, default=0)
     #relationship
     posts = db.relationship('PostModel', backref='author', lazy=True)
     comments = db.relationship('CommentModel', backref='author', lazy=True)

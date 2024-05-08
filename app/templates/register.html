@@ -11,7 +11,7 @@
 
 <body>
     <div class="page-container">
-        <a href="{{ url_for('static', filename='/app/templates/index.html')}}" class="home-button">Home</a>
+        <a href="{{ url_for('auth.login') }}" class="home-button">Home</a>
         <div class="left-section">
             <div class="image1">
                 <img src="{{ url_for('static', filename='/images/register.png') }}" alt="register">
@@ -74,7 +74,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

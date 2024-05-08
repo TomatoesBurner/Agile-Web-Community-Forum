@@ -18,12 +18,13 @@
             </ul>
         </div>
         <div class="content">
-            <h1>Welcome to the Home Page: {{ current_user.username }}</h1>
+               <h1>Welcome, {{ current_user.username }}</h1>
+               <p>Your points: {{ current_user.points }}</p>
             {% if current_user.avatar %}
                <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="..." class="img-circle" id="avatar-img">
             {% endif %}
-            <a href="{{ url_for('profile.overview_profile') }}">Go to Profile Page</a>
-            <a href="{{ url_for('postCom.create_question') }}">Create a New Question</a>
+            <a href="{{ url_for('profile.overview_profile')}}">Go to Profile Page</a>
+            <a href="{{ url_for('postCom.create_post')}}">Create a New Question</a>
             <section class="posts-area">
                 {% for post in posts %}
                     <div class="post-detail">

@@ -42,7 +42,7 @@ def edit_profile():
         db.session.commit()
         return redirect(url_for('profile.overview_profile'))
     else:
-        print("以后改,能找个地方显示错误")
+        print(about_me_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
 
@@ -56,7 +56,6 @@ def edit_username():
         db.session.commit()
         return redirect(url_for('profile.overview_profile'))
     else:
-        print("以后改,能找个地方显示错误")
         print(username_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
@@ -66,17 +65,17 @@ def edit_username():
 def delete_post(post_id):
     post = PostModel.query.get_or_404(post_id)
 
-    # 检查当前用户是否是帖子的作者
+    # Check if the current user is the author of the post
     if post.author_id != current_user.id:
         flash("You are not authorized to delete this post.", "error")
         return redirect(url_for('profile.overview_profile'))
 
-    # 删除帖子相关的评论
+    # Delete post-related comments
     comments = CommentModel.query.filter_by(post_id=post_id).all()
     for comment in comments:
         db.session.delete(comment)
 
-    # 删除帖子
+    # Delete post(db)
     db.session.delete(post)
     db.session.commit()
 
@@ -108,12 +107,12 @@ def update_avatar():
 def delete_comment(comment_id):
     comment = CommentModel.query.get_or_404(comment_id)
 
-    # 检查当前用户是否是评论的作者
+    # Check if the current user is the author of the comment
     if comment.author_id != current_user.id:
         flash("You are not authorized to delete this comment.", "error")
         return redirect(url_for('profile.overview_profile'))
 
-    # 删除评论
+    # delete comment
     db.session.delete(comment)
     db.session.commit()
 
