@@ -21,6 +21,14 @@
                 {% endfor %}
             {% endif %}
             <br>
+            {{ form.post_type.label }}<br>
+            {{ form.post_type }}
+            {% if form.post_type.errors %}
+                {% for error in form.post_type.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <br>
         </p>
         <p>{{ form.submit() }}</p>
     </form>

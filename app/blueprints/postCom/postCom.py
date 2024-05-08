@@ -21,7 +21,6 @@ def index():
     return render_template('index.html', posts=posts, post_type=post_type)
 
 
-
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -30,10 +29,12 @@ def create_post():
         post = PostModel(
             title = form.title.data,
             content = form.content.data,
+            post_type = form.post_type.data,
             author_id = current_user.id
         )
         db.session.add(post)
         db.session.commit()
+        update_user_points(current_user, 10)
         return redirect(url_for("postCom.post_detail", post_id=post.id))
     return render_template("posts.html", form=form)
 
@@ -52,6 +53,7 @@ def create_comment():
         )
         db.session.add(comment)
         db.session.commit()
+        update_user_points(current_user, 5)
         return redirect(url_for("postCom.post_detail", post_id=post_id))
 
     post_id = form.post_id.data or request.form.get("post_id")
@@ -64,6 +66,13 @@ def post_detail(post_id):
     comments = CommentModel.query.filter_by(post_id=post_id).all()
     form = CommentForm()
     return render_template("post-detail.html", post=post, comments=comments, form=form)
+
+
+def update_user_points(user, points):
+    if user.points is None:
+        user.points = 0
+    user.points += points
+    db.session.commit()
 
 
 @postCom_bp.route('/search')
