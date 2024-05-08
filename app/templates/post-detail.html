@@ -5,7 +5,6 @@
     <p>{{ post.content }}</p>
     <div>
         <h2> Author: {{ post.author.username }}</h2>
-         <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
     </div>
     <div>
         <form action="{{url_for('postCom.create_comment') }}" method="post">
