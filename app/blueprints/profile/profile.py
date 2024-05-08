@@ -9,6 +9,7 @@ import time
 
 profile_bp = Blueprint("profile", __name__)
 
+# View function to display user profile overview
 @profile_bp.route("/profile")
 @login_required
 def overview_profile():
@@ -28,10 +29,12 @@ def overview_profile():
                            about_me_form=about_me_form,
                            username_form=username_form)
 
+# Route to serve user avatars
 @profile_bp.route('/avatars/<path:filename>')
 def get_avatar(filename):
     return send_from_directory(current_app.config["AVATARS_SAVE_PATH"], filename)
 
+# View function to handle about me edit form submission
 @profile_bp.post("/profile/edit/aboutme")
 @login_required
 def edit_profile():
@@ -45,7 +48,7 @@ def edit_profile():
         print(about_me_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
-
+# View function to handle username edit form submission
 @profile_bp.post("/profile/edit/username")
 @login_required
 def edit_username():
@@ -59,7 +62,7 @@ def edit_username():
         print(username_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
-
+# View function to handle post deletion
 @profile_bp.post("/posts/delete/<int:post_id>")
 @login_required
 def delete_post(post_id):
@@ -75,14 +78,14 @@ def delete_post(post_id):
     for comment in comments:
         db.session.delete(comment)
 
-    # Delete post(db)
+    # Delete post from database
     db.session.delete(post)
     db.session.commit()
 
     flash("Post and related comments deleted successfully.", "success")
     return redirect(url_for('profile.overview_profile'))
 
-
+# View function to handle avatar upload
 @profile_bp.post("/avatars/upload")
 @login_required
 def update_avatar():
@@ -101,7 +104,7 @@ def update_avatar():
         print(avatar_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
-
+# View function to handle comment deletion
 @profile_bp.post("/comments/delete/<int:comment_id>")
 @login_required
 def delete_comment(comment_id):
@@ -112,7 +115,7 @@ def delete_comment(comment_id):
         flash("You are not authorized to delete this comment.", "error")
         return redirect(url_for('profile.overview_profile'))
 
-    # delete comment
+    # Delete the comment from database
     db.session.delete(comment)
     db.session.commit()
 
