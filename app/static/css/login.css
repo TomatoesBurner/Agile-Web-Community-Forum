@@ -1,5 +1,4 @@
 /* styles.css */
-
 body {
   margin: 0;
   padding: 0;
@@ -13,9 +12,9 @@ body {
   justify-content: center;
 }
 
-  section {
-    padding: 12rem 10%;
-  }
+section {
+    padding: 16rem 10%;
+}
 
 .page-container {
   display: flex;
@@ -25,8 +24,8 @@ body {
 
 /* Left section styling */
 .left-section {
-  flex: 0.8;
-  height: 110%;
+  flex: 0.9;
+  height: 120%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,34 +48,34 @@ body {
 }
 
 .head-image img {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   /*margin-left: ;*/
-  max-width: 100%;
+  width: 110%;
+  max-width: 140%;
   height: auto;
 }
 
 .login-section {
-  width: 100%;
-  max-width: 80%;
-  padding-left: 1.5rem;
-}
-
-.login-section h2 {
-  margin-left: 133px;
+  flex: 1 1 45rem;
+  width: 80%;
+  /* max-width: 80%; */
+  padding-left: 2.5rem;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .form-group label {
+  font-size: 1.2rem;
+  font-weight: bold;
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .form-group input {
   width: 348px;
-  padding: 10px;
+  padding: 7px;
   border-radius: 90px;
   border: 1px solid var(--border);
   background-color: transparent;
@@ -104,6 +103,7 @@ body {
 
 p {
   margin-left: 95px;
+  font-size: 1.2rem;
 }
 
 a {
@@ -112,17 +112,18 @@ a {
   color: #656ED3;
 }
 /*right section styling */
-
 .right-section {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 2rem;
+  padding-left: 3rem;
 }
 
 .right-section img {
-  max-width: 130%;
-  height: 130%;
-  margin-left: 2.5rem;
+  max-width: 100%;
+  height: Auto;
 }
+
+/* styles.css */
+/* Base styles are above */

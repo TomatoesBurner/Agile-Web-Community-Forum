@@ -3,7 +3,6 @@ body {
   padding: 0;
   height: 100vh;
   color: var(--black);
-  /*font-size: 16px;*/
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -71,12 +70,14 @@ body {
 }
 
 .form-group label {
+  font-size: 1.2rem;
+  font-weight: bold;
   display: block;
   margin-bottom: 10px;
 }
 
 .form-group input {
-  width: 348px;
+  width: 370px;
   padding: 10px;
   border-radius: 90px;
   border: 1px solid #656ED3;
@@ -105,6 +106,8 @@ button:hover {
 
 p {
   margin-left: 100px;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 a {

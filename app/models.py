@@ -16,7 +16,13 @@ class UserModel(UserMixin, db.Model):
     username = db.Column(db.String(100), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
+    avatar = db.Column(db.String(100))
+    aboutme = db.Column(db.String(100))
     join_time = db.Column(db.DateTime, default=datetime.now)
+    points = db.Column(db.Integer, default=0)
+    #relationship
+    posts = db.relationship('PostModel', backref='author', lazy=True)
+    comments = db.relationship('CommentModel', backref='author', lazy=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -38,7 +44,6 @@ class PostModel(db.Model):
     accepted_answer_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # 关系
-    author = db.relationship('UserModel', backref="posts")
     accepted_answer = db.relationship('CommentModel', foreign_keys=[accepted_answer_id], post_update=True)
 
 
@@ -53,5 +58,3 @@ class CommentModel(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # 关系
     post = db.relationship(PostModel, foreign_keys=[post_id], backref=db.backref("comments", order_by=create_time.desc()))
-    author = db.relationship(UserModel, backref="comments")
-

@@ -24,7 +24,6 @@
                 <img src="{{ url_for('static', filename='/images/need_help.png') }}" alt="welcome">
             </div>
             <div class="login-section">
-                <h2>Welcome!</h2>
                 <form method="POST" action="{{ url_for('auth.login') }}">
                     {{ form.hidden_tag() }}
                     {% with messages = get_flashed_messages() %}

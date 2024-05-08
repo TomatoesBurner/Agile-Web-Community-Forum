@@ -1,20 +1,21 @@
 from flask import Flask
 from config import Config
-from .extensions import db, login
+from .extensions import db, login, avatars,csrf
 from flask_migrate import Migrate
 from app.blueprints.auth.auth import auth_bp
 from app.blueprints.postCom.postCom import postCom_bp
+from app.blueprints.profile.profile import profile_bp
 
-
+#
 app = Flask(__name__)
 # 数据库配置文件
 app.config.from_object(Config)
 
 ## 初始化db
 db.init_app(app)
-
-## 初始化flask-login
 login.init_app(app)
+avatars.init_app(app)
+csrf.init_app(app)
 login.login_view = 'auth.login'
 
 migrate = Migrate(app, db)
@@ -27,3 +28,4 @@ migrate = Migrate(app, db)
 # 视图函数全部放在蓝图当中
 app.register_blueprint(auth_bp)
 app.register_blueprint(postCom_bp)
+app.register_blueprint(profile_bp)
