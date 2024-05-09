@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{post.title }}</h1>
+    <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
     <div>
-        <h2> Author: {{ post.author.username }}</h2>
+        <h2>Author: {{ post.author.username }}</h2>
     </div>
+
+    <!-- 评论提交表单 -->
     <div>
-        <form action="{{url_for('postCom.create_comment') }}" method="post">
+        <form action="{{ url_for('postCom.create_comment') }}" method="post">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 <input type="text" placeholder="请填写评论" name="content" class="form-control">
@@ -18,12 +20,25 @@
             </div>
         </form>
     </div>
+
+    <!-- 评论显示部分 -->
     <div>
         <h3>Comments:</h3>
-        {% for comment in comments%}
+        {% for comment in comments %}
             <div>
-                <p>{{comment.content}}</p>
-                <p>By: {{comment.author.username}}</p>
+                <p>{{ comment.content }}</p>
+                <p>By: {{ comment.author.username }}</p>
+                <!-- 接受评论为答案的按钮 -->
+                {% if current_user.id == post.author_id and not post.accepted_answer_id %}
+                    <form action="{{ url_for('postCom.accept_comment', post_id=post.id, comment_id=comment.id) }}" method="post">
+                        <button type="submit" class="btn btn-success">采纳为答案</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    </form>
+                {% endif %}
+                <!-- 显示已采纳标志 -->
+                {% if comment.id == post.accepted_answer_id %}
+                    <strong>已采纳为答案</strong>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

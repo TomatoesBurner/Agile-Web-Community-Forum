@@ -38,7 +38,7 @@ class PostModel(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
-    is_done = db.Column(db.Boolean, default=False)
+    # is_done = db.Column(db.Boolean, default=False)
     post_type = db.Column(db.String(10))
     # 外键
     accepted_answer_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
