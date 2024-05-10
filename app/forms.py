@@ -47,7 +47,7 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    content = StringField('content', validators=[Length(min=3, message="内容格式错误!")])
+    content = TextAreaField('content', validators=[Length(min=3)])
     post_id = IntegerField('post_id', validators=[InputRequired(message="missing post ID!")])
     submit = SubmitField('POST')
 
