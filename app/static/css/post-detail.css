@@ -70,12 +70,14 @@ html {
   cursor: pointer;
 }
 
-.comment:hover {
-  background-color: #fceae9;
-}
 
 .accepted-comment {
-  background-color: #fceae9;
+  background-color: #e0ffe0;
+  /* 浅绿色背景表示答案已被接受 */
+  border-left: 5px solid #4CAF50;
+  /* 添加一个左边界条以增强视觉效果 */
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .disabled-hover {
@@ -85,6 +87,7 @@ html {
   /* 可选，让用户视觉上识别该评论不可交互 */
 }
 
+.accepted-btn,
 #comment-submit {
   border-radius: 999px;
   padding: 10px 20px;
@@ -94,6 +97,19 @@ html {
   font-size: 16px;
   text-decoration: none;
   margin-left: 489px;
+}
+
+.accepted-btn {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.comment:hover .accepted-btn {
+  opacity: 1;
+}
+
+.comment:not(.accepted-comment):hover {
+  background-color: #fceae9;
 }
 
 #comment-submit:hover {

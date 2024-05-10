@@ -76,7 +76,7 @@
             </div>
             <!-- 读取comment模块 -->
             {% for comment in comments %}
-            <div class="comment" tabindex="0" data-author-id="123" onclick="acceptComment(this)">
+            <div class="comment {% if comment.id ==post.accepted_answer_id %}accepted-comment{% endif %}" tabindex="0">
                 <div class="info-container">
                     <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="User Avatar"
                         class="img-circle">
@@ -84,6 +84,17 @@
                     <p class="comment-time">{{ comment.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
                 </div>
                 <p>{{ comment.content }}</p>
+                {% if current_user.id == post.author_id and not post.accepted_answer_id %}
+                <form action="{{ url_for('postCom.accept_comment', post_id=post.id, comment_id=comment.id) }}"
+                    method="post">
+                    <!-- <button type="submit" class="btn btn-success">采纳为答案</button> -->
+                    <button type="submit" class="accepted-btn">Accept</button>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                </form>
+                {% endif %}
+                {% if comment.id == post.accepted_answer_id %}
+                <strong>已采纳为答案</strong>
+                {% endif %}
             </div>
             {% endfor %}
         </main>
