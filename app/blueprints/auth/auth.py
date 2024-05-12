@@ -1,11 +1,11 @@
+from hashlib import md5
+from urllib.parse import urlsplit
+from flask_avatars import Identicon
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user
 from app.forms import RegisterForm, LoginForm
 from app.models import UserModel
 from app.extensions import db
-from flask_avatars import Identicon
-from urllib.parse import urlsplit
-from hashlib import md5
 
 auth_bp = Blueprint("auth", __name__)
 

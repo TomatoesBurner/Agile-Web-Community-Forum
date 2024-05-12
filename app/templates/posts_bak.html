@@ -1,6 +1,11 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Question</title>
+</head>
+<body>
     <h1>Create a New Question</h1>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
@@ -32,4 +37,5 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
-{% endblock %}
+</body>
+</html>
