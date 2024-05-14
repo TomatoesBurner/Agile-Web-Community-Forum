@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
     {% block head %}
     {% endblock %}
 </head>
+
 <body>
     <div class="bar_container">
         <aside class="Leftsidebar">
@@ -20,33 +22,38 @@
                 <nav class="navigator flex-grow-1">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            
+
                             <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
                                 <i class="fas fa-home"></i>All
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-seedling"></i>Gardening
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-broom"></i>Housework
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-school"></i>AfterSchool
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-question"></i>Question
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-ellipsis-h"></i>Other</a>
                         </li>
                     </ul>
@@ -69,16 +76,16 @@
             </div>
             <div class="user-info">
                 <div class="dropdown">
-                    <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar" class="avatar" id="avatarImage">
+                    <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar"
+                        class="avatar" id="avatarImage">
                     <div class="dropdown-content" id="dropdownMenu">
                         <a href="{{ url_for('profile.overview_profile')}}">Profile</a>
                         <a href="{{ url_for('auth.logout')}}">Log Out</a>
                     </div>
                 </div>
-            </div>
             <span class="username">{{ current_user.username }}</span>
             <span class="userEmail">{{ current_user.email }}</span>
-        </div>
+    </div>
     </header>
     <aside class="Rightsidebar">
         <div class="rank">
@@ -110,5 +117,5 @@
 {% block content %}
 {% endblock %}
 </body>
-</html>
 
+</html>
