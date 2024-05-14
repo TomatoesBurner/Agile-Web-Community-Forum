@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Question</title>
+</head>
+<body>
+    <h1>Create a New Question</h1>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title }}
+            {% if form.title.errors %}
+                {% for error in form.title.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <br>
+            {{ form.content.label }}<br>
+            {{ form.content }}
+            {% if form.content.errors %}
+                {% for error in form.content.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <br>
+            {{ form.post_type.label }}<br>
+            {{ form.post_type }}
+            {% if form.post_type.errors %}
+                {% for error in form.post_type.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

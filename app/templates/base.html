@@ -83,7 +83,6 @@
                         <a href="{{ url_for('auth.logout')}}">Log Out</a>
                     </div>
                 </div>
-            </div>
             <span class="username">{{ current_user.username }}</span>
             <span class="userEmail">{{ current_user.email }}</span>
     </div>
@@ -108,19 +107,15 @@
                 <p>({{current_user.points}}/ )</p>
             </div>
             <div class="statistics">
-                <div class="stat-item">
-                    <p>Total posts: {{ current_user.total_posts }}</p>
-                </div>
-                <div class="stat-item">
-                    <p>Total Comments: {{ current_user.total_comments }}</p>
-                </div>
+                <div class="stat-item"><p>Total posts: {{ current_user.total_posts }}</p></div>
+                <div class="stat-item"><p>Total Comments: {{ current_user.total_comments }}</p></div>
             </div>
         </div>
     </aside>
-    </div>
-    <script src="{{url_for('static', filename='js/base.js')}}"></script>
-    {% block content %}
-    {% endblock %}
+</div>
+<script src="{{url_for('static', filename='js/base.js')}}"></script>
+{% block content %}
+{% endblock %}
 </body>
 
 </html>

@@ -1,41 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a New Question</title>
-</head>
-<body>
-    <h1>Create a New Question</h1>
-    <form action="" method="POST">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.title.label }}<br>
-            {{ form.title }}
-            {% if form.title.errors %}
-                {% for error in form.title.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            {% endif %}
-            <br>
-            {{ form.content.label }}<br>
-            {{ form.content }}
-            {% if form.content.errors %}
-                {% for error in form.content.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            {% endif %}
-            <br>
-            {{ form.post_type.label }}<br>
-            {{ form.post_type }}
-            {% if form.post_type.errors %}
-                {% for error in form.post_type.errors %}
-                    <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            {% endif %}
-            <br>
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="main_container">
+    <main class="main">
+        <form id="publishForm" method="POST" action="{{ url_for('postCom.create_post') }}">
+            <div class="section-section">
+                <label class="section-label">Select section:</label>
+                <div class="section-icons">
+                    <input type="hidden" id="sectionTypeInput" name="post_type" value="">
+                    <div class="icon-box" data-type="G">
+                        <img src="{{ url_for('static', filename='images/g.png') }}" alt="Gardening">
+                        <span class="icon-text">Gardening</span>
+                    </div>
+                    <div class="icon-box" data-type="HW">
+                        <img src="{{ url_for('static', filename='images/hw.png') }}" alt="Housework">
+                        <span class="icon-text">Housework</span>
+                    </div>
+                    <div class="icon-box" data-type="AC">
+                        <img src="{{ url_for('static', filename='images/ac.png') }}" alt="After school">
+                        <span class="icon-text">After school</span>
+                    </div>
+                    <div class="icon-box" data-type="QA">
+                        <img src="{{ url_for('static', filename='images/qa.png') }}" alt="Question">
+                        <span class="icon-text">Question</span>
+                    </div>
+                    <div class="icon-box" data-type="Others">
+                        <img src="{{ url_for('static', filename='images/others.png') }}" alt="Others">
+                        <span class="icon-text">Others</span>
+                    </div>
+                </div>
+            </div>
+            <div class="publish-section">
+                <label for="ideaInput" class="publish-label">Publish your idea:</label>
+                {{ form.title(id='ideaInput', class='idea-input', placeholder='Describe your task requirements.') }}
+                <div class="char-count" id="charCount">Max characters: 0/50</div>
+            </div>
+
+            <div class="publish-section">
+                <label for="contentInput" class="publish-label">Publish your content:</label>
+                {{ form.content(id='contentInput', class='content-input', placeholder='Input your content here.')
+                }}
+                <div class="char-count" id="charCountContent">Max characters: 0/200</div>
+            </div>
+            {{ form.submit(class='submit-button') }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        </form>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/post.js') }}"></script>
+{% endblock %}
