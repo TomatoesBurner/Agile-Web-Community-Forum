@@ -46,6 +46,7 @@ def create_comment():
     if form.validate_on_submit():
         content = form.content.data
         post_id = form.post_id.data
+        print(post_id)
         comment = CommentModel(
             content=content,
             post_id=post_id,
@@ -55,8 +56,9 @@ def create_comment():
         db.session.commit()
         update_user_points(current_user, 5)
         return redirect(url_for("postCom.post_detail", post_id=post_id))
-
+    print(form.errors)
     post_id = form.post_id.data or request.form.get("post_id")
+    print(post_id)
     return redirect(url_for("postCom.post_detail", post_id=post_id))
 
 
@@ -65,7 +67,12 @@ def post_detail(post_id):
     post = PostModel.query.get_or_404(post_id)
     comments = CommentModel.query.filter_by(post_id=post_id).all()
     form = CommentForm()
-    return render_template("post-detail.html", post=post, comments=comments, form=form)
+    is_done = post.accepted_answer_id is not None
+    return render_template("post-detail.html",
+                           post=post,
+                           comments=comments,
+                           form=form,
+                           is_done=is_done)
 
 
 def update_user_points(user, points):
@@ -94,3 +101,20 @@ def search():
     else:
         posts = []
     return render_template('index.html', posts=posts, query=query, scope=scope)
+
+
+@postCom_bp.route('/accept_comment/<int:post_id>/<int:comment_id>', methods=['POST'])
+@login_required
+def accept_comment(post_id, comment_id):
+    comment = CommentModel.query.get_or_404(comment_id)
+    post = PostModel.query.get_or_404(post_id)
+
+    # 确保只有帖子作者可以采纳评论
+    if current_user.id != post.author_id or post.accepted_answer_id is not None:
+        return redirect(url_for('postCom.post_detail', post_id=post_id))
+
+    comment.is_accepted = True
+    post.accepted_answer_id = comment.id
+    db.session.commit()
+
+    return redirect(url_for('postCom.post_detail', post_id=post_id))

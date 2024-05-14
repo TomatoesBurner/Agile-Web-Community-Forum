@@ -1,30 +1,63 @@
+<!-- 帖子内容 -->
 {% extends "base.html" %}
 
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/post-detail.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h1>{{post.title }}</h1>
+
+<div class="post" tabindex="0">
+    <div class="info-container">
+        <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="..." class="img-circle">
+        <p>{{ post.author.username }}</p>
+        <p class="create-time">{{ post.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
+    </div>
+    <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
-    <div>
-        <h2> Author: {{ post.author.username }}</h2>
+    {% set type_mapping = {'G': 'Garden', 'HW': 'Housework', 'AC': 'After School', 'QA': 'Question', 'Others': 'Other'}
+    %}
+    <span class="post-type">{{ type_mapping[post.post_type] if post.post_type in type_mapping else post.post_type
+        }}</span>
+    <!-- post-code需要修改-->
+    <span class="post-code">Code:{{ post.post_type }}</span>
+</div>
+<!-- 评论编辑 -->
+<div class="comment-edit">
+    <form action="{{ url_for('postCom.create_comment') }}" method="post">
+        {{ form.hidden_tag() }}
+        <!-- 编辑区 -->
+        {{ form.content(size=200, placeholder="Enter your comment...", id="comment-textarea")
+        }}
+        <div class="counter" id="comment-counter">Max characters: 0/200</div>
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <br>
+        <!-- 提交按钮 -->
+        <button type="submit" id="comment-submit">Comment</button>
+    </form>
+</div>
+<!-- 读取comment模块 -->
+{% for comment in comments %}
+<div class="comment {% if comment.id == post.accepted_answer_id %}accepted-comment{% endif %}" tabindex="0">
+    <div class="info-container">
+        <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="User Avatar"
+            class="img-circle">
+        <p>{{ comment.author.username }}</p>
+        <p class="comment-time">{{ comment.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
     </div>
-    <div>
-        <form action="{{url_for('postCom.create_comment') }}" method="post">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                <input type="text" placeholder="请填写评论" name="content" class="form-control">
-                <input type="hidden" name="post_id" value="{{ post.id }}">
-            </div>
-            <div class="form-group" style="text-align: right;">
-                <button class="btn btn-primary">评论</button>
-            </div>
-        </form>
-    </div>
-    <div>
-        <h3>Comments:</h3>
-        {% for comment in comments%}
-            <div>
-                <p>{{comment.content}}</p>
-                <p>By: {{comment.author.username}}</p>
-            </div>
-        {% endfor %}
-    </div>
+    <p>{{ comment.content }}</p>
+    {% if current_user.id == post.author_id and not post.accepted_answer_id %}
+    <form action="{{ url_for('postCom.accept_comment', post_id=post.id, comment_id=comment.id) }}" method="post">
+        <!-- <button type="submit" class="btn btn-success">采纳为答案</button> -->
+        <button type="submit" class="accepted-btn">Accept</button>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+    {% endif %}
+    {% if comment.id == post.accepted_answer_id %}
+    <strong>已采纳为答案</strong>
+    {% endif %}
+</div>
+{% endfor %}
 {% endblock %}

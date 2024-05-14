@@ -1,0 +1,155 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #F8FCFF;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.main {
+  flex: 2.8;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.post {
+  width: 600px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  margin-top: 90px;
+  margin-bottom: 20px;
+  margin-left: 230px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post button:hover {
+  background-color: #0056b3;
+}
+
+.comment,
+.comment-edit {
+  width: 600px;
+  height: 200px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+  margin-left: 510px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+
+.accepted-comment {
+  background-color: #e0ffe0;
+  /* 浅绿色背景表示答案已被接受 */
+  border-left: 5px solid #4CAF50;
+  /* 添加一个左边界条以增强视觉效果 */
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.disabled-hover {
+  pointer-events: none;
+  /* 禁用鼠标事件 */
+  opacity: 0.6;
+  /* 可选，让用户视觉上识别该评论不可交互 */
+}
+
+.accepted-btn,
+#comment-submit {
+  border-radius: 999px;
+  padding: 10px;
+  background-color: #656ED3;
+  border: 1px solid;
+  color: white;
+  font-size: 14px;
+  margin-left: 489px;
+  margin-top: -240px;
+}
+
+.accepted-btn {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.comment:hover .accepted-btn {
+  opacity: 1;
+}
+
+.comment:not(.accepted-comment):hover {
+  background-color: #fceae9;
+}
+
+#comment-submit:hover {
+  background-color: #4c53a5;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-bottom: -30px;
+  font-size: 12px;
+}
+
+.info-container {
+  display: flex;
+  /* 这会使容器内的元素水平排列 */
+  align-items: center;
+  /* 垂直居中对齐 */
+}
+
+.img-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+  display: inline-block;
+  background-size: cover;
+}
+
+.create-time,
+.comment-time {
+  margin-left: 350px;
+}
+
+#comment-textarea {
+  width: 570px;
+  height: 100px;
+  padding: 10px;
+  border: 2px solid #656ED3;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #333;
+  resize: none;
+}
+
+textarea:hover {
+  background-color: #ebecf4;
+}
+
+.post-code,
+.post-type {
+  display: inline-block;
+  max-width: 100%;
+  /* 确保容器不会超出其父容器的宽度 */
+  border-radius: 20px;
+  font-size: 12px;
+  padding: 7px;
+  border: 1px solid #656ED3;
+  color: #fff;
+  background-color: #656ED3;
+}
