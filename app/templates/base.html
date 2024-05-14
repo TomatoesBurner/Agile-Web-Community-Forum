@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
     {% block head %}
     {% endblock %}
 </head>
+
 <body>
     <div class="bar_container">
         <aside class="Leftsidebar">
@@ -21,33 +22,38 @@
                 <nav class="navigator flex-grow-1">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            
+
                             <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
                                 <i class="fas fa-home"></i>All
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-seedling"></i>Gardening
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-broom"></i>Housework
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-school"></i>AfterSchool
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-question"></i>Question
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}" onclick="highlightIcon(this)">
+                            <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
+                                onclick="highlightIcon(this)">
                                 <i class="fas fa-ellipsis-h"></i>Other</a>
                         </li>
                     </ul>
@@ -70,44 +76,51 @@
             </div>
             <div class="user-info">
                 <div class="dropdown">
-                    <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar" class="avatar" id="avatarImage">
+                    <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar"
+                        class="avatar" id="avatarImage">
                     <div class="dropdown-content" id="dropdownMenu">
-                        <a href="">Profile</a>
-                        <a href="">Log Out</a>
+                        <a href="{{ url_for('profile.overview_profile')}}">Profile</a>
+                        <a href="{{ url_for('auth.logout')}}">Log Out</a>
                     </div>
                 </div>
-                <span class="username">{{ current_user.username }}</span>
-                <span class="userEmail">{{ current_user.email }}</span>
             </div>
-        </header>
-        <aside class="Rightsidebar">
-            <div class="rank">
-                Rank
-            </div>
-            <div class="profile-info">
-                <div class="points-circle">
-                    <div class="loading">
-                        {% for i in range(1, 21) %}
-                        <span style="--i:{{ i }};"></span>
-                        {% endfor %}
-                    </div>
-                    <div class="word">
-                    125
-                    </div>
-                </div>
-                <div class="member-status">
-                    <h1>Silver Member</h1>
-                    <p>({{current_user.points}}/ )</p>
-                </div>
-                <div class="statistics">
-                    <div class="stat-item"><p>Total posts: {{ current_user.total_posts }}</p></div>
-                    <div class="stat-item"><p>Total Comments: {{ current_user.total_comments }}</p></div>
-                </div>
-            </div>
-        </aside>
+            <span class="username">{{ current_user.username }}</span>
+            <span class="userEmail">{{ current_user.email }}</span>
     </div>
+    </header>
+    <aside class="Rightsidebar">
+        <div class="rank">
+            Rank
+        </div>
+        <div class="profile-info">
+            <div class="points-circle">
+                <div class="loading">
+                    {% for i in range(1, 21) %}
+                    <span style="--i:{{ i }};"></span>
+                    {% endfor %}
+                </div>
+                <div class="word">
+                    125
+                </div>
+            </div>
+            <div class="member-status">
+                <h1>Silver Member</h1>
+                <p>({{current_user.points}}/ )</p>
+            </div>
+            <div class="statistics">
+                <div class="stat-item">
+                    <p>Total posts: {{ current_user.total_posts }}</p>
+                </div>
+                <div class="stat-item">
+                    <p>Total Comments: {{ current_user.total_comments }}</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    </div>
+    <script src="{{url_for('static', filename='js/base.js')}}"></script>
     {% block content %}
     {% endblock %}
 </body>
-</html>
 
+</html>
