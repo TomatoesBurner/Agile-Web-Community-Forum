@@ -72,8 +72,8 @@
                 <div class="dropdown">
                     <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar" class="avatar" id="avatarImage">
                     <div class="dropdown-content" id="dropdownMenu">
-                        <a href="">Profile</a>
-                        <a href="">Log Out</a>
+                        <a href="{{ url_for('profile.overview_profile')}}">Profile</a>
+                        <a href="{{ url_for('auth.logout')}}">Log Out</a>
                     </div>
                 </div>
                 <span class="username">{{ current_user.username }}</span>
