@@ -23,7 +23,6 @@ def login():
         if user is None or not user.check_password(password):
             flash('Invalid username or password')
             return redirect(url_for("auth.login"))
-        login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
             next_page = url_for('postCom.index')
@@ -38,7 +37,7 @@ def login():
 @auth_bp.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))  # 如果用户已登录，则重定向到首页
+        return redirect(url_for('index'))  #
     form = RegisterForm()
     if form.validate_on_submit():
         # 表单提交且验证通过
@@ -54,6 +53,7 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for("auth.login"))  # 成功后重定向到登录页面
     # GET 请求或表单验证失败，重新渲染注册页面
+    print(form.errors)
     return render_template("register.html", form=form)  # 显示表单或重新渲染表单显示错误
 
 
