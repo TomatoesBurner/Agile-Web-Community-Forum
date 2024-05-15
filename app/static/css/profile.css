@@ -84,7 +84,6 @@ body, html {
     background-color: #adc8f2;
 }
 
-
 .divider {
     border-top: 1px solid #71839B;
     margin: 20px 0 20px -20px;
@@ -142,6 +141,8 @@ body, html {
     gap: 5px;
     transition: 0.5s ease;
     cursor: pointer;
+    width: 100%; /* 确保容器宽度为100% */
+    max-width: 100%; /* 最大宽度为100% */
 }
 
 .post-item:hover, .comment-item:hover {
@@ -151,6 +152,9 @@ body, html {
 
 .post-text p, .comment-content p {
     font-size: 16px;
+    word-wrap: break-word; /* 自动换行 */
+    overflow-wrap: break-word; /* 避免内容溢出 */
+    white-space: pre-wrap; /* 保留空白字符并换行 */
 }
 
 .post-text, .comment-content {
@@ -206,3 +210,6 @@ body, html {
     z-index: 2000;
     text-decoration: none;
 }
+.search-container {
+        display: none;
+    }
