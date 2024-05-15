@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,82 +13,81 @@
     {% block head %}
     {% endblock %}
 </head>
-
 <body>
-    <div class="bar_container">
-        <aside class="Leftsidebar">
-            <div class="container-fluid d-flex">
-                <nav class="navigator flex-grow-1">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
+<div class="bar_container">
+    <aside class="Leftsidebar">
+        <div class="container-fluid d-flex">
+            <nav class="navigator flex-grow-1">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
 
-                            <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
-                                <i class="fas fa-home"></i>All
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
-                                onclick="highlightIcon(this)">
-                                <i class="fas fa-seedling"></i>Gardening
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
-                                onclick="highlightIcon(this)">
-                                <i class="fas fa-broom"></i>Housework
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
-                                onclick="highlightIcon(this)">
-                                <i class="fas fa-school"></i>AfterSchool
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
-                                onclick="highlightIcon(this)">
-                                <i class="fas fa-question"></i>Question
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
-                                onclick="highlightIcon(this)">
-                                <i class="fas fa-ellipsis-h"></i>Other</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-        <header class="top-navbar">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='images/TOUCH_logo.png') }}" alt="Company Logo">
-            </div>
-            <div class="search-container">
-                <form action="{{ url_for('postCom.search') }}" method="get">
-                    <select name="search_type">
-                        <option value="Title">Title</option>
-                        <option value="Comment">Comment</option>
-                    </select>
-                    <input type="text" name="query" placeholder="Search...">
-                    <button type="submit"></button>
-                </form>
-            </div>
-            <div class="user-info">
-                <div class="dropdown">
-                    <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar"
-                        class="avatar" id="avatarImage">
-                    <div class="dropdown-content" id="dropdownMenu">
-                        <a href="{{ url_for('profile.overview_profile')}}">Profile</a>
-                        <a href="{{ url_for('auth.logout')}}">Log Out</a>
-                    </div>
+                        <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
+                            <i class="fas fa-home"></i>All
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-seedling"></i>&nbsp;Gardening
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-broom"></i>Housework
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-school"></i>AfterSchool
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-question"></i>&nbsp;Question
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-ellipsis-h"></i>Other</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <header class="top-navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/TOUCH_logo.png') }}" alt="Company Logo">
+        </div>
+        <div class="search-container">
+            <form action="{{ url_for('postCom.search') }}" method="get">
+                <select name="search_type">
+                    <option value="Title">Title</option>
+                    <option value="Comment">Comment</option>
+                </select>
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit"></button>
+            </form>
+        </div>
+        <div class="user-info">
+            <div class="dropdown">
+                <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar" class="avatar"
+                     id="avatarImage">
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="{{ url_for('profile.overview_profile')}}">Profile</a>
+                    <a href="{{ url_for('auth.logout')}}">Log Out</a>
                 </div>
+            </div>
             <span class="username">{{ current_user.username }}</span>
             <span class="userEmail">{{ current_user.email }}</span>
-    </div>
+        </div>
     </header>
     <aside class="Rightsidebar">
         <div class="rank">
-            Rank
+            STAT
         </div>
         <div class="profile-info">
             <div class="points-circle">
@@ -99,16 +97,25 @@
                     {% endfor %}
                 </div>
                 <div class="word">
-                    125
+                    {{ current_user.points }}
                 </div>
             </div>
             <div class="member-status">
                 <h1>Silver Member</h1>
-                <p>({{current_user.points}}/ )</p>
             </div>
             <div class="statistics">
-                <div class="stat-item"><p>Total posts: {{ current_user.total_posts }}</p></div>
-                <div class="stat-item"><p>Total Comments: {{ current_user.total_comments }}</p></div>
+                <div class="stat-item">
+                    <div class="stat-box posts">
+                        <p class="stat-label">POSTS</p>
+                        <p class="stat-value">{{ total_posts }}</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-box comments">
+                        <p class="stat-label">COMMENTS</p>
+                        <p class="stat-value">{{ total_comments }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </aside>
@@ -117,5 +124,5 @@
 {% block content %}
 {% endblock %}
 </body>
-
 </html>
+

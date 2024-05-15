@@ -1,6 +1,8 @@
 import os
+from datetime import timedelta
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
 
 
 class Config:
@@ -9,3 +11,6 @@ class Config:
                               'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
     # Avatars
     AVATARS_SAVE_PATH = os.path.join(BASE_DIR, "media", "avatars")
+
+    #session time
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=1)
