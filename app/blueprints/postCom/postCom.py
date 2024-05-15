@@ -30,12 +30,14 @@ def create_post():
             title = form.title.data,
             content = form.content.data,
             post_type = form.post_type.data,
-            author_id = current_user.id
+            author_id = current_user.id,
+            postcode = form.postcode.data,
         )
         db.session.add(post)
         db.session.commit()
         update_user_points(current_user, 10)
         return redirect(url_for("postCom.post_detail", post_id=post.id))
+    print(form.errors)
     return render_template("posts.html", form=form)
 
 
@@ -46,7 +48,6 @@ def create_comment():
     if form.validate_on_submit():
         content = form.content.data
         post_id = form.post_id.data
-        print(post_id)
         comment = CommentModel(
             content=content,
             post_id=post_id,
@@ -56,9 +57,7 @@ def create_comment():
         db.session.commit()
         update_user_points(current_user, 5)
         return redirect(url_for("postCom.post_detail", post_id=post_id))
-    print(form.errors)
     post_id = form.post_id.data or request.form.get("post_id")
-    print(post_id)
     return redirect(url_for("postCom.post_detail", post_id=post_id))
 
 

@@ -35,6 +35,24 @@
                     </div>
                 </div>
             </div>
+            <div class="error">
+                 {% if form.post_type.errors %}
+                 {% for error in form.post_type.errors %}
+                 <p style="color:red;">{{ error }}</p>
+                 {% endfor %}
+                 {% endif %}
+            </div>
+            <div class="postcode-section">
+             <label for="postcode" class="section-label">Enter Postcode:</label>
+             <input type="text" id="postcode" name="postcode" placeholder="Enter your postcode">
+                <div class="error">
+                 {% if form.postcode.errors %}
+                 {% for error in form.postcode.errors %}
+                 <p style="color:red;">{{ error }}</p>
+                 {% endfor %}
+                 {% endif %}
+                </div>
+            </div>
             <div class="publish-section">
                 <label for="ideaInput" class="publish-label">Publish your idea:</label>
                 {{ form.title(id='ideaInput', class='idea-input', placeholder='Describe your task requirements.') }}
