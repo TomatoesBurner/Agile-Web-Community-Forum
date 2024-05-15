@@ -1,4 +1,4 @@
-from flask import Blueprint, send_from_directory, current_app, redirect, url_for, render_template, flash
+from flask import Blueprint, send_from_directory, current_app, redirect, url_for, render_template, flash,request
 from flask_login import current_user, login_required
 from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
 from hashlib import md5
@@ -73,17 +73,16 @@ def delete_post(post_id):
         flash("You are not authorized to delete this post.", "error")
         return redirect(url_for('profile.overview_profile'))
 
-    # Delete post-related comments
-    comments = CommentModel.query.filter_by(post_id=post_id).all()
-    for comment in comments:
-        db.session.delete(comment)
+    else:
+        comments = CommentModel.query.filter_by(post_id=post_id).all()
+        for comment in comments:
+            db.session.delete(comment)
+        db.session.delete(post)
+        db.session.commit()
+        flash("Post and related comments deleted successfully.", "success")
 
-    # Delete post from database
-    db.session.delete(post)
-    db.session.commit()
-
-    flash("Post and related comments deleted successfully.", "success")
-    return redirect(url_for('profile.overview_profile'))
+    tab = request.args.get('tab', 'Posts')
+    return redirect(url_for('profile.overview_profile', tab=tab))
 
 # View function to handle avatar upload
 @profile_bp.post("/avatars/upload")
@@ -115,9 +114,10 @@ def delete_comment(comment_id):
         flash("You are not authorized to delete this comment.", "error")
         return redirect(url_for('profile.overview_profile'))
 
-    # Delete the comment from database
-    db.session.delete(comment)
-    db.session.commit()
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+        flash("Comment deleted successfully.", "success")
 
-    flash("Comment deleted successfully.", "success")
-    return redirect(url_for('profile.overview_profile'))
+    tab = request.args.get('tab', 'Posts')
+    return redirect(url_for('profile.overview_profile', tab=tab))

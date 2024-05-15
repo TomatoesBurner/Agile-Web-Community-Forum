@@ -119,6 +119,7 @@ a {
 /* 以下是响应式 */
 /* 小屏设备（手机） */
 @media (max-width: 600px) {
+
   .page-container,
   .left-section,
   .right-section {
@@ -202,7 +203,7 @@ a {
 
   .form-group input,
   button {
-    width: 50%;
+    width: 100%;
     /* 适中宽度，保持表单美观 */
   }
 
