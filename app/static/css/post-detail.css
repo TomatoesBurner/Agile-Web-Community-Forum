@@ -49,9 +49,9 @@ html {
 
 
 .accepted-comment {
-  background-color: #e0ffe0;
+  background-color: #ebecf4;
   /* 浅绿色背景表示答案已被接受 */
-  border-left: 5px solid #4CAF50;
+  border-left: 5px solid #b99be3;
   /* 添加一个左边界条以增强视觉效果 */
   padding: 10px;
   margin-bottom: 10px;
@@ -86,7 +86,7 @@ html {
 }
 
 .comment:not(.accepted-comment):hover {
-  background-color: #fceae9;
+  background-color: #D2E1F5;
 }
 
 #comment-submit:hover {
