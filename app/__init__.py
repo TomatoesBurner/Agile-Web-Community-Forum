@@ -1,31 +1,40 @@
 from flask import Flask
+from flask_login import current_user
 from config import Config
-from .extensions import db, login, avatars,csrf
+from .extensions import db, login, avatars, csrf
 from flask_migrate import Migrate
-from app.blueprints.auth.auth import auth_bp
-from app.blueprints.postCom.postCom import postCom_bp
-from app.blueprints.profile.profile import profile_bp
+from sqlalchemy import func
+from .models import UserModel, PostModel, CommentModel
+from .blueprints.postCom.postCom import postCom_bp
+from .blueprints.profile.profile import profile_bp
+from .blueprints.auth.auth import auth_bp
 
-#
-app = Flask(__name__)
-# 数据库配置文件
-app.config.from_object(Config)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-## 初始化db
-db.init_app(app)
-login.init_app(app)
-avatars.init_app(app)
-csrf.init_app(app)
-login.login_view = 'auth.login'
+    # 初始化扩展
+    db.init_app(app)
+    login.init_app(app)
+    avatars.init_app(app)
+    csrf.init_app(app)
+    login.login_view = 'auth.login'
+    migrate = Migrate(app, db)
 
-migrate = Migrate(app, db)
+    # 上下文处理器
+    @app.context_processor
+    def inject_user_statistics():
+        if current_user.is_authenticated:
+            total_posts = db.session.query(func.count(PostModel.id)).filter_by(author_id=current_user.id).scalar()
+            total_comments = db.session.query(func.count(CommentModel.id)).filter_by(author_id=current_user.id).scalar()
+        else:
+            total_posts = 0
+            total_comments = 0
+        return dict(total_posts=total_posts, total_comments=total_comments)
 
-# 用户发出请求后,先用一个对象存储用户的user_id，然后再去执行视图函数
-# flask db init:只需要执行一次
-# flask db migrate:将orm模型生成迁移脚本
-# flask db upgrade:将迁移脚本映射到数据库中
+    # 注册蓝图
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(postCom_bp)
+    app.register_blueprint(profile_bp)
 
-# 视图函数全部放在蓝图当中
-app.register_blueprint(auth_bp)
-app.register_blueprint(postCom_bp)
-app.register_blueprint(profile_bp)
+    return app

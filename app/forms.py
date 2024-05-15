@@ -41,8 +41,8 @@ class PostForm(FlaskForm):
         ('AC','AfterSchool'),
         ('QA', 'Question'),
         ('Others', 'Others')
-    ], validators=[DataRequired()])
-    postCode = IntegerField('postcode', validators=[InputRequired(message="missing postcode!"),Length(4,4)])
+    ], validators=[InputRequired(message="please select type")])
+    postcode = StringField('postcode', validators=[InputRequired(message="missing postcode!"),Length(1,10)])
     submit = SubmitField('POST')
 
 

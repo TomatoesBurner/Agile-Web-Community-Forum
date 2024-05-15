@@ -23,6 +23,7 @@ def login():
         if user is None or not user.check_password(password):
             flash('Invalid username or password')
             return redirect(url_for("auth.login"))
+        login_user(user)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
             next_page = url_for('postCom.index')

@@ -30,12 +30,14 @@ def create_post():
             title = form.title.data,
             content = form.content.data,
             post_type = form.post_type.data,
-            author_id = current_user.id
+            author_id = current_user.id,
+            postcode = form.postcode.data,
         )
         db.session.add(post)
         db.session.commit()
         update_user_points(current_user, 10)
         return redirect(url_for("postCom.post_detail", post_id=post.id))
+    print(form.errors)
     return render_template("posts.html", form=form)
 
 
