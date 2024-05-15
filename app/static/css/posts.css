@@ -210,4 +210,7 @@
     background-color: #C6DAF8; /* 悬停时的背景色变深 */
     color: #6699CC; /* 悬停时的字体颜色变深 */
 }
+.search-container {
+        display: none;
+    }
 
