@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import current_user,login_required
+from flask_login import current_user, login_required
 from app.models import PostModel, CommentModel
 from app.forms import PostForm, CommentForm
 from app.extensions import db
+from config import Config
 
 
 postCom_bp = Blueprint("postCom", __name__)
+
 
 @postCom_bp.route('/index')
 @login_required
@@ -13,12 +15,15 @@ def index():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     post_type = request.args.get('type')
+    page = request.args.get('page', 1, type=int)
+    per_page = Config.POSTS_PER_PAGE
     if post_type:
-        posts = PostModel.query.filter_by(post_type=post_type).order_by(PostModel.create_time.desc()).all()
+        posts = PostModel.query.filter_by(post_type=post_type).order_by(PostModel.create_time.desc()).paginate(
+            page=page, per_page=per_page, error_out=False)
     else:
-        posts = PostModel.query.order_by(PostModel.create_time.desc()).all()
-
-    return render_template('index.html', posts=posts, post_type=post_type)
+        posts = PostModel.query.order_by(PostModel.create_time.desc()).paginate(page=page, per_page=per_page,
+                                                                                error_out=False)
+    return render_template('index.html', posts=posts.items, pagination=posts, post_type=post_type)
 
 
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])

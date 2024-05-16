@@ -14,3 +14,6 @@ class Config:
 
     #session time
     PERMANENT_SESSION_LIFETIME = timedelta(hours=1)
+
+    # Pagination
+    POSTS_PER_PAGE =10
