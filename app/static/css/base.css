@@ -57,7 +57,7 @@ html {
     display: none;
 }
 
-.user-info {
+.right-corner {
     display: flex;
     align-items: center;
 }
@@ -94,6 +94,27 @@ html {
     transition: 0.2s;
     overflow: hidden;
 }
+
+.notification-icon {
+    width: 23px;
+    height: 23px;
+    margin-left: -200px;
+}
+
+/* 计数器
+.notifictaion-counter {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: #ffeee2;
+    color: #fcbc56;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 8px;
+    font-weight: bold;
+    transform: translate(50%, -50%);
+}
+*/
 
 @keyframes show {
     0% {
@@ -138,14 +159,12 @@ html {
 
 .username {
     position: absolute;
-    margin-bottom: 30px;
-    margin-left: 55px;
+    margin-bottom: 60px;
 }
 
-.userEmail {
-    margin-top: 20px;
-    margin-right: 50px;
-}
+/*.userEmail {*/
+/*    margin-right: 50px;*/
+/*}*/
 
 .Leftsidebar {
     position: fixed;

@@ -85,11 +85,14 @@ def update_user_points(user, points):
 def search():
     query = request.args.get('query', '')
     scope = request.args.get('scope', 'all')  # 获取搜索范围参数，默认搜索全部
+
     if query:
         if scope == 'title':
             posts = PostModel.query.filter(PostModel.title.ilike(f'%{query}%')).all()
         elif scope == 'content':
             posts = PostModel.query.filter(PostModel.content.ilike(f'%{query}%')).all()
+        elif scope == 'postcode':
+            posts = PostModel.query.filter(PostModel.postcode == query).all()
         else:
             posts = PostModel.query.filter(
                 db.or_(
@@ -117,3 +120,8 @@ def accept_comment(post_id, comment_id):
     db.session.commit()
 
     return redirect(url_for('postCom.post_detail', post_id=post_id))
+
+# 消息通知
+@postCom_bp.route('/message')
+def message():
+    return "<h1>This is the message placeholder page.</h1>"

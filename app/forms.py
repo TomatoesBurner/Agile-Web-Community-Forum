@@ -31,6 +31,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(6, 20)])
     submit = SubmitField('Sign In')
+    remember = BooleanField('Remember Me') # 记住我功能
 
 class PostForm(FlaskForm):
     title = StringField('title', validators=[Length(min=3, max=50), DataRequired()])

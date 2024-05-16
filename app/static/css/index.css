@@ -153,9 +153,9 @@ a:hover {
 }
 
 .tag {
-    border-radius: 18px;
-    background-color: #FFC25F;
-    color: white;
+    border-radius: 5px;
+    color: #fcbc56;
+    background-color: #ffeee2;
     height: 25px;
     width: 60px;
     display: flex;
