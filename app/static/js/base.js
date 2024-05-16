@@ -65,3 +65,34 @@ $(document).ready(function() {
     // 页面加载时更新活动状态
     updateActiveNav();
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateMemberStatus(userPoints); // 传递变量到函数
+});
+
+function updateMemberStatus(points) {
+  const statusElement = document.querySelector('.member-status h1');
+  let status = 'Bronze Member';
+
+  if (points >= 300) {
+      status = 'Gold Member';
+  } else if (points >= 100) {
+      status = 'Silver Member';
+  }
+
+  statusElement.textContent = status;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const h1 = document.querySelector('.member-status h1');
+
+  h1.addEventListener('mousemove', (e) => {
+    const rect = h1.getBoundingClientRect();
+    const x = e.clientX - rect.left; // 鼠标相对于元素左边缘的位置
+    const y = e.clientY - rect.top; // 鼠标相对于元素顶边缘的位置
+
+    // 直接设置背景图像的位置，使得渐变的中心跟随鼠标移动
+    h1.style.backgroundPosition = `${x}px ${y}px`;
+  });
+});

@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="main_container">
         <main class="main">
             <button onclick="location.href='{{ url_for('postCom.create_post') }}'" class="publish">+ Publish</button>
@@ -16,14 +15,13 @@
                     <h2>{{ post.title }}</h2>
                     <div class="date">{{ post.create_time.strftime('%d %B') }}</div>
                 </div>
-                <div class="summary">{{ post.content | truncate(100) }}
-                    <p class="...">...</p>
-                    <p class="read">Read More</p>
+                <div class="summary">{{ post.content | truncate(100) }}...
+                    <p class="read">Read More</p >
                 </div>
+                <div class="tag">{{ post.postcode }}</div>
                 <img src="{{ url_for('static', filename='images/icons/heart1.png') }}" alt="Heart Icon" class="iconright">
-            </a>
+            </a >
             {% endfor %}
         </main>
     </div>
 {% endblock %}
-

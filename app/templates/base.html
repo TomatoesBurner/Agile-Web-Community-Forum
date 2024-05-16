@@ -21,28 +21,27 @@
             <nav class="navigator flex-grow-1">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-
                         <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-home"></i>All
+                            <i class="fas fa-home"></i>&nbsp;Home
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-seedling"></i>&nbsp;Gardening
-                        </a>
+                        </a >
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-broom"></i>Housework
-                        </a>
+                        </a >
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
-                           onclick="highlightIcon(this)">
+                            onclick="highlightIcon(this)">
                             <i class="fas fa-school"></i>AfterSchool
-                        </a>
+                        </a >
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
@@ -53,13 +52,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
                            onclick="highlightIcon(this)">
-                            <i class="fas fa-ellipsis-h"></i>Other</a>
+                            <i class="fas fa-ellipsis-h"></i>Other</a >
                     </li>
                 </ul>
             </nav>
         </div>
     </aside>
-    <header class="top-navbar">
+        <header class="top-navbar">
         <div class="logo">
             <img src="{{ url_for('static', filename='images/TOUCH_logo.png') }}" alt="Company Logo">
         </div>
@@ -102,28 +101,29 @@
                 </div>
             </div>
             <div class="member-status">
-                <h1>Silver Member</h1>
+                <script>
+                    var userPoints = {{ current_user.points }}; // 将Jinja变量放入全局JavaScript变量
+                </script>
+                <h1 id="memberStatus">Bronze Member</h1>
             </div>
             <div class="statistics">
                 <div class="stat-item">
                     <div class="stat-box posts">
-                        <p class="stat-label">POSTS</p>
-                        <p class="stat-value">{{ total_posts }}</p>
+                        <p class="stat-label" value="{{ total_posts }}">POSTS</p >
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-box comments">
-                        <p class="stat-label">COMMENTS</p>
-                        <p class="stat-value">{{ total_comments }}</p>
+                        <p class="stat-label" value="{{ total_comments }}">COMMENTS</p >
                     </div>
                 </div>
             </div>
         </div>
     </aside>
 </div>
-<script src="{{url_for('static', filename='js/base.js')}}"></script>
+<script src="{{url_for('static', filename='js/base.js')}}">
+</script>
 {% block content %}
 {% endblock %}
 </body>
 </html>
-
