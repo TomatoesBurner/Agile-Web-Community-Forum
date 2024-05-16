@@ -31,19 +31,19 @@
                         <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-seedling"></i>&nbsp;Gardening
-                        </a >
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-broom"></i>Housework
-                        </a >
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
-                            onclick="highlightIcon(this)">
+                           onclick="highlightIcon(this)">
                             <i class="fas fa-school"></i>AfterSchool
-                        </a >
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
@@ -54,13 +54,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
                            onclick="highlightIcon(this)">
-                            <i class="fas fa-ellipsis-h"></i>Other</a >
+                            <i class="fas fa-ellipsis-h"></i>Other</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </aside>
-        <header class="top-navbar">
+    <header class="top-navbar">
         <div class="logo">
             <img src="{{ url_for('static', filename='images/TOUCH_logo.png') }}" alt="Company Logo">
         </div>
@@ -85,7 +85,29 @@
             </div>
             <span class="username">{{ current_user.username }}</span>
             <span class="userEmail">{{ current_user.email }}</span>
-    </div>
+            <div class="notification-container">
+                <a href="#" id="inbox-button">
+                    <i class="fas fa-inbox fa-2x"></i>
+                </a>
+            </div>
+            <div id="inbox-modal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Notifications</h5>
+                            <button type="button" class="close" onclick="$('#inbox-modal').hide();" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul id="notification-list" class="list-group">
+                                <!-- Notifications will be loaded here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <aside class="Rightsidebar">
         <div class="rank">
@@ -104,26 +126,66 @@
             </div>
             <div class="member-status">
                 <script>
-                    var userPoints = {{ current_user.points }}; // 将Jinja变量放入全局JavaScript变量
+                    // 将Jinja变量放入全局JavaScript变量
+                    var userPoints = {{ current_user.points }};
                 </script>
                 <h1 id="memberStatus">Bronze Member</h1>
             </div>
             <div class="statistics">
                 <div class="stat-item">
                     <div class="stat-box posts">
-                        <p class="stat-label" value="{{ total_posts }}">POSTS</p >
+                        <p class="stat-label" value="{{ total_posts }}">POSTS</p>
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-box comments">
-                        <p class="stat-label" value="{{ total_comments }}">COMMENTS</p >
+                        <p class="stat-label" value="{{ total_comments }}">COMMENTS</p>
                     </div>
                 </div>
             </div>
         </div>
     </aside>
 </div>
-<script src="{{url_for('static', filename='js/base.js')}}">
+<script src="{{url_for('static', filename='js/base.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        function fetchNotifications() {
+            $.ajax({
+                url: "{{ url_for('notify.inbox') }}",
+                type: 'GET',
+                success: function (data) {
+                    let notifications = data.notifications;
+                    let notificationList = $('#notification-list');
+                    notificationList.empty(); // 清空当前通知列表
+
+                    if (notifications.length > 0) {
+                        notifications.forEach(function (notification) {
+                            let listItem = `
+                            <li class="list-group-item">
+                                <strong>${notification.timestamp}</strong>
+                                <p>${notification.message}</p>
+                                ${notification.post_id ? `<a href="{{ url_for('postCom.post_detail', post_id=0) }}${notification.post_id}">View Post</a>` : ''}
+                            </li>
+                        `;
+                            notificationList.append(listItem);
+                        });
+                    } else {
+                        notificationList.append('<li class="list-group-item">No new notifications.</li>');
+                    }
+
+                    $('#inbox-modal').show(); // 显示通知框
+                },
+                error: function () {
+                    console.error("Failed to fetch notifications.");
+                }
+            });
+        }
+
+        $('#inbox-button').on('click', function (event) {
+            event.preventDefault(); // 阻止默认点击行为
+            fetchNotifications();
+        });
+    });
 </script>
 {% block content %}
 {% endblock %}
