@@ -35,19 +35,7 @@ def overview_profile():
 def get_avatar(filename):
     return send_from_directory(current_app.config["AVATARS_SAVE_PATH"], filename)
 
-# View function to handle about me edit form submission
-@profile_bp.post("/profile/edit/aboutme")
-@login_required
-def edit_profile():
-    about_me_form = EditAboutMeForm()
-    if about_me_form.validate_on_submit():
-        aboutme = about_me_form.aboutme.data
-        current_user.aboutme = aboutme
-        db.session.commit()
-        return redirect(url_for('profile.overview_profile'))
-    else:
-        print(about_me_form.errors)
-        return redirect(url_for('profile.overview_profile'))
+
 
 # View function to handle username edit form submission
 @profile_bp.post("/profile/edit/username")
@@ -55,12 +43,11 @@ def edit_profile():
 def edit_username():
     username_form = EditUsernameForm()
     if username_form.validate_on_submit():
-        new_username = username_form.username.data
+        new_username = filter_bad_words(username_form.username.data)
         current_user.username = new_username
         db.session.commit()
         return redirect(url_for('profile.overview_profile'))
     else:
-        print(username_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
 # View function to handle post deletion

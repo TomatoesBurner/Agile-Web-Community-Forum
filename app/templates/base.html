@@ -52,9 +52,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
-                           onclick="highlightIcon(this)">
-                            <i class="fas fa-ellipsis-h"></i>Other</a >
+                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}" onclick="highlightIcon(this)">
+                            <i class="fas fa-ellipsis-h"></i>
+                            <p class="tag_name">Other</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="inbox-button" href="#" onclick="highlightIcon(this)">
+                            <i class="fas fa-inbox fa-1x"></i>
+                            <p class="tag_name">Inbox</p>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -66,15 +73,19 @@
         </div>
         <div class="search-container">
             <form action="{{ url_for('postCom.search') }}" method="get">
-                <select name="search_type">
-                    <option value="Title">Title</option>
-                    <option value="Comment">Content</option>
+                <select name="scope">
+                    <option value="title" {% if request.args.get(
+                    'scope') == 'title' %}selected{% endif %}>Title</option>
+                    <option value="content" {% if request.args.get(
+                    'scope') == 'content' %}selected{% endif %}>Content</option>
+                    <option value="postcode" {% if request.args.get(
+                    'scope') == 'postcode' %}selected{% endif %}>Postcode</option>
                 </select>
-                <input type="text" name="query" placeholder="Search...">
+                <input type="text" name="query" placeholder="Search..." value="{{ request.args.get('query', '') }}">
                 <button type="submit"></button>
             </form>
         </div>
-        <div class="user-info">
+            <div class="user-info">
             <div class="dropdown">
                 <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar" class="avatar"
                      id="avatarImage">
@@ -85,11 +96,6 @@
             </div>
             <span class="username">{{ current_user.username }}</span>
             <span class="userEmail">{{ current_user.email }}</span>
-            <div class="notification-container">
-                <a href="#" id="inbox-button">
-                    <i class="fas fa-inbox fa-2x"></i>
-                </a>
-            </div>
             <div id="inbox-modal" class="modal" tabindex="-1" role="dialog" style="display:none;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -130,7 +136,12 @@
             <div class="member-status">
                 <script>
                     // 将Jinja变量放入全局JavaScript变量
-                    var userPoints = {{ current_user.points }};
+                    var userPoints = {
+                    {
+                        current_user.points
+                    }
+                    }
+                    ;
                 </script>
                 <h1 id="memberStatus">Bronze Member</h1>
             </div>

@@ -107,24 +107,30 @@ def update_user_points(user, points):
 def search():
     query = request.args.get('query', '')
     scope = request.args.get('scope', 'all')  # 获取搜索范围参数，默认搜索全部
+    page = request.args.get('page', 1, type=int)
+    per_page = Config.POSTS_PER_PAGE
 
     if query:
         if scope == 'title':
-            posts = PostModel.query.filter(PostModel.title.ilike(f'%{query}%')).all()
+            posts_query = PostModel.query.filter(PostModel.title.ilike(f'%{query}%'))
         elif scope == 'content':
-            posts = PostModel.query.filter(PostModel.content.ilike(f'%{query}%')).all()
+            posts_query = PostModel.query.filter(PostModel.content.ilike(f'%{query}%'))
         elif scope == 'postcode':
-            posts = PostModel.query.filter(PostModel.postcode == query).all()
+            posts_query = PostModel.query.filter(PostModel.postcode == query)
         else:
-            posts = PostModel.query.filter(
+            posts_query = PostModel.query.filter(
                 db.or_(
                     PostModel.title.ilike(f'%{query}%'),
                     PostModel.content.ilike(f'%{query}%')
                 )
-            ).all()
+            )
     else:
-        posts = []
-    return render_template('index.html', posts=posts, query=query, scope=scope)
+        posts_query = PostModel.query.filter_by()  # 空查询
+
+    pagination = posts_query.order_by(PostModel.create_time.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    posts = pagination.items
+
+    return render_template('index.html', posts=posts, pagination=pagination, query=query, scope=scope)
 
 
 @postCom_bp.route('/accept_comment/<int:post_id>/<int:comment_id>', methods=['POST'])

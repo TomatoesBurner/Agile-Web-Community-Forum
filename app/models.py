@@ -18,7 +18,6 @@ class UserModel(UserMixin, db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     avatar = db.Column(db.String(100))
-    aboutme = db.Column(db.String(100))
     join_time = db.Column(db.DateTime, default=datetime.now)
     points = db.Column(db.Integer, default=0)
     # security
@@ -58,7 +57,7 @@ class PostModel(db.Model):
     # post的数据模型
     __tablename__ = "posts"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
     content = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
     # is_done = db.Column(db.Boolean, default=False)
