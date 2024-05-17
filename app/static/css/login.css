@@ -104,6 +104,7 @@ section {
 }
 
 p {
+  margin-left: 95px;
   font-size: 1.2rem;
 }
 
@@ -123,7 +124,7 @@ a {
 
 .right-section img {
   max-width: 100%;
-  height: auto;
+  height: Auto;
 }
 
 /* 基本样式 */
@@ -134,12 +135,15 @@ a {
     flex-direction: column;
   }
 
-  .left-section,
-  .right-section {
+  .left-section {
     flex: 1 0 100%;
     height: auto;
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .right-section {
+    display: none;
   }
 
   .logo {
@@ -173,7 +177,7 @@ a {
 }
 
 /* 中等屏幕设备（平板） */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
   .page-container {
     flex-direction: row;
   }

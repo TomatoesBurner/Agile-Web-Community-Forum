@@ -36,8 +36,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class PostForm(FlaskForm):
-    title = StringField('title', validators=[Length(min=3, max=50), DataRequired()])
-    content = TextAreaField('content', validators=[Length(min=3, max=200), DataRequired()])
+    title = StringField('title', validators=[Length(min=3, max=200), DataRequired()])
+    content = TextAreaField('content', validators=[Length(min=3, max=1000), DataRequired()])
     post_type = SelectField('Post Type', choices=[
         ('G', 'Gardening'),
         ('HW','HousingWork'),
@@ -50,7 +50,7 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    content = TextAreaField('content', validators=[Length(min=3)])
+    content = TextAreaField('content', validators=[Length(min=3,  max=1000)])
     post_id = IntegerField('post_id', validators=[InputRequired(message="missing post ID!")])
     submit = SubmitField('POST')
 
@@ -66,7 +66,7 @@ class EditAboutMeForm(FlaskForm):
 
 
 class EditUsernameForm(FlaskForm):
-    username = StringField(validators=[Length(min=1, max=10)])
+    username = StringField(validators=[Length(min=1, max=50)])
 
     def validate_username(self, username):
         user = UserModel.query.filter_by(username=username.data).first()
@@ -78,7 +78,7 @@ class ForgotPasswordForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class SecurityQuestionForm(FlaskForm):
-    security_answer = StringField('Answer', validators=[DataRequired(), Length(1, 30)])
+    security_answer = StringField('Answer', validators=[DataRequired(), Length(1, 200)])
     new_password = PasswordField('New Password', validators=[DataRequired(), Length(6, 20)])
     confirm_password = PasswordField(
         'Repeat New Password', validators=[DataRequired(), EqualTo('new_password', message='Passwords must match')])

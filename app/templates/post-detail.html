@@ -12,8 +12,8 @@
         <div class="post" tabindex="0">
             <div class="info-container">
                 <img src="{{ url_for('profile.get_avatar', filename=post.author.avatar) }}" alt="..." class="img-circle">
-                <p>{{ post.author.username }}</p>
-                <p class="create-time">{{ post.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                <p>{{ post.author.username }}&nbsp;&nbsp;<span class="email">&lt;{{ post.author.email }}&gt;</span></p>
+                <p class="create-time">{{ post.create_time.strftime('%d %B %Y %H:%M') }}</p>
             </div>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
@@ -24,8 +24,8 @@
         <div class="comment-edit">
             <form action="{{ url_for('postCom.create_comment') }}" method="post">
                 {{ form.hidden_tag() }}
-                {{ form.content(size=200, placeholder="Enter your comment...", id="comment-textarea") }}
-                <div class="counter" id="comment-counter">Max characters: 0/200</div>
+                {{ form.content(size=1000, placeholder="Enter your comment...", id="comment-textarea") }}
+                <div class="counter" id="comment-counter">Max characters: 0/1000</div>
                 <input type="hidden" name="post_id" value="{{ post.id }}">
                 <br>
                 <button type="submit" id="comment-submit">Comment</button>
@@ -35,8 +35,8 @@
         <div class="comment {% if comment.id == post.accepted_answer_id %}accepted-comment{% endif %}" tabindex="0">
             <div class="info-container">
                 <img src="{{ url_for('profile.get_avatar', filename=comment.author.avatar) }}" alt="User Avatar" class="img-circle">
-                <p>{{ comment.author.username }}</p>
-                <p class="comment-time">{{ comment.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                <p>{{ comment.author.username }}&nbsp;&nbsp;<span class="email">&lt;{{ comment.author.email }}&gt;</span></p>
+                <p class="comment-time">{{ comment.create_time.strftime('%d %B %Y %H:%M') }}</p>
             </div>
             <p>{{ comment.content }}</p>
             {% if current_user.id == post.author_id and not post.accepted_answer_id %}

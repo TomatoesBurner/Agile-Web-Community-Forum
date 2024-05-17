@@ -13,6 +13,20 @@
     flex-direction: column;
 }
 
+
+.title_date h2 {
+    white-space: normal; /* 允许换行 */
+    overflow-wrap: break-word; /* 避免内容溢出 */
+    word-wrap: break-word; /* 自动换行 */
+    max-width: 100%; /* 确保文本适应容器宽度 */
+}
+
+.post-info, .comment-details {
+    overflow: hidden; /* 确保容器内文本不溢出 */
+    width: 100%; /* 确保容器宽度为100% */
+}
+
+
 .publish {
     background-color: #F8FCFF;
     border: 3px solid #7977FA;
@@ -42,12 +56,12 @@
     border-color: transparent;
     color: white;
     background: linear-gradient(
-        90deg,
-        #f9d923,
-        #04ede9,
-        #36bcf0,
-        #cb49ff,
-        #f9d923
+            90deg,
+            #f9d923,
+            #04ede9,
+            #36bcf0,
+            #cb49ff,
+            #f9d923
     );
     background-size: 400%;
     animation: glow 12s linear forwards;
@@ -163,20 +177,42 @@ a:hover {
     margin-right: 15px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .main_container {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 150px;
+        padding-right: 0px;
     }
 
     .main {
-        width: 70%; /* 使用更大比例的宽度 */
+        width: 80%; /* 使用更大比例的宽度 */
+        margin-top: 10px;
+    }
+        .summary {
+        white-space: normal; /* 允许换行 */
+        overflow-wrap: break-word; /* 避免内容溢出 */
+        word-wrap: break-word; /* 自动换行 */
+        max-width: 100%; /* 确保文本适应容器宽度 */
+    }
+
+    .summary {
+        overflow: hidden; /* 确保容器内文本不溢出 */
+        width: 100%; /* 确保容器宽度为100% */
+    }
+}
+
+@media (max-width: 768px) {
+    .main_container {
+        padding-left: 90px;
+        padding-right: 0px;
+    }
+
+    .main {
+        width: 75%; /* 使用更大比例的宽度 */
+        margin-top: 95px;
     }
 
     .post {
-        margin-right: 0px; /* 减小右边距 */
-        margin-left: 40px;
-        margin-top: 65px;
+        width: 100%;
     }
 
     .post-content, .post-header {
@@ -189,6 +225,9 @@ a:hover {
     }
 
     .date {
+        font-size: 14px;
+        color: #666;
+        font-weight: bold;
         margin-right: 10px; /* 调整日期的右边距 */
     }
 
@@ -196,21 +235,52 @@ a:hover {
         flex-direction: column; /* 将标题和日期垂直排列 */
         gap: 5px;
     }
+        .summary {
+        white-space: normal; /* 允许换行 */
+        overflow-wrap: break-word; /* 避免内容溢出 */
+        word-wrap: break-word; /* 自动换行 */
+        max-width: 100%; /* 确保文本适应容器宽度 */
+    }
+
+    .summary {
+        overflow: hidden; /* 确保容器内文本不溢出 */
+        width: 100%; /* 确保容器宽度为100% */
+    }
 }
 
-@media (max-width: 480px) { /*phone*/
-    .publish {
-        width: 100px; /* 调整按钮宽度 */
-        font-size: 16px; /* 调整字体大小 */
+@media (max-width: 480px) {
+    /*phone*/
+    .main_container {
+        padding-left: 60px;
+        padding-right: 0px;
+    }
+
+    .main {
+        width: 75%; /* 使用更大比例的宽度 */
+        margin-top: 110px;
     }
 
     .post h2 {
         font-size: 18px; /* 调整标题字体大小 */
     }
 
+    .summary {
+        white-space: normal; /* 允许换行 */
+        overflow-wrap: break-word; /* 避免内容溢出 */
+        word-wrap: break-word; /* 自动换行 */
+        max-width: 100%; /* 确保文本适应容器宽度 */
+    }
+
+    .summary {
+        overflow: hidden; /* 确保容器内文本不溢出 */
+        width: 100%; /* 确保容器宽度为100% */
+    }
+
+
     .summary, .date {
         font-size: 0.8em; /* 调整摘要和日期的字体大小 */
     }
+
 
     .iconleft, .iconright {
         width: 50px;
@@ -223,7 +293,8 @@ a:hover {
     }
 }
 
-@media (max-width: 768px) and (orientation: landscape) { /*pad*/
+@media (max-width: 768px) and (orientation: landscape) {
+    /*pad*/
     .main_container {
         padding-left: 15px;
         padding-right: 15px;
@@ -232,6 +303,17 @@ a:hover {
     .post-header, .post-content {
         flex-direction: row;
         align-items: center;
+    }
+        .summary {
+        white-space: normal; /* 允许换行 */
+        overflow-wrap: break-word; /* 避免内容溢出 */
+        word-wrap: break-word; /* 自动换行 */
+        max-width: 100%; /* 确保文本适应容器宽度 */
+    }
+
+    .summary {
+        overflow: hidden; /* 确保容器内文本不溢出 */
+        width: 100%; /* 确保容器宽度为100% */
     }
 }
 
