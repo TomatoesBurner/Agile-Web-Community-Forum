@@ -116,18 +116,54 @@ textarea:hover {
     background-color: #ebecf4;
 }
 
-.post-code,
-.post-type {
+.post-code {
     display: inline-block;
     max-width: 100%;
-    border-radius: 20px;
+    border-radius: 5px;
     font-size: 12px;
-    padding: 7px;
-    border: 1px solid #656ED3;
-    color: #fff;
-    background-color: #656ED3;
-    word-wrap: break-word; /* 自动换行 */
+    padding: 4px;
+    color: #fcbc56;
+    background-color: #ffeee2;
+    word-wrap: break-word; /* automatically wrap */
 }
+
+.post-type {
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 4px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.post-type-G {
+    color:#4caf50;
+    background-color: #d8f8d9; /* Garden: 绿色 */
+}
+
+.post-type-HW {
+    color: #2196f3;
+    background-color: #d4eafc; /* Housework: 蓝色 */
+}
+
+.post-type-AC {
+    color: #9c27b0;
+    background-color: #f4daf8; /* After School: 紫色 */
+}
+
+.post-type-QA {
+    color: #ff69b4;
+    background-color: #fde2f0; /* Question: 粉红色 */
+}
+
+.post-type-Others {
+    color: #3b3e41;
+    background-color: #d0d5d5; /* Others: 深灰色 */
+}
+
+.post-type-default {
+    background-color: #cccccc; /* 默认样式：灰色 */
+}
+
 .search-container {
         display: none;
     }

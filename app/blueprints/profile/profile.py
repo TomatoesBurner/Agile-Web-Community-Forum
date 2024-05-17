@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
 from hashlib import md5
 from app.extensions import db
+from app.utils.wordsban import filter_bad_words
 from app.models import UserModel, PostModel, CommentModel, Notification
 import os
 import time

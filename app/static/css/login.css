@@ -50,7 +50,6 @@ section {
 
 .head-image img {
   margin-bottom: 30px;
-  /*margin-left: ;*/
   width: 110%;
   max-width: 140%;
   height: auto;
@@ -59,8 +58,8 @@ section {
 .login-section {
   flex: 1 1 45rem;
   width: 80%;
-  /* max-width: 80%; */
   padding-left: 2.5rem;
+  text-align: center;
 }
 
 .form-group {
@@ -72,6 +71,8 @@ section {
   font-weight: bold;
   display: block;
   margin-bottom: 10px;
+  text-align: left;
+  margin-left: 42px;
 }
 
 .form-group input {
@@ -83,6 +84,16 @@ section {
   color: #656ED3;
   box-shadow: none;
   transition: border-color 0.3s ease;
+}
+
+.remember {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top:20px;
+}
+
+.remember-checkbox {
+  padding-top: 10px;
 }
 
 .login-btn {
@@ -103,7 +114,6 @@ section {
 }
 
 p {
-  margin-left: 95px;
   font-size: 1.2rem;
 }
 
@@ -123,7 +133,7 @@ a {
 
 .right-section img {
   max-width: 100%;
-  height: Auto;
+  height: auto;
 }
 
 /* 基本样式 */

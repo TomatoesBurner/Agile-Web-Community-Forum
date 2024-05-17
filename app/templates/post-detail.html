@@ -11,16 +11,19 @@
     <main class="main">
         <div class="post" tabindex="0">
             <div class="info-container">
-                <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="..."
-                     class="img-circle">
+                <img src="{{ url_for('profile.get_avatar', filename=post.author.avatar) }}" alt="..." class="img-circle">
                 <p>{{ post.author.username }}</p>
                 <p class="create-time">{{ post.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
             </div>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
-            {% set type_mapping = {'G': 'Garden', 'HW': 'Housework', 'AC': 'After School', 'QA': 'Question', 'Others': 'Other'} %}
-            <span class="post-type">{{ type_mapping[post.post_type] if post.post_type in type_mapping else post.post_type }}</span>
-            <span class="post-code">Code:{{ post.post_type }}</span>
+              {% set type_mapping = {'G': 'Garden', 'HW': 'Housework', 'AC': 'After School', 'QA': 'Question', 'Others': 'Other'} %}
+              <span class="post-type post-type-{{ post.post_type if post.post_type in type_mapping else 'default' }}">
+                  {{ type_mapping[post.post_type] if post.post_type in type_mapping else post.post_type }}
+              </span>
+{#            {% set type_mapping = {'G': 'Garden', 'HW': 'Housework', 'AC': 'After School', 'QA': 'Question', 'Others': 'Other'} %}#}
+{#            <span class="post-type">{{ type_mapping[post.post_type] if post.post_type in type_mapping else post.post_type }}</span>#}
+            <span class="post-code">{{ post.postcode }}</span>
         </div>
         <div class="comment-edit">
             <form action="{{ url_for('postCom.create_comment') }}" method="post">
@@ -35,7 +38,7 @@
         {% for comment in comments %}
         <div class="comment {% if comment.id == post.accepted_answer_id %}accepted-comment{% endif %}" tabindex="0">
             <div class="info-container">
-                <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="User Avatar" class="img-circle">
+                <img src="{{ url_for('profile.get_avatar', filename=comment.author.avatar) }}" alt="User Avatar" class="img-circle">
                 <p>{{ comment.author.username }}</p>
                 <p class="comment-time">{{ comment.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
             </div>

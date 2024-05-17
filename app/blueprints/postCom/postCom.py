@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import current_user, login_required
+from flask_login import current_user,login_required
 from app.models import PostModel, CommentModel
 from app.forms import PostForm, CommentForm
 from app.extensions import db
 from config import Config
-
+from app.utils.wordsban import filter_bad_words
 
 postCom_bp = Blueprint("postCom", __name__)
 
@@ -26,17 +26,20 @@ def index():
     return render_template('index.html', posts=posts.items, pagination=posts, post_type=post_type)
 
 
+
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])
 @login_required
 def create_post():
     form = PostForm()
     if form.validate_on_submit():
+        title = filter_bad_words(form.title.data)
+        content = filter_bad_words(form.content.data)
         post = PostModel(
-            title = form.title.data,
-            content = form.content.data,
-            post_type = form.post_type.data,
-            author_id = current_user.id,
-            postcode = form.postcode.data,
+            title=title,
+            content=content,
+            post_type=form.post_type.data,
+            author_id=current_user.id,
+            postcode=form.postcode.data,
         )
         db.session.add(post)
         db.session.commit()
@@ -51,7 +54,7 @@ def create_post():
 def create_comment():
     form = CommentForm()
     if form.validate_on_submit():
-        content = form.content.data
+        content = filter_bad_words(form.content.data)
         post_id = form.post_id.data
 
         # Create the comment
@@ -76,7 +79,7 @@ def create_comment():
             post.author.add_notification('new_comment', message_data, post_id=post_id)
             db.session.commit()
         return redirect(url_for("postCom.post_detail", post_id=post_id))
-    post_id = form.post_id.data or request.args.get("post_id")
+    post_id = form.post_id.data or request.form.get("post_id")
     return redirect(url_for("postCom.post_detail", post_id=post_id))
 
 
@@ -104,11 +107,14 @@ def update_user_points(user, points):
 def search():
     query = request.args.get('query', '')
     scope = request.args.get('scope', 'all')  # 获取搜索范围参数，默认搜索全部
+
     if query:
         if scope == 'title':
             posts = PostModel.query.filter(PostModel.title.ilike(f'%{query}%')).all()
         elif scope == 'content':
             posts = PostModel.query.filter(PostModel.content.ilike(f'%{query}%')).all()
+        elif scope == 'postcode':
+            posts = PostModel.query.filter(PostModel.postcode == query).all()
         else:
             posts = PostModel.query.filter(
                 db.or_(
