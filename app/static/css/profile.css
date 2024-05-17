@@ -1,0 +1,215 @@
+.main_container {
+    margin-top: 70px;
+    padding-left: 20%;
+    padding-right: 20%;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+
+.main {
+    width: 100%;
+}
+
+body, html {
+    height: 100%;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 1px;
+}
+
+.my-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-bottom: 50px;
+}
+
+.user-details {
+    margin-top: -20px;
+}
+
+.user-details h1 {
+    color: #393939;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.user-details a {
+    font-size: 16px;
+    font-weight: 550;
+    display: block;
+    color: #007bff;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.email {
+    margin-bottom: 10px;
+}
+
+.tabs-container {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: #d8e6f8;
+    border-radius: 10px;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    color: white;
+}
+
+#postsTab {
+    background-color: #adc8f2;
+    border-radius: 10px 0 0 10px;
+}
+
+#commentsTab {
+    background-color: #d8e6f8;
+    border-radius: 0 10px 10px 0;
+}
+
+.tab.active {
+    background-color: #adc8f2;
+}
+
+.divider {
+    border-top: 1px solid #71839B;
+    margin: 20px 0 20px -20px;
+    width: calc(100% + 40px);
+}
+
+.content-section {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.post-header, .comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding-left: 100px;
+}
+
+.icon-avatar {
+    position: absolute;
+    left: 10px;
+    top: 35px;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+}
+
+.post-info h4, .comment-details h4 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.post-time, .comment-time {
+    margin-left: 30px;
+    font-size: 14px;
+    color: #666;
+}
+
+.post-item, .comment-item {
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: 0.5s ease;
+    cursor: pointer;
+    width: 100%; /* 确保容器宽度为100% */
+    max-width: 100%; /* 最大宽度为100% */
+}
+
+.post-item:hover, .comment-item:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+}
+
+.post-text p, .comment-content p {
+    font-size: 16px;
+    word-wrap: break-word; /* 自动换行 */
+    overflow-wrap: break-word; /* 避免内容溢出 */
+    white-space: pre-wrap; /* 保留空白字符并换行 */
+}
+
+.post-text, .comment-content {
+    padding-left: 100px;
+}
+
+.delete-container {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+
+.delete-container:hover .delete-icon {
+    display: block;
+}
+
+.modal-backdrop {
+    z-index: 1040;
+}
+
+.modal {
+    z-index: 1050;
+}
+
+.nav-link {
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.nav-link .fa {
+    transition: color 0.3s ease-in-out;
+}
+
+.active-icon {
+    color: #656ED3;
+}
+
+#homeIcon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #007bff;
+    z-index: 2000;
+    text-decoration: none;
+}
+.search-container {
+        display: none;
+    }

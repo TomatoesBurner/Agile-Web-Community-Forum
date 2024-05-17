@@ -1,0 +1,221 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  color: var(--black);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
+  padding: 16rem 10%;
+}
+
+.page-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Left section styling */
+.left-section {
+  flex: 0.9;
+  height: 120%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.logo {
+  width: 200px;
+  height: 40px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  padding: 0;
+  z-index: 1;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.head-image img {
+  margin-bottom: 30px;
+  /*margin-left: ;*/
+  width: 110%;
+  max-width: 140%;
+  height: auto;
+}
+
+.login-section {
+  flex: 1 1 45rem;
+  width: 80%;
+  /* max-width: 80%; */
+  padding-left: 2.5rem;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-group input {
+  width: 348px;
+  padding: 7px;
+  border-radius: 90px;
+  border: 1px solid var(--border);
+  background-color: transparent;
+  color: #656ED3;
+  box-shadow: none;
+  transition: border-color 0.3s ease;
+}
+
+.login-btn {
+  width: 348px;
+  padding: 10px;
+  border-radius: 90px;
+  border: 1px solid #656ED3;
+  background-color: #656ED3;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.login-btn:hover {
+  background-color: #4c53a5;
+  font-weight: bold;
+}
+
+p {
+  margin-left: 95px;
+  font-size: 1.2rem;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #656ED3;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3rem;
+}
+
+.right-section img {
+  max-width: 100%;
+  height: Auto;
+}
+
+/* 基本样式 */
+
+/* 小屏幕设备（手机） */
+@media (max-width: 768px) {
+  .page-container {
+    flex-direction: column;
+  }
+
+  .left-section,
+  .right-section {
+    flex: 1 0 100%;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .logo {
+    position: relative;
+    width: 150px;
+    /* 减小Logo尺寸 */
+    top: 5px;
+    left: 10px;
+  }
+
+  .form-group input,
+  .login-btn {
+    width: 100%;
+    /* 输入框和按钮宽度调整为100% */
+  }
+
+  p,
+  .form-group label {
+    margin-left: 0;
+    /* 调整文本对齐 */
+    font-size: 1rem;
+    /* 调整字体大小 */
+  }
+
+  .head-image img {
+    width: 100%;
+    max-width: 100%;
+    /* 图片宽度调整 */
+    margin-bottom: 15px;
+  }
+}
+
+/* 中等屏幕设备（平板） */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .page-container {
+    flex-direction: row;
+  }
+
+  .left-section,
+  .right-section {
+    padding-left: 20px;
+  }
+
+  .form-group input,
+  .login-btn {
+    width: 90%;
+  }
+
+  .logo img {
+    width: 180px;
+  }
+}
+
+/* 以下是响应式布局 */
+/* 大屏幕设备 */
+@media (min-width: 1025px) {
+  .page-container {
+    flex-direction: row;
+  }
+
+  .left-section {
+    flex: 0.8;
+    /* 稍微调整左侧部分的占比 */
+  }
+
+  .right-section {
+    flex: 1.2;
+  }
+
+  .logo img {
+    width: 200px;
+  }
+
+  .form-group input,
+  .login-btn {
+    width: 80%;
+    /* 调整为更合适的宽度 */
+  }
+}

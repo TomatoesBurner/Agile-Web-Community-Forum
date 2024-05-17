@@ -1,0 +1,80 @@
+<!-- Register page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="page-container">
+        <a href="{{ url_for('auth.login') }}" class="home-button">Home</a>
+        <div class="left-section">
+            <div class="image1">
+                <img src="{{ url_for('static', filename='/images/register.png') }}" alt="register">
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="register-section">
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    {{ form.hidden_tag() }}
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="error">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        {{ form.username(id="username") }}
+                        {% if form.username.errors %}
+                        <div class="error">
+                            {% for error in form.username.errors %}
+                            <p>{{ error }}</p>
+                            <p style="color:red;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        {{ form.email(id="email") }}
+                        {% if form.email.errors %}
+                        <div class="error">
+                            {% for error in form.email.errors %}
+                            <p style="color:red;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        {{ form.password(id="password") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        {{ form.password_confirm(id="confirm-password") }}
+                        <!-- {% if form.password_confirm.errors %}
+                        <div class="error">
+                            {% for error in form.password_confirm.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %} -->
+                    </div>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Have account? <a href="{{ url_for('auth.login') }}">Login!</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

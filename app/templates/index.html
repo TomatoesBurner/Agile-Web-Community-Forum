@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="main_container">
+        <main class="main">
+            <button onclick="location.href='{{ url_for('postCom.create_post') }}'" class="publish">+ Publish</button>
+            {% for post in posts %}
+            <a href="{{ url_for('postCom.post_detail', post_id=post.id) }}" class="post" tabindex="0">
+                <img src="{{ url_for('static', filename='images/icons/' + post.post_type|lower + '.png') }}" alt="Left Icon" class="iconleft">
+                <div class="title_date">
+                    <h2>{{ post.title }}</h2>
+                    <div class="date">{{ post.create_time.strftime('%d %B') }}</div>
+                </div>
+                <div class="summary">{{ post.content | truncate(100) }}...
+                    <p class="read">Read More</p >
+                </div>
+                <div class="tag">{{ post.postcode }}</div>
+                <img src="{{ url_for('static', filename='images/icons/heart1.png') }}" alt="Heart Icon" class="iconright">
+            </a >
+            {% endfor %}
+        </main>
+    </div>
+{% endblock %}
