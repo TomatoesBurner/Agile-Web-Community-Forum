@@ -95,7 +95,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Notifications</h5>
-                            <button type="button" class="close" onclick="$('#inbox-modal').hide();" aria-label="Close">
+                            <button type="button" class="close" aria-label="Close"
+                                    onclick="$('#inbox-modal').fadeOut();">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -104,6 +105,8 @@
                                 <!-- Notifications will be loaded here -->
                             </ul>
                         </div>
+                        <button type="button" class="btn btn-danger" id="delete-all-notifications">Delete All
+                        </button>
                     </div>
                 </div>
             </div>
@@ -181,9 +184,34 @@
             });
         }
 
+        function deleteAllNotifications() {
+            $.ajax({
+                url: "{{ url_for('notify.delete_all_notifications') }}",
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': "{{ csrf_token() }}" // 添加 CSRF 令牌
+                },
+                success: function () {
+                    $('#notification-list').empty().append('<li class="list-group-item">No new notifications.</li>');
+                },
+                error: function () {
+                    console.error("Failed to delete notifications.");
+                }
+            });
+        }
+
         $('#inbox-button').on('click', function (event) {
             event.preventDefault(); // 阻止默认点击行为
             fetchNotifications();
+        });
+
+        $('#delete-all-notifications').on('click', function (event) {
+            event.preventDefault(); // 阻止默认点击行为
+            deleteAllNotifications();
+        });
+
+        $('.close').on('click', function () {
+            $('#inbox-modal').fadeOut();
         });
     });
 </script>

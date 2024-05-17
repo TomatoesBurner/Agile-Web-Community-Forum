@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
 from hashlib import md5
 from app.extensions import db
-from app.models import UserModel, PostModel, CommentModel
+from app.models import UserModel, PostModel, CommentModel, Notification
 import os
 import time
 
@@ -74,12 +74,20 @@ def delete_post(post_id):
         return redirect(url_for('profile.overview_profile'))
 
     else:
+        # Delete comments related to the post
         comments = CommentModel.query.filter_by(post_id=post_id).all()
         for comment in comments:
             db.session.delete(comment)
+
+        # Delete notifications related to the post
+        notifications = Notification.query.filter_by(post_id=post_id).all()
+        for notification in notifications:
+            db.session.delete(notification)
+
+        # Delete the post itself
         db.session.delete(post)
         db.session.commit()
-        flash("Post and related comments deleted successfully.", "success")
+
 
     tab = request.args.get('tab', 'Posts')
     return redirect(url_for('profile.overview_profile', tab=tab))

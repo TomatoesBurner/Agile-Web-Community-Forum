@@ -46,13 +46,15 @@ def create_post():
     return render_template("posts.html", form=form)
 
 
-@postCom_bp.post("/comments/create")
+@postCom_bp.route("/comment/create", methods=['GET', 'POST'])
 @login_required
 def create_comment():
     form = CommentForm()
     if form.validate_on_submit():
         content = form.content.data
         post_id = form.post_id.data
+
+        # Create the comment
         comment = CommentModel(
             content=content,
             post_id=post_id,
@@ -60,9 +62,21 @@ def create_comment():
         )
         db.session.add(comment)
         db.session.commit()
+
+        # Update user points
         update_user_points(current_user, 5)
+
+        # Retrieve the post's author information
+        post = db.session.query(PostModel).filter_by(id=post_id).first()
+        if post and post.author:  # 确保帖子和作者存在
+            # 使用作者用户对象调用add_notification
+            truncated_title = ' '.join(post.title.split()[:5])
+            message_data = {
+                'message': f"Your post ('{truncated_title}...') has received a new comment by '{current_user.username}'."}
+            post.author.add_notification('new_comment', message_data, post_id=post_id)
+            db.session.commit()
         return redirect(url_for("postCom.post_detail", post_id=post_id))
-    post_id = form.post_id.data or request.form.get("post_id")
+    post_id = form.post_id.data or request.args.get("post_id")
     return redirect(url_for("postCom.post_detail", post_id=post_id))
 
 
