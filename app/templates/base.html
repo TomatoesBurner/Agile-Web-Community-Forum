@@ -24,31 +24,36 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-home"></i>&nbsp;Home
+                            <i class="fas fa-home"></i>
+                            <p class ="tag_name">Home</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
                            onclick="highlightIcon(this)">
-                            <i class="fas fa-seedling"></i>&nbsp;Gardening
+                            <i class="fas fa-seedling"></i>
+                            <p class ="tag_name">Gardening</p>
                         </a >
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
                            onclick="highlightIcon(this)">
-                            <i class="fas fa-broom"></i>Housework
+                            <i class="fas fa-broom"></i>
+                            <p class ="tag_name">Housework</p>
                         </a >
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
                             onclick="highlightIcon(this)">
-                            <i class="fas fa-school"></i>AfterSchool
+                            <i class="fas fa-school"></i>
+                            <p class ="tag_name">AfterSchool</p>
                         </a >
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
                            onclick="highlightIcon(this)">
-                            <i class="fas fa-question"></i>&nbsp;Question
+                            <i class="fas fa-question"></i>
+                            <p class ="tag_name">Question</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -172,7 +177,7 @@
                 success: function (data) {
                     let notifications = data.notifications;
                     let notificationList = $('#notification-list');
-                    notificationList.empty(); // 清空当前通知列表
+                    notificationList.empty();
 
                     if (notifications.length > 0) {
                         notifications.forEach(function (notification) {
@@ -189,8 +194,8 @@
                         notificationList.append('<li class="list-group-item">No new notifications.</li>');
                     }
 
-                    $('#overlay').show(); // 显示遮罩
-                    $('#inbox-modal').fadeIn(); // 显示弹窗
+                    $('#overlay').show();
+                    $('#inbox-modal').fadeIn();
                 },
                 error: function () {
                     console.error("Failed to fetch notifications.");
@@ -202,7 +207,7 @@
                 url: "{{ url_for('notify.delete_all_notifications') }}",
                 type: 'POST',
                 headers: {
-                    'X-CSRFToken': "{{ csrf_token() }}" // 添加 CSRF 令牌
+                    'X-CSRFToken': "{{ csrf_token() }}" //add crsf
                 },
                 success: function () {
                     $('#notification-list').empty().append('<li class="list-group-item">No new notifications.</li>');
@@ -214,23 +219,23 @@
         }
 
         $('#inbox-button').on('click', function (event) {
-            event.preventDefault(); // 阻止默认点击行为
+            event.preventDefault();
             fetchNotifications();
         });
 
         $('#delete-all-notifications').on('click', function (event) {
-            event.preventDefault(); // 阻止默认点击行为
+            event.preventDefault(); //
             deleteAllNotifications();
         });
 
         $('.close').on('click', function () {
             $('#inbox-modal').fadeOut();
-            $('#overlay').fadeOut(); // 隐藏遮罩
+            $('#overlay').fadeOut(); //
         });
 
         $('#overlay').on('click', function () {
             $('#inbox-modal').fadeOut();
-            $('#overlay').fadeOut(); // 点击遮罩时隐藏遮罩和弹窗
+            $('#overlay').fadeOut(); //
         });
     });
 </script>
