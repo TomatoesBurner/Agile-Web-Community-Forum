@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import current_user, login_required
+from flask_login import current_user,login_required
 from app.models import PostModel, CommentModel
 from app.forms import PostForm, CommentForm
 from app.extensions import db
@@ -89,11 +89,14 @@ def update_user_points(user, points):
 def search():
     query = request.args.get('query', '')
     scope = request.args.get('scope', 'all')  # 获取搜索范围参数，默认搜索全部
+
     if query:
         if scope == 'title':
             posts = PostModel.query.filter(PostModel.title.ilike(f'%{query}%')).all()
         elif scope == 'content':
             posts = PostModel.query.filter(PostModel.content.ilike(f'%{query}%')).all()
+        elif scope == 'postcode':
+            posts = PostModel.query.filter(PostModel.postcode == query).all()
         else:
             posts = PostModel.query.filter(
                 db.or_(

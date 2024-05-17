@@ -34,6 +34,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(6, 20)])
     submit = SubmitField('Sign In')
+    remember = BooleanField('Remember Me') # 记住我功能
 
 class PostForm(FlaskForm):
     title = StringField('title', validators=[Length(min=3, max=50), DataRequired()])
@@ -45,7 +46,7 @@ class PostForm(FlaskForm):
         ('QA', 'Question'),
         ('Others', 'Others')
     ], validators=[InputRequired(message="please select type")])
-    postcode = StringField('postcode', validators=[InputRequired(message="missing postcode!"),Length(1,10)])
+    postcode = StringField('postcode', validators=[InputRequired(message="missing postcode!"),Length(1,4)])
     submit = SubmitField('POST')
 
 

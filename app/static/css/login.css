@@ -86,6 +86,16 @@ section {
   transition: border-color 0.3s ease;
 }
 
+.remember {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top:20px;
+}
+
+.remember-checkbox {
+  padding-top: 10px;
+}
+
 .login-btn {
   width: 348px;
   padding: 10px;

@@ -57,7 +57,7 @@ html {
     display: none;
 }
 
-.user-info {
+.right-corner {
     display: flex;
     align-items: center;
 }
@@ -138,14 +138,9 @@ html {
 
 .username {
     position: absolute;
-    margin-bottom: 30px;
-    margin-left: 55px;
+    margin-bottom: 60px;
 }
 
-.userEmail {
-    margin-top: 20px;
-    margin-right: 50px;
-}
 
 .Leftsidebar {
     position: fixed;
