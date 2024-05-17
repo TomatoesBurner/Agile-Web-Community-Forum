@@ -4,6 +4,7 @@ from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
 from hashlib import md5
 from app.extensions import db
 from app.models import UserModel, PostModel, CommentModel
+from app.utils.wordsban import filter_bad_words
 import os
 import time
 
@@ -28,6 +29,7 @@ def overview_profile():
                            avatar_form=avatar_form,
                            about_me_form=about_me_form,
                            username_form=username_form)
+
 
 # Route to serve user avatars
 @profile_bp.route('/avatars/<path:filename>')
@@ -54,12 +56,11 @@ def edit_profile():
 def edit_username():
     username_form = EditUsernameForm()
     if username_form.validate_on_submit():
-        new_username = username_form.username.data
+        new_username = filter_bad_words(username_form.username.data)
         current_user.username = new_username
         db.session.commit()
         return redirect(url_for('profile.overview_profile'))
     else:
-        print(username_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
 # View function to handle post deletion

@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from flask_login import current_user,login_required
+from flask_login import current_user, login_required
 from app.models import PostModel, CommentModel
 from app.forms import PostForm, CommentForm
 from app.extensions import db
-
+from app.utils.wordsban import filter_bad_words
 
 postCom_bp = Blueprint("postCom", __name__)
+
 
 @postCom_bp.route('/index')
 @login_required
@@ -21,17 +22,20 @@ def index():
     return render_template('index.html', posts=posts, post_type=post_type)
 
 
+
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])
 @login_required
 def create_post():
     form = PostForm()
     if form.validate_on_submit():
+        title = filter_bad_words(form.title.data)
+        content = filter_bad_words(form.content.data)
         post = PostModel(
-            title = form.title.data,
-            content = form.content.data,
-            post_type = form.post_type.data,
-            author_id = current_user.id,
-            postcode = form.postcode.data,
+            title=title,
+            content=content,
+            post_type=form.post_type.data,
+            author_id=current_user.id,
+            postcode=form.postcode.data,
         )
         db.session.add(post)
         db.session.commit()
@@ -46,7 +50,7 @@ def create_post():
 def create_comment():
     form = CommentForm()
     if form.validate_on_submit():
-        content = form.content.data
+        content = filter_bad_words(form.content.data)
         post_id = form.post_id.data
         comment = CommentModel(
             content=content,
