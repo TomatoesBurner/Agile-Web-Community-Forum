@@ -22,56 +22,54 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-home"></i>&nbsp;
-                            <p class="tag_name">Home</p>
+                            <i class="fas fa-home"></i>&nbsp;Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-seedling"></i>&nbsp;
-                            <p class="tag_name">Gardening</p>
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-seedling"></i>&nbsp;Gardening
+                        </a >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-broom"></i>Housework
+                        </a >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
+                            onclick="highlightIcon(this)">
+                            <i class="fas fa-school"></i>AfterSchool
+                        </a >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-question"></i>&nbsp;Question
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-broom"></i>
-                            <p class="tag_name">Housework</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-school"></i>
-                            <p class="tag_name">AfterSchool</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-question"></i>&nbsp;
-                            <p class="tag_name">Question</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}" onclick="highlightIcon(this)">
-                            <i class="fas fa-ellipsis-h"></i>
-                            <p class="tag_name">Other</p>
-                        </a>
+                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
+                           onclick="highlightIcon(this)">
+                            <i class="fas fa-ellipsis-h"></i>Other</a >
                     </li>
                 </ul>
             </nav>
         </div>
     </aside>
-
-    <header class="top-navbar">
+        <header class="top-navbar">
         <div class="logo">
             <img src="{{ url_for('static', filename='images/TOUCH_logo.png') }}" alt="Company Logo">
         </div>
         <div class="search-container">
             <form action="{{ url_for('postCom.search') }}" method="get">
-                <select name="search_type">
-                    <option value="Title">Title</option>
-                    <option value="Comment">Content</option>
+                <select name="scope">
+                    <option value="title" {% if request.args.get('scope') == 'title' %}selected{% endif %}>Title</option>
+                    <option value="content" {% if request.args.get('scope') == 'content' %}selected{% endif %}>Content</option>
+                    <option value="postcode" {% if request.args.get('scope') == 'postcode' %}selected{% endif %}>Postcode</option>
                 </select>
-                <input type="text" name="query" placeholder="Search...">
+                <input type="text" name="query" placeholder="Search..." value="{{ request.args.get('query', '') }}">
                 <button type="submit"></button>
             </form>
         </div>
@@ -112,12 +110,12 @@
             <div class="statistics">
                 <div class="stat-item">
                     <div class="stat-box posts">
-                        <p class="stat-label" value="{{ total_posts }}">POSTS</p>
+                        <p class="stat-label" value="{{ total_posts }}">POSTS</p >
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-box comments">
-                        <p class="stat-label" value="{{ total_comments }}">COMMENTS</p>
+                        <p class="stat-label" value="{{ total_comments }}">COMMENTS</p >
                     </div>
                 </div>
             </div>
