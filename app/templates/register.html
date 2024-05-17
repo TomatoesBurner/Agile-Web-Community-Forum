@@ -1,4 +1,3 @@
-<!-- Register page -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,13 +60,14 @@
                     <div class="form-group">
                         <label for="confirm-password">Confirm Password</label>
                         {{ form.password_confirm(id="confirm-password") }}
-                        <!-- {% if form.password_confirm.errors %}
-                        <div class="error">
-                            {% for error in form.password_confirm.errors %}
-                            <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                        {% endif %} -->
+                    </div>
+                    <div class="form-group">
+                        <label for="security_question">Security Question</label>
+                        {{ form.security_question(id="security_question") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="security_answer">Security Answer</label>
+                        {{ form.security_answer(id="security_answer") }}
                     </div>
                     <button type="submit">Register</button>
                 </form>

@@ -20,6 +20,9 @@ class UserModel(UserMixin, db.Model):
     aboutme = db.Column(db.String(100))
     join_time = db.Column(db.DateTime, default=datetime.now)
     points = db.Column(db.Integer, default=0)
+    # security
+    security_question = db.Column(db.String(255), nullable=False)
+    security_answer_hash = db.Column(db.String(255), nullable=False)
     #relationship
     posts = db.relationship('PostModel', backref='author', lazy=True)
     comments = db.relationship('CommentModel', backref='author', lazy=True)
@@ -29,6 +32,12 @@ class UserModel(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def set_security_answer(self, answer):
+        self.security_answer_hash = generate_password_hash(answer)
+
+    def check_security_answer(self, answer):
+        return check_password_hash(self.security_answer_hash, answer)
 
 
 class PostModel(db.Model):
