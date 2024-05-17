@@ -134,8 +134,7 @@ a:hover {
 .title_date {
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    margin-left: 100px;
+    gap: 20px;
 }
 
 .summary {
@@ -164,35 +163,75 @@ a:hover {
     margin-right: 15px;
 }
 
-
 @media (max-width: 768px) {
     .main_container {
-        width: 95%;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
-    .post-header,
-    .post-content {
+    .main {
+        width: 70%; /* 使用更大比例的宽度 */
+    }
+
+    .post {
+        margin-right: 0px; /* 减小右边距 */
+        margin-left: 40px;
+        margin-top: 65px;
+    }
+
+    .post-content, .post-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .iconright {
-        align-self: flex-end;
+        margin-left: 0; /* 修正图标位置 */
+    }
+
+    .date {
+        margin-right: 10px; /* 调整日期的右边距 */
     }
 
     .title_date {
-        width: 100%;
-        justify-content: space-between;
+        flex-direction: column; /* 将标题和日期垂直排列 */
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) { /*phone*/
+    .publish {
+        width: 100px; /* 调整按钮宽度 */
+        font-size: 16px; /* 调整字体大小 */
     }
 
-    .summary {
-        width: 100%;
+    .post h2 {
+        font-size: 18px; /* 调整标题字体大小 */
+    }
+
+    .summary, .date {
+        font-size: 0.8em; /* 调整摘要和日期的字体大小 */
+    }
+
+    .iconleft, .iconright {
+        width: 50px;
+        height: 50px; /* 调整图标尺寸 */
     }
 
     .tag {
-        align-self: flex-start;
+        width: 50px; /* 调整标签宽度 */
+        height: 20px; /* 调整标签高度 */
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape) { /*pad*/
+    .main_container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .post-header, .post-content {
+        flex-direction: row;
+        align-items: center;
     }
 }
 

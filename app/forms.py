@@ -13,6 +13,8 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), Length(6, 20, message="")])
     password_confirm = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password', message="Inconsistency between two passwords entered")])
+    security_question = StringField('Security Question', validators=[DataRequired(), Length(1, 255)])
+    security_answer = StringField('Security Answer', validators=[DataRequired(), Length(1, 255)])
     submit = SubmitField('Register')
 
     def validate_email(self, field):
@@ -25,6 +27,7 @@ class RegisterForm(FlaskForm):
         user = UserModel.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username.')
+
 
 
 class LoginForm(FlaskForm):
@@ -70,3 +73,16 @@ class EditUsernameForm(FlaskForm):
         user = UserModel.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username.')
+
+class ForgotPasswordForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Submit')
+
+class SecurityQuestionForm(FlaskForm):
+    security_answer = StringField('Answer', validators=[DataRequired(), Length(1, 30)])
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(6, 20)])
+    confirm_password = PasswordField(
+        'Repeat New Password', validators=[DataRequired(), EqualTo('new_password', message='Passwords must match')])
+    submit = SubmitField('Reset Password')
+
+

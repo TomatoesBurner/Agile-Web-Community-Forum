@@ -174,19 +174,8 @@ html {
     height: calc(100% - 50px);
     padding: 20px;
     padding-left: 5px;
-    ;
     margin-top: 20px;
     background: linear-gradient(#F8FCFF, #d1e0f5);
-}
-
-.sidebar {
-    width: 250px;
-    min-height: 100vh;
-    background: linear-gradient(to bottom, #F8FCFF 0%, #B4CCEF 100%);
-    color: #292b2c;
-    display: flex;
-    flex-direction: column;
-    position: relative;
 }
 
 .logo {
@@ -195,6 +184,12 @@ html {
     padding: 10px 15px;
 }
 
+.nav-item {
+    margin-bottom: 20px;
+}
+.nav-item p{
+    margin-bottom: 1px;
+}
 .nav-link {
     display: flex;
     align-items: center;
@@ -432,4 +427,105 @@ html {
 .stat-label:hover::before {
     opacity: 1;
     letter-spacing: 2px;
+}
+
+/* 对于平板和手机等小屏设备 */
+/* 针对最大宽度为480px的屏幕进行样式调整 */
+@media (max-width: 480px) {
+    /* 减少顶部导航栏高度 */
+    .top-navbar {
+        padding: 10px 10px; /* 减少内边距 */
+        height: auto; /* 自适应高度 */
+    }
+
+    .Leftsidebar {
+        width:8%;
+        padding-top: 120px;
+    }
+    .nav-item {
+        padding-top: 10px;
+    }
+    .nav-item p{
+        display: none;
+    }
+    /* 搜索容器调整 */
+    .search-container select {
+        display: none;
+    }
+
+    .search-container input[type="text"] {
+        border-radius: 25px;
+        margin-top: 0px !important;
+    }
+}
+
+
+
+@media (max-width: 1024px) {
+    .Leftsidebar {
+        width: 20%;  /* 缩小左侧边栏的宽度 */
+    }
+
+    .Rightsidebar {
+        display: none;  /* 隐藏右侧边栏 */
+    }
+
+    .search-container {
+        width: 100%;  /* 搜索容器宽度调整为100% */
+        padding: 0 10px; /* 增加内边距 */
+        margin-left: 90px;
+    }
+
+    .nav-link {
+        font-size: 14px; /* 减小导航链接的字体大小 */
+    }
+}
+
+/* 对于更小的屏幕，如大多数手机 */
+@media (max-width: 768px) {
+    .top-navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Leftsidebar {
+        width:20%;
+        padding-top: 120px;
+    }
+
+    .nav-item {
+        padding-top: 10px;
+    }
+    .search-container {
+        flex-direction: column;
+        margin-left: 0px;
+    }
+    .search-container select {
+        display: none;
+    }
+
+    .search-container input[type="text"] {
+        border-radius: 25px;
+        margin-top: 10px;
+    }
+
+
+    .Rightsidebar {
+        display: none;
+    }
+
+    .user-info {
+        margin-top: 10px;
+    }
+}
+
+/* 对于横屏模式的设备 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .Rightsidebar {
+        display: none; /* 横屏时隐藏侧边栏 */
+    }
+
+    .top-navbar {
+        flex-wrap: wrap; /* 顶部导航包裹 */
+    }
 }

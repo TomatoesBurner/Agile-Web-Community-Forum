@@ -11,8 +11,7 @@
     <main class="main">
         <div class="post" tabindex="0">
             <div class="info-container">
-                <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="..."
-                     class="img-circle">
+                <img src="{{ url_for('profile.get_avatar', filename=post.author.avatar) }}" alt="..." class="img-circle">
                 <p>{{ post.author.username }}</p>
                 <p class="create-time">{{ post.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
             </div>
@@ -39,7 +38,7 @@
         {% for comment in comments %}
         <div class="comment {% if comment.id == post.accepted_answer_id %}accepted-comment{% endif %}" tabindex="0">
             <div class="info-container">
-                <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="User Avatar" class="img-circle">
+                <img src="{{ url_for('profile.get_avatar', filename=comment.author.avatar) }}" alt="User Avatar" class="img-circle">
                 <p>{{ comment.author.username }}</p>
                 <p class="comment-time">{{ comment.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
             </div>
