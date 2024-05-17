@@ -116,6 +116,8 @@
                     </div>
                 </div>
             </div>
+
+          <div id="overlay" class="overlay"></div>
         </div>
     </header>
     <aside class="Rightsidebar">
@@ -187,14 +189,14 @@
                         notificationList.append('<li class="list-group-item">No new notifications.</li>');
                     }
 
-                    $('#inbox-modal').show(); // 显示通知框
+                    $('#overlay').show(); // 显示遮罩
+                    $('#inbox-modal').fadeIn(); // 显示弹窗
                 },
                 error: function () {
                     console.error("Failed to fetch notifications.");
                 }
             });
         }
-
         function deleteAllNotifications() {
             $.ajax({
                 url: "{{ url_for('notify.delete_all_notifications') }}",
@@ -223,6 +225,12 @@
 
         $('.close').on('click', function () {
             $('#inbox-modal').fadeOut();
+            $('#overlay').fadeOut(); // 隐藏遮罩
+        });
+
+        $('#overlay').on('click', function () {
+            $('#inbox-modal').fadeOut();
+            $('#overlay').fadeOut(); // 点击遮罩时隐藏遮罩和弹窗
         });
     });
 </script>
