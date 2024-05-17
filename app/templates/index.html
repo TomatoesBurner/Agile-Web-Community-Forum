@@ -2,29 +2,36 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<script>
+    const heart2IconUrl = "{{ url_for('static', filename='images/icons/heart2.png') }}";
+</script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<div class="main_container">
-    <main class="main">
-        <button onclick="location.href='{{ url_for('postCom.create_post') }}'" class="publish">+ Publish</button>
-        {% for post in posts %}
-        <a href="{{ url_for('postCom.post_detail', post_id=post.id) }}" class="post" tabindex="0">
-            <img src="{{ url_for('static', filename='images/icons/' + post.post_type|lower + '.png') }}" alt="Left Icon" class="iconleft">
-            <div class="title_date">
-                <h2>{{ post.title }}</h2>
-                <div class="date">{{ post.create_time.strftime('%d %B') }}</div>
-            </div>
-            <div class="summary">{{ post.content | truncate(100) }}...
-                <p class="read">Read More</p>
-            </div>
-            <div class="tag">{{ post.postcode }}</div>
-            <img src="{{ url_for('static', filename='images/icons/heart1.png') }}" alt="Heart Icon" class="iconright">
-        </a>
-        {% endfor %}
-    </main>
-    <!-- Pagination -->
-    <nav aria-label="Page navigation">
+    <div class="main_container">
+        <main class="main">
+            <button onclick="location.href='{{ url_for('postCom.create_post') }}'" class="publish">+ Publish</button>
+            {% for post in posts %}
+            <a href="{{ url_for('postCom.post_detail', post_id=post.id) }}" class="post" tabindex="0">
+                <img src="{{ url_for('static', filename='images/icons/' + post.post_type|lower + '.png') }}" alt="Left Icon" class="iconleft">
+                <div class="title_date">
+                    <h2>{{ post.title | truncate(100) }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="date">{{ post.create_time.strftime('%d %B %Y %H:%M') }}</span></h2>
+                </div>
+                <div class="summary">{{ post.content | truncate(100) }}...
+                    <p class="read">Read More</p>
+                </div>
+                <div class="tag">{{ post.postcode }}</div>
+
+                {% for comment in post.comments %}
+                    {% if comment.id == post.accepted_answer_id %}
+                    <img src="{{ url_for('static', filename='images/icons/heart2.png') }}" alt="Heart Icon" class="iconright">
+                    {% endif %}
+                {% endfor %}
+            </a>
+            {% endfor %}
+        </main>
+            <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if pagination.has_prev %}
             <li class="page-item">
@@ -71,5 +78,5 @@
             {% endif %}
         </ul>
     </nav>
-</div>
+    </div>
 {% endblock %}
