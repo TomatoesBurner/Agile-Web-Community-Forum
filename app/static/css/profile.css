@@ -90,6 +90,7 @@ body, html {
 .content-section {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     margin: 20px 0;
@@ -239,6 +240,10 @@ body, html {
     .dropdown {
         display: none;
     }
+
+    .dropdown {
+        display: none;
+    }
 }
 
 /*Adjust styles for pad screens */
@@ -246,6 +251,7 @@ body, html {
     .top-navbar {
         height: 40px
     }
+
 
     .main_container {
         padding-left: 200px;
@@ -270,6 +276,10 @@ body, html {
     .dropdown {
         display: none;
     }
+
+    .dropdown {
+        display: none;
+    }
 }
 
 /*Adjust styles for phone screens */
@@ -287,7 +297,10 @@ body, html {
     .my-avatar {
         width: 50px;
         height: 50px;
+        width: 50px;
+        height: 50px;
     }
+
 
     .post,
     .comment,
@@ -308,6 +321,10 @@ body, html {
     #comment-submit {
         font-size: 12px;
         padding: 8px;
+    }
+
+    .dropdown {
+        display: none;
     }
 
     .dropdown {
