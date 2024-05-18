@@ -25,39 +25,40 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index') }}" onclick="highlightIcon(this)">
                             <i class="fas fa-home"></i>
-                            <p class ="tag_name">Home</p>
+                            <p class="tag_name">Home</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='G') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-seedling"></i>
-                            <p class ="tag_name">Gardening</p>
-                        </a >
+                            <p class="tag_name">Gardening</p>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='HW') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-broom"></i>
-                            <p class ="tag_name">Housework</p>
-                        </a >
+                            <p class="tag_name">Housework</p>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='AC') }}"
-                            onclick="highlightIcon(this)">
+                           onclick="highlightIcon(this)">
                             <i class="fas fa-school"></i>
-                            <p class ="tag_name">AfterSchool</p>
-                        </a >
+                            <p class="tag_name">AfterSchool</p>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('postCom.index',type='QA') }}"
                            onclick="highlightIcon(this)">
                             <i class="fas fa-question"></i>
-                            <p class ="tag_name">Question</p>
+                            <p class="tag_name">Question</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}" onclick="highlightIcon(this)">
+                        <a class="nav-link" href="{{ url_for('postCom.index', type='Others') }}"
+                           onclick="highlightIcon(this)">
                             <i class="fas fa-ellipsis-h"></i>
                             <p class="tag_name">Other</p>
                         </a>
@@ -72,7 +73,7 @@
             </nav>
         </div>
     </aside>
-        <header class="top-navbar">
+    <header class="top-navbar">
         <div class="logo">
             <img src="{{ url_for('static', filename='images/TOUCH_logo.png') }}" alt="Company Logo">
         </div>
@@ -90,7 +91,7 @@
                 <button type="submit"></button>
             </form>
         </div>
-            <div class="user-info">
+        <div class="user-info">
             <div class="dropdown">
                 <img src="{{ url_for('profile.get_avatar', filename=current_user.avatar) }}" alt="Avatar" class="avatar"
                      id="avatarImage">
@@ -98,9 +99,9 @@
                     <a href="{{ url_for('profile.overview_profile')}}">Profile</a>
                     <a href="{{ url_for('auth.logout')}}">Log Out</a>
                 </div>
+                <span class="username">{{ current_user.username }}</span>
+                <span class="userEmail">{{ current_user.email }}</span>
             </div>
-            <span class="username">{{ current_user.username }}</span>
-            <span class="userEmail">{{ current_user.email }}</span>
             <div id="inbox-modal" class="modal" tabindex="-1" role="dialog" style="display:none;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -122,7 +123,7 @@
                 </div>
             </div>
 
-          <div id="overlay" class="overlay"></div>
+            <div id="overlay" class="overlay"></div>
         </div>
     </header>
     <aside class="Rightsidebar">
@@ -201,6 +202,7 @@
                 }
             });
         }
+
         function deleteAllNotifications() {
             $.ajax({
                 url: "{{ url_for('notify.delete_all_notifications') }}",

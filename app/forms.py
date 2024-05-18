@@ -45,7 +45,7 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    content = TextAreaField('content', validators=[Length(min=3,  max=1000)])
+    content = TextAreaField('content', validators=[Length(min=3,  max=1000), DataRequired()])
     post_id = IntegerField('post_id', validators=[InputRequired(message="missing post ID!")])
     submit = SubmitField('POST')
 
@@ -56,8 +56,6 @@ class UploadImageForm(FlaskForm):
                                            message="The maximum size of the image cannot exceed 1M!")])
 
 
-class EditAboutMeForm(FlaskForm):
-    aboutme = StringField(validators=[Length(min=1, max=50)])
 
 
 class EditUsernameForm(FlaskForm):

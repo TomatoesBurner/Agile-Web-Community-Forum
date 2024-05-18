@@ -1,5 +1,6 @@
 let dom = document.getElementsByClassName("word");
 let num = 0;
+
 setInterval(function(){
     num++;
     if(num>100){
