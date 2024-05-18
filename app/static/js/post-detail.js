@@ -1,6 +1,6 @@
 // post-detail.js
 $(document).ready(function () {
-    var maxLength = 200;
+    var maxLength = 1000;
 
     // 限制输入长度并实时显示字符数
     $('#comment-textarea').on('input', function () {

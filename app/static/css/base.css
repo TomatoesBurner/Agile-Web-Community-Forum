@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300&display=swap');
+
 body,
 html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: #F8FCFF;
+    scroll-behavior: smooth;
 }
 
 .bar_container {
@@ -37,7 +40,7 @@ html {
 }
 
 .search-container select {
-    padding: 6px;
+    padding: 3.73px;
     border-radius: 90px 0 0 90px;
     border: 1px solid #656ED3;
     border-right: 0px;
@@ -46,7 +49,7 @@ html {
 
 .search-container input[type="text"] {
     flex: 1;
-    padding: 3.5px;
+    padding: 3.52px;
     border-radius: 0 90px 90px 0;
     border: 1px solid #656ED3;
     outline: none;
@@ -138,7 +141,7 @@ html {
 
 .username {
     position: absolute;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 
@@ -257,9 +260,6 @@ html {
     top: 0;
     left: 50px;
     box-shadow: 0 0 5px #656ED3;
-}
-
-.loading:hover span {
     animation: animate 8s linear infinite;
     animation-delay: calc(var(--i)*0.1s);
 }
@@ -404,9 +404,23 @@ html {
     opacity: 1;
     letter-spacing: 2px;
 }
+/*inbox*/
+.overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 1040; /* 确保遮罩在弹窗下方但在其他内容上方 */
+    }
+.modal {
+        z-index: 1050; /* 确保弹窗在遮罩上方 */
+    }
 
-/* 对于平板和手机等小屏设备 */
-/* 针对最大宽度为480px的屏幕进行样式调整 */
+ /*响应式 */
+ /*针对最大宽度为480px的屏幕进行样式调整 */
 @media (max-width: 480px) {
     /* 减少顶部导航栏高度 */
     .top-navbar {

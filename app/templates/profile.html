@@ -67,7 +67,9 @@
                     <img src="{{ url_for('static', filename='images/icons/others.png') }}" alt="Others" class="icon-avatar">
                     {% endif %}
                     <div class="post-info">
-                        <h4><a href="{{ url_for('postCom.post_detail', post_id=post.id) }}">{{ post.title }}</a><span class="post-time">{{ post.create_time.strftime('%d %B %Y %H:%M') }}</span></h4>
+                        <h4><a href="{{ url_for('postCom.post_detail', post_id=post.id) }}">{{ post.title }}</a>
+                            <span class="post-time">{{ post.create_time.strftime('%d %B %Y %H:%M') }}</span>
+                        </h4>
                     </div>
                     <div class="delete-container">
                         <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete Icon" class="delete-icon" data-id="{{ post.id }}" data-type="post" onclick="confirmDelete('{{ post.id }}', 'post')">
@@ -96,7 +98,9 @@
                     <img src="{{ url_for('static', filename='images/icons/others.png') }}" alt="Others" class="icon-avatar">
                     {% endif %}
                     <div class="comment-details">
-                        <h4><a href="{{ url_for('postCom.post_detail', post_id=comment.post.id) }}">{{ comment.post.title }}</a><span class="comment-time">{{ comment.create_time.strftime('%d %B %Y %H:%M') }}</span></h4>
+                        <h4><a href="{{ url_for('postCom.post_detail', post_id=comment.post.id) }}">{{ comment.post.title }}</a>
+                            <span class="comment-time">{{ comment.create_time.strftime('%d %B %Y %H:%M') }}</span>
+                        </h4>
                     </div>
                     <div class="delete-container">
                         <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete Icon" class="delete-icon" data-id="{{ comment.id }}" data-type="comment" onclick="confirmDelete('{{ comment.id }}', 'comment')">

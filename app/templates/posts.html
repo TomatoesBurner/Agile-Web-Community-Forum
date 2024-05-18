@@ -56,14 +56,14 @@
             <div class="publish-section">
                 <label for="ideaInput" class="publish-label">Publish your idea:</label>
                 {{ form.title(id='ideaInput', class='idea-input', placeholder='Describe your task requirements.') }}
-                <div class="char-count" id="charCount">Max characters: 0/50</div>
+                <div class="char-count" id="charCount">Max characters: 0/200</div>
             </div>
 
             <div class="publish-section">
                 <label for="contentInput" class="publish-label">Publish your content:</label>
                 {{ form.content(id='contentInput', class='content-input', placeholder='Input your content here.')
                 }}
-                <div class="char-count" id="charCountContent">Max characters: 0/200</div>
+                <div class="char-count" id="charCountContent">Max characters: 0/1000</div>
             </div>
             {{ form.submit(class='submit-button') }}
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
