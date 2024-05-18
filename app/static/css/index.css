@@ -1,3 +1,4 @@
+/* initialization */
 .main_container {
     margin-top: 70px;
     padding-left: 200px;
@@ -13,20 +14,21 @@
     flex-direction: column;
 }
 
-
+/* Avoid content overflow */
 .title_date h2 {
-    white-space: normal; /* 允许换行 */
-    overflow-wrap: break-word; /* 避免内容溢出 */
-    word-wrap: break-word; /* 自动换行 */
-    max-width: 100%; /* 确保文本适应容器宽度 */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
-.post-info, .comment-details {
-    overflow: hidden; /* 确保容器内文本不溢出 */
-    width: 100%; /* 确保容器宽度为100% */
+.post-info,
+.comment-details {
+    overflow: hidden;
+    width: 100%;
 }
 
-
+/* Defined publish ability */
 .publish {
     background-color: #F8FCFF;
     border: 3px solid #7977FA;
@@ -46,6 +48,7 @@
     from {
         background-position: 0%;
     }
+
     to {
         background-position: 400%;
     }
@@ -55,20 +58,18 @@
     z-index: 1;
     border-color: transparent;
     color: white;
-    background: linear-gradient(
-            90deg,
+    background: linear-gradient(90deg,
             #f9d923,
             #04ede9,
             #36bcf0,
             #cb49ff,
-            #f9d923
-    );
+            #f9d923);
     background-size: 400%;
     animation: glow 12s linear forwards;
     animation-iteration-count: infinite;
 }
 
-
+/* Defined post style */
 .post {
     background-color: #ffffff;
     margin-top: 10px;
@@ -165,6 +166,7 @@ a:hover {
     margin-top: 16px;
 }
 
+/* Set up tag style */
 .tag {
     border-radius: 5px;
     color: #fcbc56;
@@ -177,6 +179,8 @@ a:hover {
     margin-right: 15px;
 }
 
+/*Responsive */
+/*Adjust styles for pad screens */
 @media (max-width: 1024px) {
     .main_container {
         padding-left: 150px;
@@ -184,23 +188,24 @@ a:hover {
     }
 
     .main {
-        width: 80%; /* 使用更大比例的宽度 */
+        width: 80%;
         margin-top: 10px;
     }
 
     .summary {
-        white-space: normal; /* 允许换行 */
-        overflow-wrap: break-word; /* 避免内容溢出 */
-        word-wrap: break-word; /* 自动换行 */
-        max-width: 100%; /* 确保文本适应容器宽度 */
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
     }
 
     .summary {
-        overflow: hidden; /* 确保容器内文本不溢出 */
-        width: 100%; /* 确保容器宽度为100% */
+        overflow: hidden;
+        width: 100%;
     }
 }
 
+/*Adjust styles for photo screens */
 @media (max-width: 768px) {
     .main_container {
         padding-left: 90px;
@@ -208,7 +213,7 @@ a:hover {
     }
 
     .main {
-        width: 75%; /* 使用更大比例的宽度 */
+        width: 75%;
         margin-top: 95px;
     }
 
@@ -216,40 +221,44 @@ a:hover {
         width: 100%;
     }
 
-    .post-content, .post-header {
+    .post-content,
+    .post-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .iconright {
-        margin-left: 0; /* 修正图标位置 */
+        margin-left: 0;
     }
 
     .date {
         font-size: 14px;
         color: #666;
         font-weight: bold;
-        margin-right: 10px; /* 调整日期的右边距 */
+        margin-right: 10px;
     }
 
     .title_date {
-        flex-direction: column; /* 将标题和日期垂直排列 */
+        flex-direction: column;
         gap: 5px;
-    }
-        .summary {
-        white-space: normal; /* 允许换行 */
-        overflow-wrap: break-word; /* 避免内容溢出 */
-        word-wrap: break-word; /* 自动换行 */
-        max-width: 100%; /* 确保文本适应容器宽度 */
     }
 
     .summary {
-        overflow: hidden; /* 确保容器内文本不溢出 */
-        width: 100%; /* 确保容器宽度为100% */
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+
+    .summary {
+        overflow: hidden;
+        width: 100%;
     }
 }
 
+/*Adjust styles for phone screens */
 @media (max-width: 480px) {
+
     /*phone*/
     .main_container {
         padding-left: 60px;
@@ -257,65 +266,67 @@ a:hover {
     }
 
     .main {
-        width: 75%; /* 使用更大比例的宽度 */
+        width: 75%;
         margin-top: 110px;
     }
 
     .post h2 {
-        font-size: 18px; /* 调整标题字体大小 */
+        font-size: 18px;
     }
 
     .summary {
-        white-space: normal; /* 允许换行 */
-        overflow-wrap: break-word; /* 避免内容溢出 */
-        word-wrap: break-word; /* 自动换行 */
-        max-width: 100%; /* 确保文本适应容器宽度 */
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
     }
 
     .summary {
-        overflow: hidden; /* 确保容器内文本不溢出 */
-        width: 100%; /* 确保容器宽度为100% */
+        overflow: hidden;
+        width: 100%;
     }
 
 
-    .summary, .date {
-        font-size: 0.8em; /* 调整摘要和日期的字体大小 */
+    .summary,
+    .date {
+        font-size: 0.8em;
     }
 
 
-    .iconleft, .iconright {
+    .iconleft,
+    .iconright {
         width: 50px;
-        height: 50px; /* 调整图标尺寸 */
+        height: 50px;
     }
 
     .tag {
-        width: 50px; /* 调整标签宽度 */
-        height: 20px; /* 调整标签高度 */
+        width: 50px;
+        height: 20px;
     }
 }
 
+/* For devices in landscape mode */
 @media (max-width: 768px) and (orientation: landscape) {
-    /*pad*/
     .main_container {
         padding-left: 15px;
         padding-right: 15px;
     }
 
-    .post-header, .post-content {
+    .post-header,
+    .post-content {
         flex-direction: row;
         align-items: center;
     }
-        .summary {
-        white-space: normal; /* 允许换行 */
-        overflow-wrap: break-word; /* 避免内容溢出 */
-        word-wrap: break-word; /* 自动换行 */
-        max-width: 100%; /* 确保文本适应容器宽度 */
+
+    .summary {
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
     }
 
     .summary {
-        overflow: hidden; /* 确保容器内文本不溢出 */
-        width: 100%; /* 确保容器宽度为100% */
+        overflow: hidden;
+        width: 100%;
     }
 }
-
-
