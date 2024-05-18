@@ -23,12 +23,6 @@ class RegisterForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email')
 
-    def validate_username(self, username):
-        user = UserModel.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different username.')
-
-
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -69,10 +63,6 @@ class EditAboutMeForm(FlaskForm):
 class EditUsernameForm(FlaskForm):
     username = StringField(validators=[Length(min=1, max=50)])
 
-    def validate_username(self, username):
-        user = UserModel.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different username.')
 
 class ForgotPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
