@@ -14,6 +14,7 @@ html {
     flex-wrap: wrap;
 }
 
+/* Define topbar */
 .top-navbar {
     display: flex;
     justify-content: space-between;
@@ -30,6 +31,12 @@ html {
 .logo img {
     height: 50px;
     width: 200px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
 }
 
 .search-container {
@@ -144,7 +151,7 @@ html {
     margin-bottom: 40px;
 }
 
-
+/* Define Left sidebar */
 .Leftsidebar {
     position: fixed;
     top: 50px;
@@ -155,12 +162,6 @@ html {
     padding-left: 5px;
     margin-top: 20px;
     background: linear-gradient(#F8FCFF, #d1e0f5);
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 10px 15px;
 }
 
 .nav-item {
@@ -180,6 +181,7 @@ html {
     margin-right: 12px;
 }
 
+/* Define Right sidebar */
 .Rightsidebar {
     position: fixed;
     top: 50px;
@@ -222,8 +224,6 @@ html {
     background-clip: text;
     cursor: default;
 }
-
-
 
 .points-circle {
     position: relative;
@@ -306,7 +306,6 @@ html {
         background: transparent;
     }
 }
-
 
 .statistics {
     display: flex;
@@ -413,19 +412,18 @@ html {
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         display: none;
-        z-index: 1040; /* 确保遮罩在弹窗下方但在其他内容上方 */
+        z-index: 1040; /* Make sure the mask is below the popup but above other content */
     }
 .modal {
-        z-index: 1050; /* 确保弹窗在遮罩上方 */
+        z-index: 1050;
     }
 
- /*响应式 */
- /*针对最大宽度为480px的屏幕进行样式调整 */
+/*Responsive */
+/*Adjust styles for small screens */
 @media (max-width: 480px) {
-    /* 减少顶部导航栏高度 */
     .top-navbar {
-        padding: 10px 10px; /* 减少内边距 */
-        height: auto; /* 自适应高度 */
+        padding: 10px 10px;
+        height: auto; /* adaptive height */
     }
 
     .Leftsidebar {
@@ -438,7 +436,7 @@ html {
     .nav-item p{
         display: none;
     }
-    /* 搜索容器调整 */
+
     .search-container select {
         display: none;
     }
@@ -450,28 +448,28 @@ html {
 }
 
 
-
+/*Adjust styles for laptop screens */
 @media (max-width: 1024px) {
     .Leftsidebar {
-        width: 20%;  /* 缩小左侧边栏的宽度 */
+        width: 20%;
     }
 
     .Rightsidebar {
-        display: none;  /* 隐藏右侧边栏 */
+        display: none;  /* Hide right sidebar */
     }
 
     .search-container {
-        width: 100%;  /* 搜索容器宽度调整为100% */
-        padding: 0 10px; /* 增加内边距 */
+        width: 100%;
+        padding: 0 10px;
         margin-left: 90px;
     }
 
     .nav-link {
-        font-size: 14px; /* 减小导航链接的字体大小 */
+        font-size: 14px;
     }
 }
 
-/* 对于更小的屏幕，如大多数手机 */
+/*Adjust styles for phone screens */
 @media (max-width: 768px) {
     .top-navbar {
         flex-direction: column;
@@ -509,13 +507,13 @@ html {
     }
 }
 
-/* 对于横屏模式的设备 */
+/* For devices in landscape mode */
 @media (max-width: 768px) and (orientation: landscape) {
     .Rightsidebar {
-        display: none; /* 横屏时隐藏侧边栏 */
+        display: none;
     }
 
     .top-navbar {
-        flex-wrap: wrap; /* 顶部导航包裹 */
+        flex-wrap: wrap;
     }
 }

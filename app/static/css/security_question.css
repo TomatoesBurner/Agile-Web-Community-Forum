@@ -1,3 +1,4 @@
+/* initialization */
 body {
   margin: 0;
   padding: 0;
@@ -11,6 +12,7 @@ body {
   justify-content: center;
 }
 
+/* same as register layout */
 .page-container {
   position: relative;
   display: flex;
@@ -116,8 +118,9 @@ a {
   color: #656ED3;
 }
 
-/* 以下是响应式 */
-/* 小屏设备（手机） */
+/*Responsive */
+/* Same as forget password */
+/*Adjust styles for phone screens */
 @media (max-width: 600px) {
 
   .page-container,
@@ -151,18 +154,16 @@ a {
 
   button {
     width: auto;
-    /* 自适应容器宽度 */
   }
 
   p {
     margin-left: 0;
     text-align: center;
-    /* 文本居中 */
   }
 }
 
-/* 中等屏设备（平板） */
-@media (min-width: 601px) and (max-width: 1024px) {
+/*Adjust styles for laptop screens */
+@media (max-width: 1024px) {
 
   .left-section,
   .right-section {
@@ -174,7 +175,6 @@ a {
   .form-group input,
   button {
     width: 90%;
-    /* 略小于容器宽度，增加边距美观 */
   }
 
   .home-button {
@@ -182,7 +182,7 @@ a {
   }
 }
 
-/* 大屏设备（桌面） */
+/*Adjust styles for larger screens */
 @media (min-width: 1025px) {
   .page-container {
     flex-direction: row;
@@ -193,7 +193,6 @@ a {
   .right-section {
     flex: 1;
     margin: 0 20px;
-    /* 增加左右边距 */
   }
 
   .image1 {
@@ -204,7 +203,6 @@ a {
   .form-group input,
   button {
     width: 100%;
-    /* 适中宽度，保持表单美观 */
   }
 
   p {
