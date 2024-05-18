@@ -16,6 +16,11 @@ section {
   padding: 16rem 10%;
 }
 
+/* hide the heading */
+.section-hidden {
+  display: none;
+}
+
 .page-container {
   display: flex;
   width: 100%;
