@@ -222,7 +222,9 @@ html {
     background-repeat: no-repeat;
     background-color: #4651c3;
     color: transparent;
+    /* Applies to WebKit browsers */
     -webkit-background-clip: text;
+    /* Standard property, but not widely supported */
     background-clip: text;
     cursor: default;
 }
@@ -389,7 +391,7 @@ html {
 }
 
 .stat-label::before {
-    content: attr(value);
+    content: attr(data-value);
     color: rgb(193, 35, 255) !important;
     font-size: 10px;
     font-weight: 600;

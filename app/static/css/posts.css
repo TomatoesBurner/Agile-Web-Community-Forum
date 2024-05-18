@@ -198,7 +198,7 @@
     width: calc(100% - 40px);
     margin-left: 0px;
     padding: 10px 0; /* 添加垂直内边距以增加按钮的高度 */
-    boder: none;
+    border: none;
     background-color: #D9E7FA; /* 设置背景颜色 */
     color: #88B2F2; /* 设置字体颜色 */
     cursor: pointer;
