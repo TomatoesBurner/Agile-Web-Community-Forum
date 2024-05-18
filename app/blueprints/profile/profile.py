@@ -1,6 +1,6 @@
 from flask import Blueprint, send_from_directory, current_app, redirect, url_for, render_template, flash,request
 from flask_login import current_user, login_required
-from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
+from app.forms import UploadImageForm, EditUsernameForm
 from hashlib import md5
 from app.extensions import db
 from app.utils.wordsban import filter_bad_words
@@ -19,7 +19,6 @@ def overview_profile():
     comments = CommentModel.query.filter_by(author_id=current_user.id).order_by(CommentModel.create_time.desc()).all()
 
     avatar_form = UploadImageForm()
-    about_me_form = EditAboutMeForm(obj=user)
     username_form = EditUsernameForm(obj=user)
 
     return render_template('profile.html',
@@ -27,7 +26,6 @@ def overview_profile():
                            posts=posts,
                            comments=comments,
                            avatar_form=avatar_form,
-                           about_me_form=about_me_form,
                            username_form=username_form)
 
 # Route to serve user avatars

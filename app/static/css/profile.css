@@ -14,11 +14,6 @@ body, html {
     height: 100%;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    padding: 1px;
-}
 
 .my-avatar {
     width: 130px;
@@ -92,7 +87,7 @@ body, html {
 
 .content-section {
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     margin: 20px 0;
@@ -132,7 +127,6 @@ body, html {
 }
 
 
-
 .post-time, .comment-time {
     margin-left: 30px;
     font-size: 14px;
@@ -164,9 +158,6 @@ body, html {
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 }
 
-.user-info {
-    display: none;
-}
 
 .post-text p,
 .comment-content p {
@@ -253,12 +244,17 @@ body, html {
     .comment-edit {
         max-width: 90%;
     }
+
+    .dropdown {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
     .top-navbar {
         height: 40px
     }
+
     .main_container {
         padding-left: 200px;
         padding-right: 50px;
@@ -278,6 +274,10 @@ body, html {
     #comment-textarea {
         height: 80px;
     }
+
+    .dropdown {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -292,9 +292,10 @@ body, html {
     }
 
     .my-avatar {
-        width:50px;
-        height:50px;
+        width: 50px;
+        height: 50px;
     }
+
     .post,
     .comment,
     .comment-edit {
@@ -314,5 +315,9 @@ body, html {
     #comment-submit {
         font-size: 12px;
         padding: 8px;
+    }
+
+    .dropdown {
+        display: none;
     }
 }
