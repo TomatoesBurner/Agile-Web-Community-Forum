@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="main_container">
+    <main class="main">
+        <form id="publishForm" method="POST" action="{{ url_for('postCom.create_post') }}">
+            <div class="section-section">
+                <label class="section-label">Select section:</label>
+                <div class="section-icons">
+                    <input type="hidden" id="sectionTypeInput" name="post_type" value="">
+                    <div class="icon-box" data-type="G">
+                        <img src="{{ url_for('static', filename='images/icons/g.png') }}" alt="Gardening">
+                        <span class="icon-text">Gardening</span>
+                    </div>
+                    <div class="icon-box" data-type="HW">
+                        <img src="{{ url_for('static', filename='images/icons/hw.png') }}" alt="Housework">
+                        <span class="icon-text">Housework</span>
+                    </div>
+                    <div class="icon-box" data-type="AC">
+                        <img src="{{ url_for('static', filename='images/icons/ac.png') }}" alt="After school">
+                        <span class="icon-text">After school</span>
+                    </div>
+                    <div class="icon-box" data-type="QA">
+                        <img src="{{ url_for('static', filename='images/icons/qa.png') }}" alt="Question">
+                        <span class="icon-text">Question</span>
+                    </div>
+                    <div class="icon-box" data-type="Others">
+                        <img src="{{ url_for('static', filename='images/icons/others.png') }}" alt="Others">
+                        <span class="icon-text">Others</span>
+                    </div>
+                </div>
+            </div>
+            <div class="error">
+                 {% if form.post_type.errors %}
+                 {% for error in form.post_type.errors %}
+                 <p style="color:red;">{{ error }}</p>
+                 {% endfor %}
+                 {% endif %}
+            </div>
+            <div class="postcode-section">
+             <label for="postcode" class="section-label">Enter Postcode:</label>
+             <input type="text" id="postcode" name="postcode" placeholder="Enter your postcode">
+                <div class="error">
+                 {% if form.postcode.errors %}
+                 {% for error in form.postcode.errors %}
+                 <p style="color:red;">{{ error }}</p>
+                 {% endfor %}
+                 {% endif %}
+                </div>
+            </div>
+            <div class="publish-section">
+                <label for="ideaInput" class="publish-label">Publish your idea:</label>
+                {{ form.title(id='ideaInput', class='idea-input', placeholder='Describe your task requirements.') }}
+                <div class="char-count" id="charCount">Max characters: 0/200</div>
+            </div>
+
+            <div class="publish-section">
+                <label for="contentInput" class="publish-label">Publish your content:</label>
+                {{ form.content(id='contentInput', class='content-input', placeholder='Input your content here.')
+                }}
+                <div class="char-count" id="charCountContent">Max characters: 0/1000</div>
+            </div>
+            {{ form.submit(class='submit-button') }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        </form>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/post.js') }}"></script>
+{% endblock %}
