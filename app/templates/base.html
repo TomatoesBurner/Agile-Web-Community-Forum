@@ -144,23 +144,22 @@
                 <script>
                     // 将Jinja变量放入全局JavaScript变量
                     var userPoints = {
-                    {
-                        current_user.points
-                    }
-                    }
-                    ;
+                        {
+                            current_user.points
+                        }
+                    };
                 </script>
                 <h1 id="memberStatus">Bronze Member</h1>
             </div>
             <div class="statistics">
                 <div class="stat-item">
                     <div class="stat-box posts">
-                        <p class="stat-label" value="{{ total_posts }}">POSTS</p>
+                        <p class="stat-label" data-value="{{ total_posts }}">POSTS</p>
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-box comments">
-                        <p class="stat-label" value="{{ total_comments }}">COMMENTS</p>
+                        <p class="stat-label" data-value="{{ total_comments }}">COMMENTS</p>
                     </div>
                 </div>
             </div>

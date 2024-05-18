@@ -15,6 +15,11 @@ section {
   padding: 16rem 10%;
 }
 
+/* hide the heading */
+.section-hidden {
+  display: none;
+}
+
 .page-container {
   display: flex;
   width: 100%;
@@ -114,7 +119,8 @@ section {
 }
 
 p {
-  margin-left: 95px;
+  position: absolute;
+  margin-left: 20px;
   font-size: 1.2rem;
 }
 
@@ -137,9 +143,7 @@ a {
   height: Auto;
 }
 
-/* 基本样式 */
-
-/* 小屏幕设备（手机） */
+/* responsive design(mobile phone) */
 @media (max-width: 768px) {
   .page-container {
     flex-direction: column;
@@ -186,7 +190,7 @@ a {
   }
 }
 
-/* 中等屏幕设备（平板） */
+/* responsive design(tablet) */
 @media (max-width: 1024px) {
   .page-container {
     flex-direction: row;
@@ -207,8 +211,7 @@ a {
   }
 }
 
-/* 以下是响应式布局 */
-/* 大屏幕设备 */
+/* responsive design(big screen) */
 @media (min-width: 1025px) {
   .page-container {
     flex-direction: row;

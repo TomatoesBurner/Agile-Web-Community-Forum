@@ -1,25 +1,32 @@
 {% extends "base.html" %}
 
 {% block head %}
+<!-- Stylesheets -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="main_container">
+    <!-- User Information Section-->
     <div class="user-info d-flex align-items-center">
+        <!-- User Avatar -->
         <img src="{{ url_for('profile.get_avatar', filename=user.avatar) }}" alt="User Avatar" class="my-avatar" id="avatarChange">
+        <!-- User Details -->
         <div class="user-details ml-3">
             <h1 id="usernameDisplay">{{ user.username }}</h1>
+            <!-- Change Username Link -->
             <a href="#" class="change" data-toggle="modal" data-target="#changeUsernameModal">Change User Name</a>
             <p class="email">{{ user.email }}</p>
         </div>
     </div>
 
+    <!-- Avatar Upload Form -->
     <form id="avatarForm" action="{{ url_for('profile.update_avatar') }}" method="post" enctype="multipart/form-data" style="display:none;">
         <input type="file" id="avatarInput" name="image" accept=".png, .jpg, .jpeg, .gif">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     </form>
 
+    <!-- Change Username Modal-->
     <div class="modal fade" id="changeUsernameModal" tabindex="-1" role="dialog" aria-labelledby="changeUsernameLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -43,6 +50,7 @@
         </div>
     </div>
 
+    <!-- Tabs for Posts and Comments -->
     <div class="tabs-container">
         <div class="tab" id="postsTab" onclick="toggleTab('Posts')" data-tab="Posts">Posts</div>
         <div class="tab" id="commentsTab" onclick="toggleTab('Comments')" data-tab="Comments">Comments</div>
@@ -50,11 +58,14 @@
 
     <hr class="divider">
 
+    <!-- Content Area for Posts and Comments -->
     <div class="content-area">
+        <!-- Posts Content Section -->
         <div id="postsContent" class="content-section">
             {% for post in posts %}
             <div class="post-item">
                 <div class="post-header">
+                    <!-- Post Type Icon -->
                     {% if post.post_type == 'G' %}
                     <img src="{{ url_for('static', filename='images/icons/g.png') }}" alt="Gardening" class="icon-avatar">
                     {% elif post.post_type == 'HW' %}
@@ -66,11 +77,13 @@
                     {% elif post.post_type == 'Others' %}
                     <img src="{{ url_for('static', filename='images/icons/others.png') }}" alt="Others" class="icon-avatar">
                     {% endif %}
+                    <!-- Post Information -->
                     <div class="post-info">
                         <h4><a href="{{ url_for('postCom.post_detail', post_id=post.id) }}">{{ post.title }}</a>
                             <span class="post-time">{{ post.create_time.strftime('%d %B %Y %H:%M') }}</span>
                         </h4>
                     </div>
+                    <!-- Delete Post Icon -->
                     <div class="delete-container">
                         <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete Icon" class="delete-icon" data-id="{{ post.id }}" data-type="post" onclick="confirmDelete('{{ post.id }}', 'post')">
                     </div>
@@ -82,10 +95,12 @@
             {% endfor %}
         </div>
 
+        <!-- Comments Content Section -->
         <div id="commentsContent" class="content-section" style="display: none;">
             {% for comment in comments %}
             <div class="comment-item">
                 <div class="comment-header">
+                    <!-- Comment Post Type Icon -->
                     {% if comment.post.post_type == 'G' %}
                     <img src="{{ url_for('static', filename='images/icons/g.png') }}" alt="Gardening" class="icon-avatar">
                     {% elif comment.post.post_type == 'HW' %}
@@ -97,11 +112,13 @@
                     {% elif comment.post.post_type == 'Others' %}
                     <img src="{{ url_for('static', filename='images/icons/others.png') }}" alt="Others" class="icon-avatar">
                     {% endif %}
+                    <!-- Comment Information -->
                     <div class="comment-details">
                         <h4><a href="{{ url_for('postCom.post_detail', post_id=comment.post.id) }}">{{ comment.post.title }}</a>
                             <span class="comment-time">{{ comment.create_time.strftime('%d %B %Y %H:%M') }}</span>
                         </h4>
                     </div>
+                    <!-- Delete Comment Icon -->
                     <div class="delete-container">
                         <img src="{{ url_for('static', filename='images/delete.png') }}" alt="Delete Icon" class="delete-icon" data-id="{{ comment.id }}" data-type="comment" onclick="confirmDelete('{{ comment.id }}', 'comment')">
                     </div>
@@ -115,6 +132,7 @@
     </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -141,5 +159,6 @@
     </div>
 </div>
 
+<!-- JavaScript Files-->
 <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% endblock %}

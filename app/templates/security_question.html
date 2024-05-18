@@ -5,24 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security Question</title>
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/forgot_password.css') }}">
 </head>
 
 <body>
     <div class="page-container">
+        <!-- Home Button -->
         <a href="{{ url_for('auth.login') }}" class="home-button">Home</a>
+        <!-- Left Section -->
         <div class="left-section">
             <div class="image1">
                 <img src="{{ url_for('static', filename='/images/register.png') }}" alt="security question">
             </div>
         </div>
+        <!-- Right Sectiion -->
         <div class="right-section">
+            <!-- Security Question Form Section -->
             <div class="register-section">
                 <form method="POST" action="{{ url_for('auth.security_question', email=email) }}">
+                    <!-- CSRF Token -->
                     {{ form.hidden_tag() }}
+                    <!-- Security Question Field -->
                     <div class="form-group">
-                        <label for="security-question">Security Question</label>
+                        <label for="security-answer">Security Question</label>
                         <p>{{ question }}</p>
                         {{ form.security_answer(id="security-answer") }}
                         {% if form.security_answer.errors %}
@@ -33,6 +40,7 @@
                         </div>
                         {% endif %}
                     </div>
+                    <!-- New Password Field -->
                     <div class="form-group">
                         <label for="new-password">New Password</label>
                         {{ form.new_password(id="new-password") }}
@@ -44,6 +52,7 @@
                         </div>
                         {% endif %}
                     </div>
+                    <!-- Confirm Password Field -->
                     <div class="form-group">
                         <label for="confirm-password">Confirm Password</label>
                         {{ form.confirm_password(id="confirm-password") }}
@@ -55,8 +64,10 @@
                         </div>
                         {% endif %}
                     </div>
+                    <!-- Submit Button -->
                     <button type="submit">Reset Password</button>
                 </form>
+                <!-- Link to Login -->
                 <p>Remembered your password? <a href="{{ url_for('auth.login') }}">Login!</a></p>
             </div>
         </div>

@@ -89,7 +89,7 @@ class Notification(db.Model):
     name = db.Column(db.String(128))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer)  # 与回复相关的帖子 ID
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
     payload_json = db.Column(db.Text)
 
     user = db.relationship('UserModel', back_populates='notifications')

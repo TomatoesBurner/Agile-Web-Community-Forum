@@ -187,7 +187,8 @@ a:hover {
         width: 80%; /* 使用更大比例的宽度 */
         margin-top: 10px;
     }
-        .summary {
+
+    .summary {
         white-space: normal; /* 允许换行 */
         overflow-wrap: break-word; /* 避免内容溢出 */
         word-wrap: break-word; /* 自动换行 */
