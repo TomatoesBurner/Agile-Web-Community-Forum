@@ -231,10 +231,6 @@ html {
     cursor: default;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a7a16c916c921d9a0ea48733783976b86ab1597
 .points-circle {
     position: relative;
 }
@@ -369,7 +365,7 @@ html {
     align-items: center;
     width: 100px;
     height: 50px;
-    margin: 0; /* 去除外边距 */
+    margin: 0; 
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -418,7 +414,6 @@ html {
 
 /*inbox*/
 .overlay {
-<<<<<<< HEAD
         position: fixed;
         top: 0;
         left: 0;
@@ -428,22 +423,6 @@ html {
         display: none;
         z-index: 1040; /* Make sure the mask is below the popup but above other content */
     }
-.modal {
-        z-index: 1050;
-    }
-
-/*Responsive */
-/*Adjust styles for small screens */
-=======
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 1040; /* 确保遮罩在弹窗下方但在其他内容上方 */
-}
 
 .modal-body {
     max-height: 600px; /* 根据需要调整高度 */
@@ -455,9 +434,8 @@ html {
 }
 
 
-/*响应式 */
-/*针对最大宽度为480px的屏幕进行样式调整 */
->>>>>>> 8a7a16c916c921d9a0ea48733783976b86ab1597
+/*Responsive */
+/*max width screen 480px */
 @media (max-width: 480px) {
     .top-navbar {
         padding: 10px 10px;
@@ -477,10 +455,6 @@ html {
         display: none;
     }
 
-<<<<<<< HEAD
-=======
-    /* 搜索容器调整 */
->>>>>>> 8a7a16c916c921d9a0ea48733783976b86ab1597
     .search-container select {
         display: none;
     }
@@ -495,7 +469,6 @@ html {
 /*Adjust styles for laptop screens */
 @media (max-width: 1024px) {
     .Leftsidebar {
-<<<<<<< HEAD
         width: 20%;
     }
 
@@ -503,21 +476,9 @@ html {
         display: none;  /* Hide right sidebar */
     }
 
-    .search-container {
+   .search-container {
         width: 100%;
-        padding: 0 10px;
-=======
-        width: 20%; /* 缩小左侧边栏的宽度 */
-    }
-
-    .Rightsidebar {
-        display: none; /* 隐藏右侧边栏 */
-    }
-
-    .search-container {
-        width: 100%; /* 搜索容器宽度调整为100% */
-        padding: 0 10px; /* 增加内边距 */
->>>>>>> 8a7a16c916c921d9a0ea48733783976b86ab1597
+        padding: 0 10px; 
         margin-left: 90px;
     }
 
@@ -528,12 +489,8 @@ html {
 
 }
 
-<<<<<<< HEAD
-/*Adjust styles for phone screens */
-=======
 
-/* 对于更小的屏幕，如大多数手机 */
->>>>>>> 8a7a16c916c921d9a0ea48733783976b86ab1597
+/*Adjust styles for phone screens */
 @media (max-width: 768px) {
     .top-navbar {
         flex-direction: column;
