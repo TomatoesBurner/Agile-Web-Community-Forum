@@ -1,20 +1,28 @@
-let dom = document.getElementsByClassName("word");
-let num = 0;
-setInterval(function(){
-    num++;
-    if(num>100){
-        num=0;
-    }
-    dom.innerHTML=num
-},100)
-
-// 高亮选中的导航图标
-function highlightIcon(selectedElement) {
-    $('.nav-link').css('opacity', '0.5').children('i').removeClass('active-icon');
-    $(selectedElement).css('opacity', '1').children('i').addClass('active-icon');
-}
-
-// 绑定点击事件到所有导航链接
-$('.nav-link').click(function () {
-    highlightIcon(this);
+document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('form.accept-form');
+    forms.forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const action = this.action;
+            fetch(action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrf_token'),
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const heartIcon = this.querySelector('.iconright');
+                    heartIcon.src = heart2IconUrl;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
 });
+

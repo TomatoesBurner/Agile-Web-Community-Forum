@@ -1,3 +1,4 @@
+/* initialization */
 .main_container {
     margin-top: 70px;
     padding-left: 200px;
@@ -13,6 +14,21 @@
     flex-direction: column;
 }
 
+/* Avoid content overflow */
+.title_date h2 {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.post-info,
+.comment-details {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Defined publish ability */
 .publish {
     background-color: #F8FCFF;
     border: 3px solid #7977FA;
@@ -32,6 +48,7 @@
     from {
         background-position: 0%;
     }
+
     to {
         background-position: 400%;
     }
@@ -41,20 +58,18 @@
     z-index: 1;
     border-color: transparent;
     color: white;
-    background: linear-gradient(
-        90deg,
-        #f9d923,
-        #04ede9,
-        #36bcf0,
-        #cb49ff,
-        #f9d923
-    );
+    background: linear-gradient(90deg,
+            #f9d923,
+            #04ede9,
+            #36bcf0,
+            #cb49ff,
+            #f9d923);
     background-size: 400%;
     animation: glow 12s linear forwards;
     animation-iteration-count: infinite;
 }
 
-
+/* Defined post style */
 .post {
     background-color: #ffffff;
     margin-top: 10px;
@@ -134,8 +149,7 @@ a:hover {
 .title_date {
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    margin-left: 100px;
+    gap: 20px;
 }
 
 .summary {
@@ -152,10 +166,11 @@ a:hover {
     margin-top: 16px;
 }
 
+/* Set up tag style */
 .tag {
-    border-radius: 18px;
-    background-color: #FFC25F;
-    color: white;
+    border-radius: 5px;
+    color: #fcbc56;
+    background-color: #ffeee2;
     height: 25px;
     width: 60px;
     display: flex;
@@ -164,36 +179,154 @@ a:hover {
     margin-right: 15px;
 }
 
-
-@media (max-width: 768px) {
+/*Responsive */
+/*Adjust styles for pad screens */
+@media (max-width: 1024px) {
     .main_container {
-        width: 95%;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 150px;
+        padding-right: 0px;
     }
 
-    .post-header,
-    .post-content {
+    .main {
+        width: 80%;
+        margin-top: 10px;
+    }
+
+    .summary {
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+
+    .summary {
+        overflow: hidden;
+        width: 100%;
+    }
+}
+
+/*Adjust styles for photo screens */
+@media (max-width: 768px) {
+    .main_container {
+        padding-left: 90px;
+        padding-right: 0px;
+    }
+
+    .main {
+        width: 75%;
+        margin-top: 95px;
+    }
+
+    .post {
+        width: 100%;
+    }
+
+    .post-content,
+    .post-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .iconright {
-        align-self: flex-end;
+        margin-left: 0;
+    }
+
+    .date {
+        font-size: 14px;
+        color: #666;
+        font-weight: bold;
+        margin-right: 10px;
     }
 
     .title_date {
-        width: 100%;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 5px;
     }
 
     .summary {
-        width: 100%;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
     }
 
-    .tag {
-        align-self: flex-start;
+    .summary {
+        overflow: hidden;
+        width: 100%;
     }
 }
 
+/*Adjust styles for phone screens */
+@media (max-width: 480px) {
 
+    /*phone*/
+    .main_container {
+        padding-left: 60px;
+        padding-right: 0px;
+    }
+
+    .main {
+        width: 75%;
+        margin-top: 110px;
+    }
+
+    .post h2 {
+        font-size: 18px;
+    }
+
+    .summary {
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+
+    .summary {
+        overflow: hidden;
+        width: 100%;
+    }
+
+
+    .summary,
+    .date {
+        font-size: 0.8em;
+    }
+
+
+    .iconleft,
+    .iconright {
+        width: 50px;
+        height: 50px;
+    }
+
+    .tag {
+        width: 50px;
+        height: 20px;
+    }
+}
+
+/* For devices in landscape mode */
+@media (max-width: 768px) and (orientation: landscape) {
+    .main_container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .post-header,
+    .post-content {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .summary {
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+
+    .summary {
+        overflow: hidden;
+        width: 100%;
+    }
+}

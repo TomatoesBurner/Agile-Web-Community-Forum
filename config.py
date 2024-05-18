@@ -13,4 +13,7 @@ class Config:
     AVATARS_SAVE_PATH = os.path.join(BASE_DIR, "media", "avatars")
 
     #session time
-    PERMANENT_SESSION_LIFETIME = timedelta(hours=1)
+    PERMANENT_SESSION_LIFETIME = timedelta(hours=3)
+
+    # Pagination
+    POSTS_PER_PAGE =10

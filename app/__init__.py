@@ -8,6 +8,7 @@ from .models import UserModel, PostModel, CommentModel
 from .blueprints.postCom.postCom import postCom_bp
 from .blueprints.profile.profile import profile_bp
 from .blueprints.auth.auth import auth_bp
+from app.blueprints.notification.notification import notify_bp
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -36,5 +37,6 @@ def create_app(config_class=Config):
     app.register_blueprint(auth_bp)
     app.register_blueprint(postCom_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(notify_bp)
 
     return app

@@ -1,4 +1,3 @@
-// Global function to toggle tabs
 function toggleTab(selectedTab) {
     console.log("Toggling tab to:", selectedTab);
     $('.tab').css('background-color', '#d8e6f8'); // Reset all tabs to default color
@@ -15,18 +14,18 @@ function toggleTab(selectedTab) {
 
 $(document).ready(function () {
     $('#usernameForm').on('submit', function (e) {
-        e.preventDefault();  // 防止表单的默认提交行为
-        var newUsername = $('#username').val().trim();  // 获取并清理输入值
+        e.preventDefault();  // Prevent default form submission
+        var newUsername = $('#username').val().trim();  // Get and clean input value
         if (newUsername) {
             console.log("Updating username to:", newUsername);
-            this.submit();  // 使用原生的 submit 方法提交表单
+            this.submit();  // Submit the form using the native submit method
         } else {
-            alert('Username cannot be empty.');  // 弹出警告如果用户名为空
+            alert('Username cannot be empty.');  // Show alert if username is empty
         }
     });
 
     $('#avatarChange').click(function () {
-        $('#avatarInput').click(); // 触发隐藏的文件输入
+        $('#avatarInput').click(); // Trigger hidden file input
     });
 
     $('#avatarInput').change(function () {
@@ -35,22 +34,22 @@ $(document).ready(function () {
         if (file) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#avatarChange').attr('src', e.target.result); // 预览新的头像
+                $('#avatarChange').attr('src', e.target.result); // Preview new avatar
             };
             reader.readAsDataURL(file);
-            // 提交表单以更新数据库中的头像
+            // Submit the form to update the avatar in the database
             $('#avatarForm').submit();
         }
     });
 
     $('#avatarForm').on('submit', function (e) {
-        // 设置一个小的延迟以确保预览可以显示
+        // Set a small delay to ensure the preview can be displayed
         setTimeout(function () {
-            location.reload(); // 提交表单后刷新页面
-        }, 1000); // 1秒的延迟时间
+            location.reload(); // Refresh the page after submitting the form
+        }, 1000); // 1 second delay
     });
 
-    // 鼠标悬停在头像上时更改光标样式
+    // Change cursor style when hovering over the avatar
     $('#avatarChange').hover(
         function () {
             $(this).css('cursor', 'pointer');
@@ -60,14 +59,14 @@ $(document).ready(function () {
         }
     );
 
-    // 当点击删除图标时，设置和显示模态框
+    // Set up and show modal when delete icon is clicked
     $('body').on('click', '.delete-icon', function () {
         var id = $(this).data('id');
         var type = $(this).data('type');
         confirmDelete(id, type);
     });
 
-    // 鼠标悬停时显示删除图标
+    // Show delete icon when hovering over post or comment item
     $('.post-item, .comment-item').hover(
         function () {
             $(this).find('.delete-container .delete-icon').css('display', 'block');

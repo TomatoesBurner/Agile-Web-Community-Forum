@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300&display=swap');
+
 body,
 html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: #F8FCFF;
+    scroll-behavior: smooth;
 }
 
 .bar_container {
@@ -11,6 +14,7 @@ html {
     flex-wrap: wrap;
 }
 
+/* Define topbar */
 .top-navbar {
     display: flex;
     justify-content: space-between;
@@ -29,6 +33,12 @@ html {
     width: 200px;
 }
 
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
 .search-container {
     display: flex;
     align-items: center;
@@ -37,7 +47,7 @@ html {
 }
 
 .search-container select {
-    padding: 6px;
+    padding: 3.73px;
     border-radius: 90px 0 0 90px;
     border: 1px solid #656ED3;
     border-right: 0px;
@@ -46,7 +56,7 @@ html {
 
 .search-container input[type="text"] {
     flex: 1;
-    padding: 3.5px;
+    padding: 3.52px;
     border-radius: 0 90px 90px 0;
     border: 1px solid #656ED3;
     outline: none;
@@ -57,7 +67,7 @@ html {
     display: none;
 }
 
-.user-info {
+.right-corner {
     display: flex;
     align-items: center;
 }
@@ -117,6 +127,8 @@ html {
     color: #727272;
 }
 
+
+
 @keyframes jump {
     0% {
         transform: translateY(0px);
@@ -138,15 +150,10 @@ html {
 
 .username {
     position: absolute;
-    margin-bottom: 30px;
-    margin-left: 55px;
+    margin-bottom: 40px;
 }
 
-.userEmail {
-    margin-top: 20px;
-    margin-right: 50px;
-}
-
+/* Define Left sidebar */
 .Leftsidebar {
     position: fixed;
     top: 50px;
@@ -155,25 +162,16 @@ html {
     height: calc(100% - 50px);
     padding: 20px;
     padding-left: 5px;
-    ;
     margin-top: 20px;
     background: linear-gradient(#F8FCFF, #d1e0f5);
 }
 
-.sidebar {
-    width: 250px;
-    min-height: 100vh;
-    background: linear-gradient(to bottom, #F8FCFF 0%, #B4CCEF 100%);
-    color: #292b2c;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+.nav-item {
+    margin-bottom: 20px;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 10px 15px;
+.nav-item p {
+    margin-bottom: 1px;
 }
 
 .nav-link {
@@ -187,6 +185,7 @@ html {
     margin-right: 12px;
 }
 
+/* Define Right sidebar */
 .Rightsidebar {
     position: fixed;
     top: 50px;
@@ -225,12 +224,12 @@ html {
     background-repeat: no-repeat;
     background-color: #4651c3;
     color: transparent;
+    /* Applies to WebKit browsers */
     -webkit-background-clip: text;
+    /* Standard property, but not widely supported */
     background-clip: text;
     cursor: default;
 }
-
-
 
 .points-circle {
     position: relative;
@@ -260,39 +259,38 @@ html {
     position: absolute;
     width: 5px;
     height: 25px;
-    transform: rotate(calc(var(--i)*18deg));
+    transform: rotate(calc(var(--i) * 18deg));
     transform-origin: 0 100px;
     content: '';
     position: absolute;
     top: 0;
     left: 50px;
     box-shadow: 0 0 5px #656ED3;
+    animation: animate 8s linear infinite;
+    animation-delay: calc(var(--i) * 0.1s);
 }
 
-.loading:hover span {
-    animation: animate 8s linear infinite;
-    animation-delay: calc(var(--i)*0.1s);
-}
+
 
 @keyframes animate {
     0% {
         background: #656ED3;
         box-shadow: 0 0 5px #656ED3,
-            0 0 10px #656ED3;
+        0 0 10px #656ED3;
         rotate: 0deg;
     }
 
     20% {
         background: #656ED3;
         box-shadow: 0 0 5px #656ED3,
-            0 0 10px #656ED3;
+        0 0 10px #656ED3;
         rotate: 0deg;
     }
 
     40% {
         background: #0f0;
         box-shadow: 0 0 5px #0f0,
-            0 0 10px #0f0;
+        0 0 10px #0f0;
         rotate: 90deg;
         filter: hue-rotate(0deg);
     }
@@ -300,7 +298,7 @@ html {
     80% {
         background: #0f0;
         box-shadow: 0 0 5px #0f0,
-            0 0 10px #0f0;
+        0 0 10px #0f0;
         rotate: 90deg;
         filter: hue-rotate(360deg);
     }
@@ -316,7 +314,6 @@ html {
         background: transparent;
     }
 }
-
 
 .statistics {
     display: flex;
@@ -368,7 +365,7 @@ html {
     align-items: center;
     width: 100px;
     height: 50px;
-    margin: 0; /* 去除外边距 */
+    margin: 0; 
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -394,7 +391,7 @@ html {
 }
 
 .stat-label::before {
-    content: attr(value);
+    content: attr(data-value);
     color: rgb(193, 35, 255) !important;
     font-size: 10px;
     font-weight: 600;
@@ -413,4 +410,132 @@ html {
 .stat-label:hover::before {
     opacity: 1;
     letter-spacing: 2px;
+}
+
+/*inbox*/
+.overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 1040; /* Make sure the mask is below the popup but above other content */
+    }
+
+.modal-body {
+    max-height: 600px; /* 根据需要调整高度 */
+    overflow-y: auto;
+}
+
+.modal {
+    z-index: 1050; /* 确保弹窗在遮罩上方 */
+}
+
+
+/*Responsive */
+/*max width screen 480px */
+@media (max-width: 480px) {
+    .top-navbar {
+        padding: 10px 10px;
+        height: auto; /* adaptive height */
+    }
+
+    .Leftsidebar {
+        width: 8%;
+        padding-top: 120px;
+    }
+
+    .nav-item {
+        padding-top: 10px;
+    }
+
+    .nav-item p {
+        display: none;
+    }
+
+    .search-container select {
+        display: none;
+    }
+
+    .search-container input[type="text"] {
+        border-radius: 25px;
+        margin-top: 0px !important;
+    }
+
+}
+
+/*Adjust styles for laptop screens */
+@media (max-width: 1024px) {
+    .Leftsidebar {
+        width: 20%;
+    }
+
+    .Rightsidebar {
+        display: none;  /* Hide right sidebar */
+    }
+
+   .search-container {
+        width: 100%;
+        padding: 0 10px; 
+        margin-left: 90px;
+    }
+
+    .nav-link {
+        font-size: 14px;
+    }
+
+
+}
+
+
+/*Adjust styles for phone screens */
+@media (max-width: 768px) {
+    .top-navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Leftsidebar {
+        width: 20%;
+        padding-top: 120px;
+    }
+
+    .nav-item {
+        padding-top: 10px;
+    }
+
+    .search-container {
+        flex-direction: column;
+        margin-left: 0px;
+    }
+
+    .search-container select {
+        display: none;
+    }
+
+    .search-container input[type="text"] {
+        border-radius: 25px;
+        margin-top: 10px;
+    }
+
+
+    .Rightsidebar {
+        display: none;
+    }
+
+
+}
+
+/* For devices in landscape mode */
+@media (max-width: 768px) and (orientation: landscape) {
+    .Rightsidebar {
+        display: none;
+    }
+
+    .top-navbar {
+        flex-wrap: wrap;
+    }
+
 }

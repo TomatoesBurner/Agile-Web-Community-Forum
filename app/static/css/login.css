@@ -1,3 +1,4 @@
+/* initialization */
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +14,11 @@ body {
 
 section {
   padding: 16rem 10%;
+}
+
+/* hide the heading */
+.section-hidden {
+  display: none;
 }
 
 .page-container {
@@ -50,7 +56,6 @@ section {
 
 .head-image img {
   margin-bottom: 30px;
-  /*margin-left: ;*/
   width: 110%;
   max-width: 140%;
   height: auto;
@@ -59,8 +64,8 @@ section {
 .login-section {
   flex: 1 1 45rem;
   width: 80%;
-  /* max-width: 80%; */
   padding-left: 2.5rem;
+  text-align: center;
 }
 
 .form-group {
@@ -72,6 +77,8 @@ section {
   font-weight: bold;
   display: block;
   margin-bottom: 10px;
+  text-align: left;
+  margin-left: 42px;
 }
 
 .form-group input {
@@ -85,6 +92,17 @@ section {
   transition: border-color 0.3s ease;
 }
 
+.remember {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top:20px;
+}
+
+.remember-checkbox {
+  padding-top: 10px;
+}
+
+/* defined button */
 .login-btn {
   width: 348px;
   padding: 10px;
@@ -103,7 +121,7 @@ section {
 }
 
 p {
-  margin-left: 95px;
+  text-align: center;
   font-size: 1.2rem;
 }
 
@@ -126,26 +144,27 @@ a {
   height: Auto;
 }
 
-/* 基本样式 */
-
-/* 小屏幕设备（手机） */
+/*Responsive */
+/*Adjust styles for phone screens */
 @media (max-width: 768px) {
   .page-container {
     flex-direction: column;
   }
 
-  .left-section,
-  .right-section {
+  .left-section {
     flex: 1 0 100%;
     height: auto;
     padding-left: 10px;
     padding-right: 10px;
   }
 
+  .right-section {
+    display: none;
+  }
+
   .logo {
     position: relative;
     width: 150px;
-    /* 减小Logo尺寸 */
     top: 5px;
     left: 10px;
   }
@@ -153,27 +172,23 @@ a {
   .form-group input,
   .login-btn {
     width: 100%;
-    /* 输入框和按钮宽度调整为100% */
   }
 
   p,
   .form-group label {
     margin-left: 0;
-    /* 调整文本对齐 */
     font-size: 1rem;
-    /* 调整字体大小 */
   }
 
   .head-image img {
     width: 100%;
     max-width: 100%;
-    /* 图片宽度调整 */
     margin-bottom: 15px;
   }
 }
 
-/* 中等屏幕设备（平板） */
-@media (min-width: 769px) and (max-width: 1024px) {
+/*Adjust styles for laptop screens */
+@media (max-width: 1024px) {
   .page-container {
     flex-direction: row;
   }
@@ -193,8 +208,7 @@ a {
   }
 }
 
-/* 以下是响应式布局 */
-/* 大屏幕设备 */
+/*Adjust styles for larger screens */
 @media (min-width: 1025px) {
   .page-container {
     flex-direction: row;
@@ -202,7 +216,6 @@ a {
 
   .left-section {
     flex: 0.8;
-    /* 稍微调整左侧部分的占比 */
   }
 
   .right-section {
@@ -216,6 +229,5 @@ a {
   .form-group input,
   .login-btn {
     width: 80%;
-    /* 调整为更合适的宽度 */
   }
 }

@@ -1,3 +1,4 @@
+/* initialization */
 .main_container {
     margin-top: 70px;
     padding-left: 20%;
@@ -14,12 +15,7 @@ body, html {
     height: 100%;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    padding: 1px;
-}
-
+/* avatar & user info  style set up */
 .my-avatar {
     width: 130px;
     height: 130px;
@@ -51,6 +47,7 @@ body, html {
     margin-bottom: 10px;
 }
 
+/* set container that displays posts and comments */
 .tabs-container {
     display: flex;
     width: 100%;
@@ -92,7 +89,8 @@ body, html {
 
 .content-section {
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     margin: 20px 0;
@@ -120,12 +118,25 @@ body, html {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 5px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
 }
+
+.post-info, .comment-details {
+    overflow: hidden;
+    width: 100%;
+}
+
 
 .post-time, .comment-time {
     margin-left: 30px;
     font-size: 14px;
     color: #666;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .post-item, .comment-item {
@@ -135,29 +146,32 @@ body, html {
     margin-bottom: 10px;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 5px;
     transition: 0.5s ease;
     cursor: pointer;
-    width: 100%; /* 确保容器宽度为100% */
-    max-width: 100%; /* 最大宽度为100% */
+    width: 100%;
+    max-width: 100%;
 }
 
 .post-item:hover, .comment-item:hover {
     transform: scale(1.05);
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 }
 
-.post-text p, .comment-content p {
+
+.post-text p,
+.comment-content p {
     font-size: 16px;
-    word-wrap: break-word; /* 自动换行 */
-    overflow-wrap: break-word; /* 避免内容溢出 */
-    white-space: pre-wrap; /* 保留空白字符并换行 */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
-.post-text, .comment-content {
+.post-text,
+.comment-content {
     padding-left: 100px;
 }
 
@@ -201,15 +215,119 @@ body, html {
     color: #656ED3;
 }
 
-#homeIcon {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    color: #007bff;
-    z-index: 2000;
-    text-decoration: none;
-}
 .search-container {
+    display: none;
+}
+
+/*Responsive */
+/*Adjust styles for laptop screens */
+@media (max-width: 1024px) {
+    .main_container {
+        padding-left: 250px;
+        padding-right: 100px;
+    }
+
+    .main {
+        width: 90%;
+    }
+
+    .post,
+    .comment,
+    .comment-edit {
+        max-width: 90%;
+    }
+
+    .dropdown {
         display: none;
     }
+
+    .dropdown {
+        display: none;
+    }
+}
+
+/*Adjust styles for pad screens */
+@media (max-width: 768px) {
+    .top-navbar {
+        height: 40px
+    }
+
+
+    .main_container {
+        padding-left: 200px;
+        padding-right: 50px;
+        padding-top: 20px;
+    }
+
+    .main {
+        width: 95%;
+    }
+
+    .post,
+    .comment,
+    .comment-edit {
+        max-width: 95%;
+    }
+
+    #comment-textarea {
+        height: 80px;
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .dropdown {
+        display: none;
+    }
+}
+
+/*Adjust styles for phone screens */
+@media (max-width: 480px) {
+    .main_container {
+        padding-left: 100px;
+        padding-right: 80px;
+        padding-top: 20px;
+    }
+
+    .main {
+        width: 80%;
+    }
+
+    .my-avatar {
+        width: 50px;
+        height: 50px;
+        width: 50px;
+        height: 50px;
+    }
+
+
+    .post,
+    .comment,
+    .comment-edit {
+        max-width: 100%;
+    }
+
+    #comment-textarea {
+        height: 60px;
+    }
+
+    .img-circle {
+        width: 25px;
+        height: 25px;
+    }
+
+    .accepted-btn,
+    #comment-submit {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .dropdown {
+        display: none;
+    }
+}

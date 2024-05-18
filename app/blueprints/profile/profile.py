@@ -1,9 +1,10 @@
 from flask import Blueprint, send_from_directory, current_app, redirect, url_for, render_template, flash,request
 from flask_login import current_user, login_required
-from app.forms import UploadImageForm, EditAboutMeForm, EditUsernameForm
+from app.forms import UploadImageForm, EditUsernameForm
 from hashlib import md5
 from app.extensions import db
-from app.models import UserModel, PostModel, CommentModel
+from app.utils.wordsban import filter_bad_words
+from app.models import UserModel, PostModel, CommentModel, Notification
 import os
 import time
 
@@ -18,7 +19,6 @@ def overview_profile():
     comments = CommentModel.query.filter_by(author_id=current_user.id).order_by(CommentModel.create_time.desc()).all()
 
     avatar_form = UploadImageForm()
-    about_me_form = EditAboutMeForm(obj=user)
     username_form = EditUsernameForm(obj=user)
 
     return render_template('profile.html',
@@ -26,7 +26,6 @@ def overview_profile():
                            posts=posts,
                            comments=comments,
                            avatar_form=avatar_form,
-                           about_me_form=about_me_form,
                            username_form=username_form)
 
 # Route to serve user avatars
@@ -34,19 +33,7 @@ def overview_profile():
 def get_avatar(filename):
     return send_from_directory(current_app.config["AVATARS_SAVE_PATH"], filename)
 
-# View function to handle about me edit form submission
-@profile_bp.post("/profile/edit/aboutme")
-@login_required
-def edit_profile():
-    about_me_form = EditAboutMeForm()
-    if about_me_form.validate_on_submit():
-        aboutme = about_me_form.aboutme.data
-        current_user.aboutme = aboutme
-        db.session.commit()
-        return redirect(url_for('profile.overview_profile'))
-    else:
-        print(about_me_form.errors)
-        return redirect(url_for('profile.overview_profile'))
+
 
 # View function to handle username edit form submission
 @profile_bp.post("/profile/edit/username")
@@ -54,12 +41,11 @@ def edit_profile():
 def edit_username():
     username_form = EditUsernameForm()
     if username_form.validate_on_submit():
-        new_username = username_form.username.data
+        new_username = filter_bad_words(username_form.username.data)
         current_user.username = new_username
         db.session.commit()
         return redirect(url_for('profile.overview_profile'))
     else:
-        print(username_form.errors)
         return redirect(url_for('profile.overview_profile'))
 
 # View function to handle post deletion
@@ -74,12 +60,20 @@ def delete_post(post_id):
         return redirect(url_for('profile.overview_profile'))
 
     else:
+        # Delete comments related to the post
         comments = CommentModel.query.filter_by(post_id=post_id).all()
         for comment in comments:
             db.session.delete(comment)
+
+        # Delete notifications related to the post
+        notifications = Notification.query.filter_by(post_id=post_id).all()
+        for notification in notifications:
+            db.session.delete(notification)
+
+        # Delete the post itself
         db.session.delete(post)
         db.session.commit()
-        flash("Post and related comments deleted successfully.", "success")
+
 
     tab = request.args.get('tab', 'Posts')
     return redirect(url_for('profile.overview_profile', tab=tab))

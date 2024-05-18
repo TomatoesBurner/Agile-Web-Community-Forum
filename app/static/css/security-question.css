@@ -12,7 +12,7 @@ body {
   justify-content: center;
 }
 
-/* Build the layout for the page */
+/* same as register layout */
 .page-container {
   position: relative;
   display: flex;
@@ -119,6 +119,7 @@ a {
 }
 
 /*Responsive */
+/* Same as forget password */
 /*Adjust styles for phone screens */
 @media (max-width: 600px) {
 
