@@ -17,14 +17,16 @@ Touch is more than just a forum—it's a community where members help each other
 
 
 ## Team Member
-|  Name   | Student ID  |
-|  ----  | ----  |
-| Xiang Li  | 单元格 |
-| Wannian Mei  | 单元格 |
-| Hangqiuzi Wang | 单元格 |
-| Chang Chen  | 单元格 |
+
+|  Name   | Student ID |
+|  ----  |------------|
+| Xiang Li  | 23921151   |
+| Wannian Mei  | 23855006        |
+| Hangqiuzi Wang | 23904899        |
+| Chang Chen  | 23931637        |
 
 ## Virtual Environment Setup
+
 A Virtual Environment is necessary to develop and test the application. This is
 performed in a safe, self-contained manner through Python's Virtual
 Environment.
@@ -60,8 +62,112 @@ NOTE: Your system may have `pip3` aliased as something other than `pip`
 
 To start the server and open pages in our browser, the follow command should be executed:
 
-`python app.py`
+`flask run`
 
-## Routes Design
+The application should now be running at <http://localhost:5050>. If you want to modify the port number, you can modify it in `.flaskenv`.
 
-## Folder Design
+## Module Design
+
+### 1. Auth Module
+
+#### Function Overview
+
+The Auth Module handles user registration, login, logout,It also includes security questions for password recovery.
+
+#### Main Features
+
+- **Registration**: Users can register by providing a username, email, password, security question, and answer.
+- **Login**: Registered users can log in using their email and password.
+- **Logout**: Logged-in users can log out.
+- **Security Questions**: Users can set and answer security questions for password recovery.
+
+#### Main Files
+
+- `app/models.py`: Defines the `UserModel` and related methods.
+- `app/forms.py`: Defines the `RegisterForm` and `LoginForm`.
+- `app/blueprint/auth/auth.py`: Handles user registration, login, and logout views and routes.
+- `app/templates/`: Contains HTML templates (login.html,register.html,forgot-password.html,register.html).
+
+### 2. Post and Comment Module
+
+#### Function Overview
+
+The PostCom Module allows users to create post, view and search. Users can comment on posts and mark the best answer.
+
+#### Main Features
+
+- **Create Post**: Users can create new posts by providing a title, content, type, and postal code.
+- **View Post**: Users can view post details and comments.
+- **Comments**: Users can comment on posts.
+- **Best Answer**: Post authors can mark a comment as the best answer.
+
+#### Main Files
+- `app/models.py`: Defines the `PostModel` and `CommentModel` and related methods.
+- `app/forms.py`: Defines the `PostForm` and `CommentForm`.
+- `app/blueprint/postCom/postCom.py`: Handles post-related views and routes.
+- `app/templates/`: Contains HTML templates for posts and comments(post-detail.htm,posts.htmll).
+
+### 3. Profile Module
+
+#### Function Overview
+
+The Profile Module allows users to manage their profile settings, including changing their avatar and username, viewing their own posts and comments, and deleting their posts and comments.
+
+#### Main Features
+
+- **Change Avatar**: Users can upload a new avatar image.
+- **Change Username**: Users can update their username.
+- **View Posts and Comments**: Users can view their own posts and comments.
+- **Delete Posts and Comments**: Users can delete their own posts and comments.
+
+#### Main Files
+
+- `app/models.py`: Defines the `UserModel`, `PostModel`, and `CommentModel`.
+- `app/forms.py`: Defines the forms used in the profile management process (`EditUsernameForm`, `UploadImageForm`).
+- `app/blueprint/profile/profile.py`: Handles profile-related views and routes.
+- `app/templates/`: Contains HTML templates (`profile.html`).
+
+
+### 4. Notification Module
+
+#### Function Overview
+
+The Notification Module is responsible for sending notifications to users when their posts or comments receive replies.
+
+#### Main Features
+
+- **Generate Notifications**: Generate a notification when a user's post or comment receives a reply.
+- **View Notifications**: Users can view unread notifications.
+- **Delete Notifications**: Users can delete read notifications.
+
+#### Main Files
+
+- `app/models.py`: Defines the `Notifications` model and related methods.
+- `app/blueprint/notification/notification.py`: Handles notification-related views and routes.
+- `app/templates/`:ajax rendering on `base.html`
+
+## Running Tests
+
+We use `unittest` and `selenium` to run the unit test and system test.
+
+### Unit Test
+
+#### Install Unittest
+
+__unittest__ is a unit testing framework in Python that is built into the standard library. You can install it by following command:
+
+`pip install unittest`
+
+#### Running Unittest
+
+Use the following command to run your unittests:
+
+`python -m unittest discover -s tests/unittest`
+
+
+## Responsive Design
+
+#### 768*800
+![responsive_768*800_1.jpg](docs%2Fresponsive_768*800_1.jpg)
+#### 1025*800
+![responsive_1024*800_1.jpg](docs%2Fresponsive_1024*800_1.jpg)
