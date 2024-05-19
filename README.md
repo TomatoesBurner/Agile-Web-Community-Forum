@@ -1,6 +1,5 @@
 # Touch - Local Community
 ## Introduction
-___
 
 **Touch** is a vibrant and supportive community platform designed to foster mutual assistance among its members. Our community encompasses a diverse range of topics, including:
 
@@ -18,17 +17,15 @@ Touch is more than just a forum—it's a community where members help each other
 
 
 ## Team Member
-___
 
 |  Name   | Student ID |
 |  ----  |------------|
 | Xiang Li  | 23921151   |
-| Wannian Mei  | 单元格        |
-| Hangqiuzi Wang | 单元格        |
-| Chang Chen  | 单元格        |
+| Wannian Mei  | 23855006        |
+| Hangqiuzi Wang | 23904899        |
+| Chang Chen  | 23931637        |
 
 ## Virtual Environment Setup
-___
 
 A Virtual Environment is necessary to develop and test the application. This is
 performed in a safe, self-contained manner through Python's Virtual
@@ -65,10 +62,12 @@ NOTE: Your system may have `pip3` aliased as something other than `pip`
 
 To start the server and open pages in our browser, the follow command should be executed:
 
-`python app.py`
+`flask run`
+
+The application should now be running at <http://localhost:5050>. If you want to modify the port number, you can modify it in `.flaskenv`.
 
 ## Module Design
-___
+
 ### 1. Auth Module
 
 #### Function Overview
@@ -147,8 +146,27 @@ The Notification Module is responsible for sending notifications to users when t
 - `app/blueprint/notification/notification.py`: Handles notification-related views and routes.
 - `app/templates/`:ajax rendering on `base.html`
 
+## Running Tests
+
+We use `unittest` and `selenium` to run the unit test and system test.
+
+### Unit Test
+
+#### Install Unittest
+
+__unittest__ is a unit testing framework in Python that is built into the standard library. You can install it by following command:
+
+`pip install unittest`
+
+#### Running Unittest
+
+Use the following command to run your unittests:
+
+`python -m unittest discover -s tests/unittest`
+
+
 ## Responsive Design
-___
+
 #### 768*800
 ![responsive_768*800_1.jpg](docs%2Fresponsive_768*800_1.jpg)
 #### 1025*800
