@@ -147,6 +147,7 @@ The Notification Module is responsible for sending notifications to users when t
 - `app/templates/`:ajax rendering on `base.html`
 
 ## Running Tests
+
 We use `unittest` and `selenium` to run the unit test and system test.
 
 ### Unit Test
