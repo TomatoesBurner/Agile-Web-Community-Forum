@@ -8,7 +8,7 @@ from app.utils.wordsban import filter_bad_words
 
 postCom_bp = Blueprint("postCom", __name__)
 
-
+# Route for the main page displaying posts
 @postCom_bp.route('/index')
 @login_required
 def index():
@@ -26,7 +26,7 @@ def index():
     return render_template('index.html', posts=posts.items, pagination=posts, post_type=post_type)
 
 
-
+# Route for creating a new post
 @postCom_bp.route("/posts/create", methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -48,7 +48,7 @@ def create_post():
     print(form.errors)
     return render_template("posts.html", form=form)
 
-
+# Route for creating a new comment
 @postCom_bp.route("/comment/create", methods=['GET', 'POST'])
 @login_required
 def create_comment():
@@ -82,7 +82,7 @@ def create_comment():
     post_id = form.post_id.data or request.form.get("post_id")
     return redirect(url_for("postCom.post_detail", post_id=post_id))
 
-
+# Route for viewing post details and comments
 @postCom_bp.route("/posts/detail/<int:post_id>")
 def post_detail(post_id):
     post = PostModel.query.get_or_404(post_id)
@@ -95,18 +95,18 @@ def post_detail(post_id):
                            form=form,
                            is_done=is_done)
 
-
+# Function to update user points
 def update_user_points(user, points):
     if user.points is None:
         user.points = 0
     user.points += points
     db.session.commit()
 
-
+# Route for searching posts
 @postCom_bp.route('/search')
 def search():
     query = request.args.get('query', '')
-    scope = request.args.get('scope', 'all')  # 获取搜索范围参数，默认搜索全部
+    scope = request.args.get('scope', 'all')  # default all
     page = request.args.get('page', 1, type=int)
     per_page = Config.POSTS_PER_PAGE
 
@@ -125,14 +125,14 @@ def search():
                 )
             )
     else:
-        posts_query = PostModel.query.filter_by()  # 空查询
+        posts_query = PostModel.query.filter_by()
 
     pagination = posts_query.order_by(PostModel.create_time.desc()).paginate(page=page, per_page=per_page, error_out=False)
     posts = pagination.items
 
     return render_template('index.html', posts=posts, pagination=pagination, query=query, scope=scope)
 
-
+# Route for accepting a comment as the answer to a post
 @postCom_bp.route('/accept_comment/<int:post_id>/<int:comment_id>', methods=['POST'])
 @login_required
 def accept_comment(post_id, comment_id):
