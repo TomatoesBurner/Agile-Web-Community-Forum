@@ -57,15 +57,6 @@ def register():
         return redirect(url_for("auth.login"))
     return render_template("register.html", form=form)
 
-@auth_bp.route('/check_email', methods=['POST'])
-def check_email():
-    email = request.form.get('email')
-    user = UserModel.query.filter_by(email=email).first()
-    if user:
-        return jsonify({'exists': True, 'question': user.security_question})
-    else:
-        return jsonify({'exists': False})
-
 @auth_bp.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     form = ForgotPasswordForm()
@@ -77,7 +68,7 @@ def forgot_password():
             return redirect(url_for('auth.security_question', email=email))
         else:
             email_error = 'Email does not exist'
-    return render_template('forgot_password.html', forgot_form=form, email_error=email_error)
+    return render_template('forgot-password.html', forgot_form=form, email_error=email_error)
 
 @auth_bp.route('/security_question', methods=['GET', 'POST'])
 def security_question():
@@ -85,7 +76,7 @@ def security_question():
     user = UserModel.query.filter_by(email=email).first()
     if not user:
         flash('Invalid email address', 'error')
-        return redirect(url_for('auth.forgot_password'))
+        return redirect(url_for('auth.forgot-password'))
 
     form = SecurityQuestionForm()
     if form.validate_on_submit():
@@ -100,7 +91,7 @@ def security_question():
         else:
             form.security_answer.errors.append('Incorrect answer to the security question')
 
-    return render_template('security_question.html', form=form, question=user.security_question, email=email)
+    return render_template('security-question.html', form=form, question=user.security_question, email=email)
 
 @auth_bp.route('/logout')
 def logout():

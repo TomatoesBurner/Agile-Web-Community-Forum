@@ -1,3 +1,4 @@
+/* initialization */
 .main_container {
     margin-top: 70px;
     padding-left: 200px;
@@ -12,6 +13,7 @@
     max-width: 800px;
 }
 
+/* defined post style */
 .post {
     width: 100%;
     max-width: 600px;
@@ -21,9 +23,10 @@
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     float: left;
-    word-wrap: break-word; /* 自动换行 */
+    word-wrap: break-word;
 }
 
+/* set time display */
 .create-time, .comment-time{
     font-size: 14px;
     color: #666;
@@ -34,6 +37,7 @@
     background-color: #0056b3;
 }
 
+/* defined comment style */
 .comment,
 .comment-edit {
     width: 100%;
@@ -46,7 +50,7 @@
     cursor: pointer;
     float: right;
     clear: both;
-    word-wrap: break-word; /* 自动换行 */
+    word-wrap: break-word;
 }
 
 .comment .accepted-btn {
@@ -54,11 +58,11 @@
 }
 
 .email {
-    font-size: 0.9em; /* 调整为比默认字体小 */
-    opacity: 0.4; /* 设置透明度为40% */
+    font-size: 0.9em;
+    opacity: 0.4;
 }
 
-
+/* set accapt ability */
 .comment:hover .accepted-btn {
     display: inline-block;
 }
@@ -83,6 +87,7 @@
     background-color: #4c53a5;
 }
 
+/* set user information part */
 .counter {
     display: flex;
     align-items: center;
@@ -147,40 +152,42 @@ textarea:hover {
     word-wrap: break-word;
 }
 
+/* Set different colors for each tag */
 .post-type-G {
     color:#4caf50;
-    background-color: #d8f8d9; /* Garden: 绿色 */
+    background-color: #d8f8d9;
 }
 
 .post-type-HW {
     color: #2196f3;
-    background-color: #d4eafc; /* Housework: 蓝色 */
+    background-color: #d4eafc;
 }
 
 .post-type-AC {
     color: #9c27b0;
-    background-color: #f4daf8; /* After School: 紫色 */
+    background-color: #f4daf8;
 }
 
 .post-type-QA {
     color: #ff69b4;
-    background-color: #fde2f0; /* Question: 粉红色 */
+    background-color: #fde2f0;
 }
 
 .post-type-Others {
     color: #3b3e41;
-    background-color: #d0d5d5; /* Others: 深灰色 */
+    background-color: #d0d5d5;
 }
 
 .post-type-default {
-    background-color: #cccccc; /* 默认样式：灰色 */
+    background-color: #cccccc;
 }
 
 .search-container {
         display: none;
 }
 
-/* 响应式样式 */
+/*Responsive */
+/*Adjust styles for laptop screens */
 @media (max-width: 1024px) {
     .main_container {
         padding-left: 180px;
@@ -199,6 +206,7 @@ textarea:hover {
     }
 }
 
+/*Adjust styles for pad screens */
 @media (max-width: 768px) {
     .main_container {
         padding-left: 180px;
@@ -221,6 +229,7 @@ textarea:hover {
     }
 }
 
+/*Adjust styles for phone screens */
 @media (max-width: 480px) {
     .main_container {
         padding-left: 90px;

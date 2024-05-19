@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Welcome!</title>
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
@@ -16,6 +17,9 @@
 
 <body>
     <section class="page-container">
+        <!-- Hidden section title for HTML validation -->
+        <h1 class="section-hidden">login page</h1>
+        <!-- Left Section -->
         <div class="left-section">
             <div class="logo">
                 <img src="{{ url_for('static', filename='/images/TOUCH_logo.png') }}" alt="Logo">
@@ -23,8 +27,10 @@
             <div class="head-image">
                 <img src="{{ url_for('static', filename='/images/need_help.png') }}" alt="welcome">
             </div>
+            <!-- Login Form Section -->
             <div class="login-section">
                 <form method="POST" action="{{ url_for('auth.login') }}">
+                    <!-- Flash Error Messages -->
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                     <div class="error">
@@ -34,33 +40,35 @@
                     </div>
                     {% endif %}
                     {% endwith %}
-
+                    <!-- Email Field -->
                     <div class="form-group">
                         {{ form.email.label }}
                         {{ form.email(size=32) }}
                         {% for error in form.email.errors %}
-                        <!-- <span style="color:red;">[{{ error }}]</span> -->
                         {% endfor %}
                     </div>
-
+                    <!-- Password Field -->
                     <div class="form-group">
                         {{ form.password.label }}
                         {{ form.password(size=32) }}
                         {% for error in form.password.errors %}
-                        <!-- <span style="color:red">[{{ error }}]</span> -->
                         {% endfor %}
                     </div>
-
+                    <!-- Remember Me Field -->
                     <div class="remember">
-                        <label for="remember" class="remember-checkbox">{{ form.remember.label }}</label>
+                        {{ form.remember.label(class="remember-checkbox") }}
                         {{ form.remember }}
                     </div>
+                    <!-- CSRF Token -->
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <!-- Submit Button -->
                     <button class="login-btn" type="submit">Login</button>
                 </form>
+                <!-- Links to Register and Forgot Password -->
                 <p>New user? <a href="{{ url_for('auth.register') }}">Register!</a> / <a href="{{ url_for('auth.forgot_password') }}">Forget my password</a></p>
             </div>
         </div>
+        <!-- Right Section -->
         <div class="right-section">
             <img src="{{ url_for('static', filename='/images/login.png') }}" alt="Right Section Image">
         </div>
