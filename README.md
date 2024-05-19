@@ -150,7 +150,6 @@ The Notification Module is responsible for sending notifications to users when t
 ## Responsive Design
 ___
 #### 768*800
-![responsive_768*800.jpg](docs%2Fresponsive_768*800.jpg)
-#### 1025*800
-![responsive_1024*800.jpg](docs%2Fresponsive_1024*800.jpg)
 ![responsive_768*800_1.jpg](docs%2Fresponsive_768*800_1.jpg)
+#### 1025*800
+![responsive_1024*800_1.jpg](docs%2Fresponsive_1024*800_1.jpg)
