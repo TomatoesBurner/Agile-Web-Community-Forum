@@ -4,6 +4,7 @@ bidict==0.23.1
 blinker==1.8.1
 build==1.2.1
 certifi==2024.2.2
+charset-normalizer==3.3.2
 click==8.1.7
 dnspython==2.6.1
 email_validator==2.1.1
@@ -30,6 +31,7 @@ PySocks==1.7.1
 python-dotenv==1.0.1
 python-engineio==4.9.0
 python-socketio==5.11.2
+requests==2.31.0
 selenium==4.21.0
 setuptools==69.5.1
 simple-websocket==1.0.0
@@ -40,6 +42,7 @@ trio==0.25.1
 trio-websocket==0.11.1
 typing_extensions==4.11.0
 urllib3==2.2.1
+webdriver-manager==4.0.1
 Werkzeug==3.0.2
 wheel==0.43.0
 wsproto==1.2.0
