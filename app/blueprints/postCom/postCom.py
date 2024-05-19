@@ -139,9 +139,11 @@ def accept_comment(post_id, comment_id):
     comment = CommentModel.query.get_or_404(comment_id)
     post = PostModel.query.get_or_404(post_id)
 
-    # 确保只有帖子作者可以采纳评论
     if current_user.id != post.author_id or post.accepted_answer_id is not None:
         return redirect(url_for('postCom.post_detail', post_id=post_id))
+
+    if comment.author_id == post.author_id:
+        return redirect(url_for("postCom.post_detail", post_id=post_id))
 
     comment.is_accepted = True
     post.accepted_answer_id = comment.id

@@ -23,7 +23,7 @@ def login():
         user = UserModel.query.filter_by(email=email).first()
         if user is None or not user.check_password(password):
             flash('Invalid username or password')
-            return redirect(url_for("auth.login"))
+            return render_template("login.html", form=form), 200
         login_user(user, remember=form.remember.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
@@ -34,7 +34,7 @@ def login():
 @auth_bp.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('postCom.index'))
     form = RegisterForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -91,7 +91,7 @@ def security_question():
     if form.validate_on_submit():
         if user.check_security_answer(form.security_answer.data):
             if form.new_password.data != form.confirm_password.data:
-                form.confirm_password.errors.append('Passwords do not match')
+               form.confirm_password.errors.append('Passwords do not match')
             else:
                 user.set_password(form.new_password.data)
                 db.session.commit()

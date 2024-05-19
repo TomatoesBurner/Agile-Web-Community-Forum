@@ -2,7 +2,6 @@ from flask import Flask
 from flask_login import current_user
 from config import Config
 from .extensions import db, login, avatars, csrf
-from flask_migrate import Migrate
 from sqlalchemy import func
 from .models import UserModel, PostModel, CommentModel
 from .blueprints.postCom.postCom import postCom_bp
@@ -20,7 +19,6 @@ def create_app(config_class=Config):
     avatars.init_app(app)
     csrf.init_app(app)
     login.login_view = 'auth.login'
-    migrate = Migrate(app, db)
 
     # 上下文处理器
     @app.context_processor
