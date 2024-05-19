@@ -14,7 +14,6 @@ class TestLogout(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
         self.test_user = UserModel(email='test@example.com', username='testuser', security_question='Test question')
         self.test_user.set_password('password')
         self.test_user.set_security_answer('answer')
@@ -27,23 +26,20 @@ class TestLogout(unittest.TestCase):
         self.app_context.pop()
 
     def test_logout(self):
-        # 登录用户
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password',
             'submit': 'Sign In'
         })
 
-        # 确保用户已登录
         with self.client:
             self.client.get('/')
             self.assertTrue(current_user.is_authenticated)
 
-            # 访问登出路由
             response = self.client.get(url_for('auth.logout'))
-            self.assertEqual(response.status_code, 302)  # 应该重定向到登录页面
+            self.assertEqual(response.status_code, 302)
 
-            # 确保用户已登出
+
             self.client.get('/')
             self.assertFalse(current_user.is_authenticated)
 

@@ -13,7 +13,7 @@ class TestSearch(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
+
         self.test_user = UserModel(
             email='test@example.com',
             username='testuser',
@@ -25,7 +25,6 @@ class TestSearch(unittest.TestCase):
         db.session.add(self.test_user)
         db.session.commit()
 
-        # 创建测试帖子
         self.test_post1 = PostModel(
             title='Gardening Tips',
             content='This is a post about gardening.',

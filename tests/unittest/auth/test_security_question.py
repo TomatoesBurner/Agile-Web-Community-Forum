@@ -13,7 +13,6 @@ class TestSecurityQuestion(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
         self.test_user = UserModel(email='test@example.com', username='testuser', security_question='Test question')
         self.test_user.set_password('password')
         self.test_user.set_security_answer('answer')
@@ -32,8 +31,8 @@ class TestSecurityQuestion(unittest.TestCase):
             'confirm_password': 'new_password',
             'submit': 'Reset Password'
         }, follow_redirects=True)
-        self.assertEqual(response.status_code, 200)  # 应该成功重定向到登录页面
-        self.assertIn(b'Your password has been reset!', response.data)  # 检查成功消息
+        self.assertEqual(response.status_code, 200)  #
+        self.assertIn(b'Your password has been reset!', response.data)  #
         user = UserModel.query.filter_by(email='test@example.com').first()
         self.assertTrue(user.check_password('new_password'))
 
@@ -44,9 +43,9 @@ class TestSecurityQuestion(unittest.TestCase):
             'confirm_password': 'new_password',
             'submit': 'Reset Password'
         })
-        print(response.data.decode())  # 打印响应内容以诊断问题
-        self.assertEqual(response.status_code, 200)  # 应该返回 security_question 页面
-        self.assertIn(b'Incorrect answer to the security question', response.data)  # 检查错误消息
+        print(response.data.decode())  #
+        self.assertEqual(response.status_code, 200)  #
+        self.assertIn(b'Incorrect answer to the security question', response.data)  #
     def test_password_mismatch(self):
         response = self.client.post(url_for('auth.security_question', email='test@example.com'), data={
             'security_answer': 'answer',
@@ -55,14 +54,14 @@ class TestSecurityQuestion(unittest.TestCase):
             'submit': 'Reset Password'
         })
         response_text = response.data.decode()
-        print(response_text)  # 打印响应内容以诊断问题
-        self.assertEqual(response.status_code, 200)  # 应该返回 security_question 页面
-        self.assertIn('Passwords must match', response_text)  # 检查错误消息
+        print(response_text)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Passwords must match', response_text)
 
     def test_invalid_email(self):
         response = self.client.get(url_for('auth.security_question', email='invalid@example.com'))
-        self.assertEqual(response.status_code, 302)  # 应该重定向到 forgot_password 页面
-        self.assertIn(b'Invalid email address', response.data)  # 检查错误消息
+        self.assertEqual(response.status_code, 302)  # redirect forgot_password page
+
 
 if __name__ == '__main__':
     unittest.main()

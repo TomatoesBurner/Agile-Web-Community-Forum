@@ -13,7 +13,6 @@ class TestPostDetail(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
         self.test_user = UserModel(
             email='test@example.com',
             username='testuser',
@@ -25,13 +24,13 @@ class TestPostDetail(unittest.TestCase):
         db.session.add(self.test_user)
         db.session.commit()
 
-        # 登录用户
+        # signin
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password'
         })
 
-        # 创建测试帖子
+        # post
         self.test_post = PostModel(
             title='Test Post',
             content='This is a test post.',
@@ -42,7 +41,7 @@ class TestPostDetail(unittest.TestCase):
         db.session.add(self.test_post)
         db.session.commit()
 
-        # 创建测试评论
+        # comment
         self.test_comment = CommentModel(
             content='This is a test comment.',
             post_id=self.test_post.id,

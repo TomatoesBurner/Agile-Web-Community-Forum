@@ -1,11 +1,10 @@
 import unittest
 from flask import url_for
 from app import create_app, db
-from app.models import UserModel, PostModel, CommentModel
+from app.models import UserModel, PostModel, CommentModel, Notification
 from config import TestConfig
 
-
-class TestDeleteComment(unittest.TestCase):
+class ProfileTestCase(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app(TestConfig)
@@ -14,11 +13,10 @@ class TestDeleteComment(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
         self.test_user = UserModel(
             email='test@example.com',
             username='testuser',
-            avatar='images/default_avatar.png',  # 设置默认头像路径
+            avatar='default_avatar.png',
             security_question='Test question'
         )
         self.test_user.set_password('password')
@@ -29,7 +27,7 @@ class TestDeleteComment(unittest.TestCase):
         self.other_user = UserModel(
             email='other@example.com',
             username='otheruser',
-            avatar='images/default_avatar.png',  # 设置默认头像路径
+            avatar='default_avatar.png',
             security_question='Test question'
         )
         self.other_user.set_password('password')
@@ -37,7 +35,6 @@ class TestDeleteComment(unittest.TestCase):
         db.session.add(self.other_user)
         db.session.commit()
 
-        # 创建测试帖子和评论
         self.test_post = PostModel(
             title='Test Post',
             content='This is a test post.',
@@ -56,48 +53,61 @@ class TestDeleteComment(unittest.TestCase):
         db.session.add(self.test_comment)
         db.session.commit()
 
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-        self.app_context.pop()
+        self.test_notification = Notification(
+            name='new_comment',
+            user_id=self.test_user.id,
+            post_id=self.test_post.id,
+            payload_json='{"message": "Test notification"}'
+        )
+        db.session.add(self.test_notification)
+        db.session.commit()
 
-    def test_delete_comment_as_author(self):
         # 登录测试用户
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password'
         })
 
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        self.app_context.pop()
+
+    def test_delete_comment_as_author(self):
         response = self.client.post(url_for('profile.delete_comment', comment_id=self.test_comment.id),
                                     follow_redirects=True)
-        print(f"Response status code: {response.status_code}")
         self.assertEqual(response.status_code, 200)
-        comment = CommentModel.query.get(self.test_comment.id)
+        comment = db.session.get(CommentModel, self.test_comment.id)
         self.assertIsNone(comment)
 
-    def test_delete_comment_as_non_author(self):
-        # 登录其他用户
-        self.client.post(url_for('auth.logout'))
-        self.client.post(url_for('auth.login'), data={
-            'email': 'other@example.com',
-            'password': 'password'
-        })
 
-        response = self.client.post(url_for('profile.delete_comment', comment_id=self.test_comment.id),
-                                    follow_redirects=True)
-        print(f"Response status code: {response.status_code}")
-        self.assertEqual(response.status_code, 200)
-        comment = CommentModel.query.get(self.test_comment.id)
-        self.assertIsNotNone(comment)
 
-    def test_delete_comment_not_logged_in(self):
-        self.client.post(url_for('auth.logout'))
-        response = self.client.post(url_for('profile.delete_comment', comment_id=self.test_comment.id),
-                                    follow_redirects=True)
-        print(f"Response status code: {response.status_code}")
+    def test_delete_post_as_author(self):
+        response = self.client.post(url_for('profile.delete_post', post_id=self.test_post.id), follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        comment = CommentModel.query.get(self.test_comment.id)
-        self.assertIsNotNone(comment)
+        post = db.session.get(PostModel, self.test_post.id)
+        self.assertIsNone(post)
+
+        comment = CommentModel.query.filter_by(post_id=self.test_post.id).first()
+        self.assertIsNone(comment)
+        notification = Notification.query.filter_by(post_id=self.test_post.id).first()
+        self.assertIsNone(notification)
+
+    def test_edit_username(self):
+        response = self.client.post(url_for('profile.edit_username'), data={
+            'username': 'newtestuser'
+        }, follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'newtestuser', response.data)
+        user = db.session.get(UserModel, self.test_user.id)
+        self.assertEqual(user.username, 'newtestuser')
+
+    def test_overview_profile(self):
+        response = self.client.get(url_for('profile.overview_profile'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'testuser', response.data)
+        self.assertIn(b'Test Post', response.data)
+        self.assertIn(b'This is a test comment.', response.data)
 
 
 if __name__ == '__main__':

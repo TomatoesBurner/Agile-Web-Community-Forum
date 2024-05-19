@@ -13,7 +13,7 @@ class TestForgotPassword(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
+        # create account
         self.test_user = UserModel(email='test@example.com', username='testuser', security_question='Test question')
         self.test_user.set_password('password')
         self.test_user.set_security_answer('answer')
@@ -30,14 +30,14 @@ class TestForgotPassword(unittest.TestCase):
             'email': 'test@example.com',
             'submit': 'Submit'
         })
-        self.assertEqual(response.status_code, 302)  # 应该重定向到安全问题页面
+        self.assertEqual(response.status_code, 302)
     def test_valid_email(self):
         response = self.client.post(url_for('auth.forgot_password'), data={
             'email': 'test@example.com',
             'submit': 'Submit'
         }, follow_redirects=True)
-        self.assertEqual(response.status_code, 200)  # 应该成功重定向到 security_question 页面
-        self.assertIn(b'Security Question', response.data)  # 假设 security_question 页面包含 'Security Question'
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Security Question', response.data)
 
 if __name__ == '__main__':
     unittest.main()

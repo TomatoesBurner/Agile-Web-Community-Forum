@@ -13,14 +13,12 @@ class TestCreatePost(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户
         self.test_user = UserModel(email='test@example.com', username='testuser', security_question='Test question', avatar='default_avatar.png')
         self.test_user.set_password('password')
         self.test_user.set_security_answer('answer')
         db.session.add(self.test_user)
         db.session.commit()
 
-        # 登录用户
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password'

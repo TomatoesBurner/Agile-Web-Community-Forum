@@ -44,11 +44,10 @@ class TestIndex(unittest.TestCase):
 
     def test_index(self):
         response = self.client.get(url_for('postCom.index'))
-        response_text = response.data.decode()
-        print(response_text)  # 打印响应内容以诊断问题
+        print(response.data.decode())  #
         self.assertEqual(response.status_code, 200)
         # 根据实际内容修改断言，假设帖子标题为 'Test Post'
-        self.assertIn(b'Test Post', response_text)
+        self.assertIn('Test Post', response.data.decode())
 
 if __name__ == '__main__':
     unittest.main()

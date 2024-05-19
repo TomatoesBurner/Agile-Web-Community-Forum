@@ -15,11 +15,10 @@ class TestAcceptComment(unittest.TestCase):
         self.app_context.push()
         db.create_all()
 
-        # 创建测试用户和帖子
         self.test_user = UserModel(
             email='test@example.com',
             username='testuser',
-            avatar='images/default_avatar.png',  # 设置默认头像路径
+            avatar='images/default_avatar.png',
             security_question='Test question'
         )
         self.test_user.set_password('password')
@@ -30,7 +29,7 @@ class TestAcceptComment(unittest.TestCase):
         self.other_user = UserModel(
             email='other@example.com',
             username='otheruser',
-            avatar='images/default_avatar.png',  # 设置默认头像路径
+            avatar='images/default_avatar.png',
             security_question='Test question'
         )
         self.other_user.set_password('password')
@@ -38,13 +37,11 @@ class TestAcceptComment(unittest.TestCase):
         db.session.add(self.other_user)
         db.session.commit()
 
-        # 登录测试用户
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password'
         })
 
-        # 创建测试帖子和评论
         self.test_post = PostModel(
             title='Test Post',
             content='This is a test post.',
@@ -69,7 +66,6 @@ class TestAcceptComment(unittest.TestCase):
         self.app_context.pop()
 
     def test_accept_comment_as_author(self):
-        # 测试作为作者采纳评论
         response = self.client.post(
             url_for('postCom.accept_comment', post_id=self.test_post.id, comment_id=self.test_comment.id),
             follow_redirects=True)
@@ -77,14 +73,14 @@ class TestAcceptComment(unittest.TestCase):
         self.assertIn(b'Test Post', response.data)
         self.assertIn(b'This is a test comment.', response.data)
 
-        # 检查评论是否被采纳
+        # check comment if was acceptted
         comment = CommentModel.query.get(self.test_comment.id)
         self.assertTrue(comment.is_accepted)
         post = PostModel.query.get(self.test_post.id)
         self.assertEqual(post.accepted_answer_id, self.test_comment.id)
 
     def test_accept_comment_as_non_author(self):
-        # 以其他用户登录
+        # other example
         self.client.post(url_for('auth.logout'))
         self.client.post(url_for('auth.login'), data={
             'email': 'other@example.com',

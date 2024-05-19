@@ -29,7 +29,7 @@ class TestNotifications(unittest.TestCase):
         self.other_user = UserModel(
             email='other@example.com',
             username='otheruser',
-            avatar='images/default_avatar.png',  # 设置默认头像路径
+            avatar='default_avatar.png',  # 设置默认头像路径
             security_question='Test question'
         )
         self.other_user.set_password('password')
@@ -42,7 +42,7 @@ class TestNotifications(unittest.TestCase):
             name='new_comment',
             user_id=self.test_user.id,
             post_id=1,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(),
             payload_json='{"message": "Test notification message"}'
         )
         db.session.add(self.test_notification)
@@ -54,7 +54,6 @@ class TestNotifications(unittest.TestCase):
         self.app_context.pop()
 
     def test_inbox(self):
-        # 登录测试用户
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password'
@@ -73,7 +72,6 @@ class TestNotifications(unittest.TestCase):
         self.assertIn(b'Please log in to access this page.', response.data)
 
     def test_delete_all_notifications(self):
-        # 登录测试用户
         self.client.post(url_for('auth.login'), data={
             'email': 'test@example.com',
             'password': 'password'

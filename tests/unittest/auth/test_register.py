@@ -29,12 +29,11 @@ class TestRegister(unittest.TestCase):
             'security_answer': 'new_answer',
             'submit': 'Register'
         })
-        self.assertEqual(response.status_code, 302)  # 应该重定向到登录页面
+        self.assertEqual(response.status_code, 302)
         user = UserModel.query.filter_by(email='newuser@example.com').first()
         self.assertIsNotNone(user)
 
     def test_already_logged_in_user(self):
-        # 创建并登录一个用户
         user = UserModel(email='test@example.com', username='testuser', security_question='Test question')
         user.set_password('password')
         user.set_security_answer('answer')
@@ -48,7 +47,7 @@ class TestRegister(unittest.TestCase):
                 'submit': 'Sign In'
             })
             response = self.client.get(url_for('auth.register'))
-            self.assertEqual(response.status_code, 302)  # 应该重定向到主页
+            self.assertEqual(response.status_code, 302)
 
 if __name__ == '__main__':
     unittest.main()

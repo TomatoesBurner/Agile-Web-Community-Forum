@@ -113,7 +113,7 @@ def security_question():
     # Check if the user exists
     if not user:
         flash('Invalid email address', 'error')  # Flash message for invalid email
-        return redirect(url_for('auth.forgot-password'))
+        return redirect(url_for('auth.forgot_password'))
 
     # Create an instance of the security question form
     form = SecurityQuestionForm()
