@@ -39,7 +39,6 @@ class UserModel(UserMixin, db.Model):
         # existing_notifications = Notification.query.filter_by(user_id=self.id, name=name).all()
         # for notification in existing_notifications:
         #     db.session.delete(notification)
-        # 添加新通知
         n = Notification(name=name, payload_json=json.dumps(data), user=self, post_id=post_id)
         db.session.add(n)
         db.session.commit()
@@ -63,10 +62,10 @@ class PostModel(db.Model):
     # is_done = db.Column(db.Boolean, default=False)
     post_type = db.Column(db.String(10))
     postcode = db.Column(db.Integer, nullable=False)
-    # 外键
+    # foreign key
     accepted_answer_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # 关系
+    # relationship
     accepted_answer = db.relationship('CommentModel', foreign_keys=[accepted_answer_id], post_update=True)
 
 
@@ -76,10 +75,10 @@ class CommentModel(db.Model):
     content = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.DateTime, default=datetime.now)
     is_accepted = db.Column(db.Boolean, default=False)
-    # 外键
+    # foreign key
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # 关系
+    # relationship
     post = db.relationship(PostModel, foreign_keys=[post_id], backref=db.backref("comments", order_by=create_time.desc()))
 
 

@@ -74,7 +74,6 @@ def delete_post(post_id):
         db.session.delete(post)
         db.session.commit()
 
-
     tab = request.args.get('tab', 'Posts')
     return redirect(url_for('profile.overview_profile', tab=tab))
 
@@ -108,10 +107,14 @@ def delete_comment(comment_id):
         flash("You are not authorized to delete this comment.", "error")
         return redirect(url_for('profile.overview_profile'))
 
-    else:
-        db.session.delete(comment)
-        db.session.commit()
-        flash("Comment deleted successfully.", "success")
+    post = PostModel.query.get(comment.post_id)
+
+    if post and post.accepted_answer_id == comment_id:
+        post.accepted_answer_id = None
+
+
+    db.session.delete(comment)
+    db.session.commit()
 
     tab = request.args.get('tab', 'Posts')
     return redirect(url_for('profile.overview_profile', tab=tab))

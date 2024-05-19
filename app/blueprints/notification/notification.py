@@ -8,6 +8,7 @@ from app.extensions import db
 
 notify_bp = Blueprint("notify", __name__)
 
+# Route for viewing the inbox with notifications
 @notify_bp.route('/inbox')
 @login_required
 def inbox():
@@ -22,9 +23,11 @@ def inbox():
     ]
     return jsonify(notifications=notifications_data)
 
+# Route for deleting all notifications for the current user
 @notify_bp.route('/delete_all_notifications', methods=['POST'])
 @login_required
 def delete_all_notifications():
     Notification.query.filter_by(user_id=current_user.id).delete()
     db.session.commit()
+    # Return a JSON response indicating success
     return jsonify({'message': 'All notifications deleted'}), 200

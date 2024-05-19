@@ -48,8 +48,7 @@
             </div>
             <!-- Comment Content -->
             <p>{{ comment.content }}</p>
-            <!-- Accept Comment Button -->
-            {% if current_user.id == post.author_id and not post.accepted_answer_id %}
+            {% if current_user.id == post.author_id and comment.author_id!= post.author_id and not post.accepted_answer_id %}
             <form action="{{ url_for('postCom.accept_comment', post_id=post.id, comment_id=comment.id) }}" method="post">
                 <button type="submit" class="accepted-btn">Accept</button>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
